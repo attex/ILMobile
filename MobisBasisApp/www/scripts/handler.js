@@ -1,22 +1,21 @@
-﻿function getHandler(eventValue) {
-    if (eventValue === 'ENTER' && window.localStorage.getItem('template') === 'LOGIN') {
+﻿function getHandler(source, action) {
+    if (source === 'LOGIN' && action === 'ENTER' ) {
         return login;
     } else {
-        return handle
+        return function () { handle(source, action) }
     }
 }
 
-function handle() {
-    var action = $(event.srcElement).attr('actionvalue');
-    var request = generateRequest(action);
+function handle(source, action) {
+    var request = generateRequest(source, action);
     callSOAP('processFormat', ['formatXML', request]).then(response => { handleResponse(response) });
 }
 
 function handleMenuClick() {
     const action = "CLICK";
-    var parentElementName = $(event.srcElement).closest('ul').attr('name');
-    var clickedKey = $(event.srcElement).attr('key');
-    var request = generateRequest(action, parentElementName, clickedKey);
+    var source = $(event.srcElement).closest('ul').attr('name');
+    var key = $(event.srcElement).attr('key');
+    var request = generateRequest(source, action, key);
     callSOAP('processFormat', ['formatXML', request]).then(response => { handleResponse(response) });
 }
 

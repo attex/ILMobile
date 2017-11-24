@@ -1,4 +1,4 @@
-﻿const ELEMENT_CLASS = "ELEMENT"
+﻿const ELEMENT_CLASS = "element"
 
 function formatElements(elements) {
     elements.sort(function (a, b) { return getYPos(a) - getYPos(b) })
@@ -48,46 +48,10 @@ function formatElement(ele) {
     if ($(ele).hasAttr('events')) {
         var eventsArray = Array.from(ele.attr('events').split(','))
         for (var i = 0; i < eventsArray.length; i++) {
-            formatEvent(eleHTML, eventsArray[i]);
+            formatEvent(eleHTML, name, eventsArray[i]);
         }
     }
-
     return eleHTML;
-}
-
-function formatRow(row) {
-    var rowValues = $(row).attr('value');
-    var rowValuesArray = rowValues.split(',');
-    var rowHTML = $(document.createElement('li'));
-
-    rowHTML.text(rowValuesArray[0]);
-    rowHTML.attr('key', rowValuesArray[1])
-    rowHTML.attr('value', rowValues);
-
-    return rowHTML;
-}
-
-function formatEvent(eleHTML, eve) {
-    switch (eve) {
-        case 'Click':
-            eleHTML.addEventListener("click", handleMenuClick);
-            break
-        default:
-            formatButton(eve, eve);
-    }
-}
-
-function formatHTMLType(type) {
-    switch (type) {
-        case 'Label':
-            return 'label';
-        case 'TextBox':
-            return 'input';
-        case 'List':
-            return 'ul';
-        default:
-            return 'div';
-    }
 }
 
 function setContent(ele, content) {
@@ -96,7 +60,6 @@ function setContent(ele, content) {
         $(ele).val(content);
 
     } else if (elementType === 'ul') {
-        $(ele).attr('columns', $(content).find('columns').attr('value'));
         var rows = Array.from($(content).find('row'));
         for (var i = 0; i < rows.length; i++) {
             $(ele).append(formatRow(rows[i]))
@@ -117,6 +80,41 @@ function getContent(ele) {
         return $(ele).text();
     }
 }
+
+function formatRow(row) {
+    var rowValues = $(row).attr('value');
+    var rowValuesArray = rowValues.split(',');
+
+    var rowHTML = $(document.createElement('li'));
+    rowHTML.text(rowValuesArray[0]);
+    rowHTML.attr('key', rowValuesArray[1])
+
+    return rowHTML;
+}
+
+function formatEvent(eleHTML, name, eve) {
+    switch (eve) {
+        case 'CLICK':
+            eleHTML.addEventListener("click", handleMenuClick);
+            break
+        default:
+            createButton(eve, name, eve);
+    }
+}
+
+function formatHTMLType(type) {
+    switch (type) {
+        case 'Label':
+            return 'label';
+        case 'TextBox':
+            return 'input';
+        case 'List':
+            return 'ul';
+        default:
+            return 'div';
+    }
+}
+
 function getAllElements() {
     return Array.from($(`.${ELEMENT_CLASS}`));
 }

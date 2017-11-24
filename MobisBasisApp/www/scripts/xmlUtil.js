@@ -1,4 +1,4 @@
-﻿function generateRequest(action, source = localStorage.getItem('template'), key = "") {
+﻿function generateRequest(source, action, key = "") {
     var elements = getAllElements();
 
     var request = "<?xml version= \"1.0\" encoding= \"utf-16\" ?>";

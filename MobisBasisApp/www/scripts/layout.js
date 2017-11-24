@@ -43,17 +43,16 @@ function formatToolbar(xmlDoc) {
         var eventTexts = events.attr('text').split(',');
 
         for (var i = 0; i < eventValues.length; i++) {
-            formatButton(eventValues[i], eventTexts[i]);
+            createButton(eventTexts[i], window.localStorage.getItem('template'), eventValues[i]);
         }
     }
 }
 
-function formatButton(eventValue, eventText) {
+function createButton(text, source, action) {
     var button = $(document.createElement('button'));
     button.addClass('button');
-    button.attr('actionvalue', eventValue);
-    button.text(eventText);
-    button.on('click', getHandler(eventValue));
+    button.text(text);
+    button.on('click', getHandler(source, action));
     TOOLBAR.append(button);
 }
 
