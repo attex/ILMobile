@@ -23,17 +23,18 @@ function getYPos(ele) {
 }
 
 function formatElement(ele) {
-    ele = $(ele);
     //get all attributes
-    var events = ele.attr('events');
-    var image = ele.attr('image');
-    var name = ele.attr('name');
-    var type = ele.attr('type');
+    var events = $(ele).attr('events');
+    var image = $(ele).attr('image');
+    var name = $(ele).attr('name');
+    var type = $(ele).attr('type');
+    var style = $(ele).attr('style');
 
-    var htmlClass = $(ele).attr('style');
-    var htmlType = formatHTMLType(type);
+    var htmlType = getHTMLType(type);
+    var htmlClass = getHTMLClass(type, style);
 
-    var content = (htmlType === 'ul') ? ele.find('content') : ele.attr('content');
+    //anpassen für tabellen
+    var content = (htmlType === 'ul') ? $(ele).find('content') : $(ele).attr('content');
 
     //create node
     var eleHTML = document.createElement(htmlType);
@@ -46,12 +47,39 @@ function formatElement(ele) {
     $(eleHTML).addClass(htmlClass);
 
     if ($(ele).hasAttr('events')) {
-        var eventsArray = Array.from(ele.attr('events').split(','))
+        var eventsArray = Array.from($(ele).attr('events').split(','))
         for (var i = 0; i < eventsArray.length; i++) {
             formatEvent(eleHTML, name, eventsArray[i]);
         }
     }
     return eleHTML;
+}
+
+
+function getHTMLType(type) {
+    switch (type) {
+        case 'Label':
+            return 'label';
+        case 'TextBox':
+            return 'input';
+        case 'List':
+            return 'ul';
+        case 'Button':
+            return 'button';
+        default:
+            return 'div';
+    }
+}
+
+function getHTMLClass(type, style) {
+    switch (type) {
+        case 'Button':
+            return 'button';
+    }
+    switch (style) {
+        default:
+            return style;
+    }
 }
 
 function setContent(ele, content) {
@@ -94,26 +122,19 @@ function formatRow(row) {
 
 function formatEvent(eleHTML, name, eve) {
     switch (eve) {
+        //TODO make better
         case 'CLICK':
-            eleHTML.addEventListener("click", handleMenuClick);
+            if ($(eleHTML).attr('type') === "List") {
+                eleHTML.addEventListener("click", handleMenuClick);
+            } else {
+                eleHTML.addEventListener("click", getHandler(name, eve));
+            }
             break
         default:
             createButton(eve, name, eve);
     }
 }
 
-function formatHTMLType(type) {
-    switch (type) {
-        case 'Label':
-            return 'label';
-        case 'TextBox':
-            return 'input';
-        case 'List':
-            return 'ul';
-        default:
-            return 'div';
-    }
-}
 
 function getAllElements() {
     return Array.from($(`.${ELEMENT_CLASS}`));

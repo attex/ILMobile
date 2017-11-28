@@ -1,3 +1,20 @@
 ﻿.button {
     margin: 1em;
 }
+
+.flexElement {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #009edf;
+}
+
+    .flexElement select {
+        border: none;
+    }
+
+    .flexElement input {
+        flex: 1;
+        border: none;
+        margin: 0.2em;
+        padding: 0.2em;
+    }
