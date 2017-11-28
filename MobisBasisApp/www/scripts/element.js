@@ -23,79 +23,91 @@ function getYPos(ele) {
 }
 
 function formatElement(ele) {
-    //get all attributes
-    var events = $(ele).attr('events');
-    var image = $(ele).attr('image');
-    var name = $(ele).attr('name');
     var type = $(ele).attr('type');
-    var style = $(ele).attr('style');
 
-    var htmlType = getHTMLType(type);
-    var htmlClass = getHTMLClass(type, style);
-
-    //anpassen für tabellen
-    var content = (htmlType === 'ul') ? $(ele).find('content') : $(ele).attr('content');
-
-    //create node
-    var eleHTML = document.createElement(htmlType);
-    $(eleHTML).attr('events', events);
-    $(eleHTML).attr('image', image);
-    $(eleHTML).attr('name', name);
-    $(eleHTML).attr('type', type);
-    setContent(eleHTML, content);
-    $(eleHTML).addClass(ELEMENT_CLASS);
-    $(eleHTML).addClass(htmlClass);
-
-    if ($(ele).hasAttr('events')) {
-        var eventsArray = Array.from($(ele).attr('events').split(','))
-        for (var i = 0; i < eventsArray.length; i++) {
-            formatEvent(eleHTML, name, eventsArray[i]);
-        }
+    switch (type) {
+        case 'Label':
+            return formatLabelElement(ele);
+        case 'TextBox':
+            return formatInputElement(ele);
+        case 'Button':
+            return formatButtonElement(ele)
+        case 'List':
+            return formatListElement(ele);
+        default:
+            return document.createElement('unknown');
     }
+}
+
+function formatLabelElement(eleXML) {
+    var eleHTML = document.createElement('label');
+    passAttributes(eleXML, eleHTML);
+    $(eleHTML).text($(eleXML).attr('content'));
+    $(eleHTML).addClass($(eleXML).attr('style'));
     return eleHTML;
 }
 
+function formatInputElement(eleXML) {
+    var inputContainer = document.createElement('div');
+    $(inputContainer).addClass('inputContainer');
 
-function getHTMLType(type) {
-    switch (type) {
-        case 'Label':
-            return 'label';
-        case 'TextBox':
-            return 'input';
-        case 'List':
-            return 'ul';
-        case 'Button':
-            return 'button';
-        default:
-            return 'div';
-    }
-}
+    var eleHTML = document.createElement('input');
+    passAttributes(eleXML, eleHTML);
+    $(eleHTML).val($(eleXML).attr('content'));
+    $(eleHTML).addClass($(eleXML).attr('style'));
 
-function getHTMLClass(type, style) {
-    switch (type) {
-        case 'Button':
-            return 'button';
-    }
-    switch (style) {
-        default:
-            return style;
-    }
-}
-
-function setContent(ele, content) {
-    var elementType = ele.tagName.toLowerCase();
-    if (elementType === 'input') {
-        $(ele).val(content);
-
-    } else if (elementType === 'ul') {
-        var rows = Array.from($(content).find('row'));
-        for (var i = 0; i < rows.length; i++) {
-            $(ele).append(formatRow(rows[i]))
+    var prefix = $(eleXML).find('formatelementproperty[key=PREFIX_LIST]').attr('value');
+    if (prefix !== '' && prefix !== undefined) {
+        var select = document.createElement('select');
+        var prefixes = Array.from(prefix.split(','))
+        for (var i = 0; i < prefixes.length; i++) {
+            var option = document.createElement('option');
+            $(option).text(prefixes[i]);
+            $(select).append(option);
         }
-
-    } else {
-        $(ele).text(content);
+        $(inputContainer).append(select);
     }
+
+    $(inputContainer).append(eleHTML);
+
+    var event = $(eleXML).attr('events');
+    var name = $(eleXML).attr('name');
+    if (event === 'CLICK') {
+        var button = createButton('...', name, event);
+        $(inputContainer).append(button);
+    }
+
+    return inputContainer;
+}
+
+function formatButtonElement(eleXML) {
+    var eleHTML = document.createElement('button');
+    passAttributes(eleXML, eleHTML);
+    $(eleHTML).text($(eleXML).attr('content'));
+    $(eleHTML).addClass('button');
+
+    formatEvents(eleXML, eleHTML);
+
+    return eleHTML;
+}
+
+function formatListElement(eleXML) {
+    var eleHTML = document.createElement('ul');
+    passAttributes(eleXML, eleHTML);
+    formatRows(eleXML, eleHTML);
+    $(eleHTML).addClass($(eleXML).attr('style'));
+
+    formatEvents(eleXML, eleHTML);
+
+    return eleHTML;
+}
+
+function passAttributes(eleXML, eleHTML) {
+    $(eleHTML).addClass(ELEMENT_CLASS);
+    $(eleHTML).attr('events', $(eleXML).attr('events'));
+    $(eleHTML).attr('image', $(eleXML).attr('image'));
+    $(eleHTML).attr('name', $(eleXML).attr('name'));
+    $(eleHTML).attr('type', $(eleXML).attr('type'));
 }
 
 function getContent(ele) {
@@ -106,6 +118,13 @@ function getContent(ele) {
         return `<selected value="" /> <checked value="" />`
     } else {
         return $(ele).text();
+    }
+}
+
+function formatRows(eleXML, eleHTML) {
+    var rows = Array.from($(eleXML).find('row'));
+    for (var i = 0; i < rows.length; i++) {
+        $(eleHTML).append(formatRow(rows[i]))
     }
 }
 
@@ -120,6 +139,17 @@ function formatRow(row) {
     return rowHTML;
 }
 
+function formatEvents(eleXML, eleHTML) {
+    var name = $(eleXML).attr('name');
+
+    if ($(eleXML).hasAttr('events')) {
+        var eventsArray = Array.from($(eleXML).attr('events').split(','))
+        for (var i = 0; i < eventsArray.length; i++) {
+            formatEvent(eleHTML, name, eventsArray[i]);
+        }
+    }
+}
+
 function formatEvent(eleHTML, name, eve) {
     switch (eve) {
         //TODO make better
@@ -131,7 +161,7 @@ function formatEvent(eleHTML, name, eve) {
             }
             break
         default:
-            createButton(eve, name, eve);
+            TOOLBAR.append(createButton(eve, name, eve));
     }
 }
 

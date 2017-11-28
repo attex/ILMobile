@@ -1,20 +1,26 @@
 ﻿.button {
-    margin: 1em;
+    margin: 0.2em;
 }
 
-.flexElement {
+.inputContainer {
     display: flex;
     flex-direction: row;
     border: 1px solid #009edf;
 }
 
-    .flexElement select {
-        border: none;
+    .inputContainer select {
+        border-left: none;
+        height: auto;
+        width: auto;
     }
 
-    .flexElement input {
+    .inputContainer input {
         flex: 1;
         border: none;
         margin: 0.2em;
         padding: 0.2em;
+    }
+
+    .inputContainer button {
+        padding: 0.1em 0.4em;
     }

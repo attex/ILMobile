@@ -43,17 +43,17 @@ function formatToolbar(xmlDoc) {
         var eventTexts = events.attr('text').split(',');
 
         for (var i = 0; i < eventValues.length; i++) {
-            createButton(eventTexts[i], window.localStorage.getItem('template'), eventValues[i]);
+            TOOLBAR.append(createButton(eventTexts[i], window.localStorage.getItem('template'), eventValues[i]));
         }
     }
 }
 
 function createButton(text, source, action) {
-    var button = $(document.createElement('button'));
-    button.addClass('button');
-    button.text(text);
-    button.on('click', getHandler(source, action));
-    TOOLBAR.append(button);
+    var button = document.createElement('button');
+    $(button).addClass('button');
+    $(button).text(text);
+    $(button).on('click', getHandler(source, action));
+    return button;
 }
 
 function resetLayout() {
