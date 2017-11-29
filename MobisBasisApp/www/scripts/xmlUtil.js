@@ -21,7 +21,7 @@
     request += "<elements>"
     for (var i = 0; i < elements.length; i++) {
         var ele = elements[i];
-        request += elementToXML(ele, key);
+        request += elementToXML(ele, source, key);
     }
     request += "</elements>"
     request += "</template>"
@@ -33,11 +33,15 @@
     return escapeXml(request);
 }
 
-function elementToXML(ele, key) {
+function elementToXML(ele, source, key) {
     var elementType = ele.tagName.toLowerCase();
     var xml = `<element events="${escapeXml($(ele).attr('events'))}" image="${escapeXml($(ele).attr('image'))}" name="${escapeXml($(ele).attr('name'))}" type="${escapeXml($(ele).attr('type'))}"`;
     if (elementType === 'ul') {
-        xml += `> <content> <selected value="${escapeXml(key)}" /> <checked value="" /> </content> </element>`
+        if ($(ele).attr('name') === source) {
+            xml += `> <content> <selected value="${escapeXml(key)}" /> <checked value="" /> </content> </element>`
+        } else {
+            xml += `> <content> <selected value="" /> <checked value="" /> </content> </element>`
+        }
     } else {
         xml += ` content="${escapeXml(getContent(ele))}" />`
     }

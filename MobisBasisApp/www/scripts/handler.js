@@ -13,8 +13,9 @@ function handle(source, action) {
 
 function handleMenuClick() {
     const action = "CLICK";
+    //TODO auf Klassen/IDs umsteigen
     var source = $(event.srcElement).closest('ul').attr('name');
-    var key = $(event.srcElement).attr('key');
+    var key = $(event.srcElement).closest('li').attr('key');
     var request = generateRequest(source, action, key);
     callSOAP('processFormat', ['formatXML', request]).then(response => { handleResponse(response) });
 }

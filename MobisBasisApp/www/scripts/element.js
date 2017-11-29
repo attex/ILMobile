@@ -22,18 +22,18 @@ function getYPos(ele) {
     return value;
 }
 
-function formatElement(ele) {
-    var type = $(ele).attr('type');
+function formatElement(eleXML) {
+    var type = $(eleXML).attr('type');
 
     switch (type) {
         case 'Label':
-            return formatLabelElement(ele);
+            return formatLabelElement(eleXML);
         case 'TextBox':
-            return formatInputElement(ele);
+            return formatInputElement(eleXML);
         case 'Button':
-            return formatButtonElement(ele)
+            return formatButtonElement(eleXML)
         case 'List':
-            return formatListElement(ele);
+            return formatListElement(eleXML);
         default:
             return document.createElement('unknown');
     }
@@ -110,33 +110,60 @@ function passAttributes(eleXML, eleHTML) {
     $(eleHTML).attr('type', $(eleXML).attr('type'));
 }
 
-function getContent(ele) {
-    var elementType = ele.tagName.toLowerCase();
-    if (elementType === 'input') {
-        return $(ele).val();
-    } else if (elementType === 'ul') {
-        return `<selected value="" /> <checked value="" />`
-    } else {
-        return $(ele).text();
+function getContent(eleHTML) {
+    var type = eleHTML.tagName.toLowerCase();
+
+    switch (type) {
+        case 'input':
+            return getInputContent(eleHTML);
+        default:
+            return $(eleHTML).text();
     }
+}
+
+function getInputContent(eleHTML) {
+    var inputContainer = $(eleHTML).parent('.inputContainer');
+    var select = $(inputContainer).find('select');
+    var prefix = (select.length) ? select.val() : "";
+    var input = $(eleHTML).val();
+
+    return prefix + input;
 }
 
 function formatRows(eleXML, eleHTML) {
+    var columnValues = Array.from($(eleXML).find('columns').attr('value').split(','));
+
     var rows = Array.from($(eleXML).find('row'));
     for (var i = 0; i < rows.length; i++) {
-        $(eleHTML).append(formatRow(rows[i]))
+        $(eleHTML).append(formatRow(columnValues, rows[i]))
     }
 }
 
-function formatRow(row) {
-    var rowValues = $(row).attr('value');
-    var rowValuesArray = rowValues.split(',');
+function formatRow(columnValues, row) {
+    var rowValues = Array.from($(row).attr('value').split(','));
 
-    var rowHTML = $(document.createElement('li'));
-    rowHTML.text(rowValuesArray[0]);
-    rowHTML.attr('key', rowValuesArray[1])
+    var rowHTML = document.createElement('li');
+    var rowTitle = document.createElement('value');
+    var rowDesc = document.createElement('desc');
+
+    $(rowHTML).addClass('listEntry')
+    $(rowHTML).append(rowTitle);
+    $(rowHTML).append(rowDesc);
+
+    $(rowHTML).attr('key', getRowValue('Key', columnValues, rowValues))
+    $(rowTitle).text(getRowValue('Wert', columnValues, rowValues));
+    $(rowDesc).text(getRowValue('Beschreibung', columnValues, rowValues))
 
     return rowHTML;
+}
+
+function getRowValue(valueName, columnValues, rowValues) {
+    var index = columnValues.indexOf(valueName);
+    if (index === -1) {
+        return "";
+    } else {
+        return rowValues[index].replace("§%DEC(44)%§", ".");
+    }
 }
 
 function formatEvents(eleXML, eleHTML) {

@@ -24,3 +24,18 @@
     .inputContainer button {
         padding: 0.1em 0.4em;
     }
+
+.listEntry {
+    border: 1px solid #009edf;
+    padding: 0.3em;
+    margin: 0.3em;
+}
+
+    .listEntry value {
+        font-size: 1.3em;
+        display: block;
+    }
+
+    .listEntry desc {
+        font-weight: normal;
+    }
