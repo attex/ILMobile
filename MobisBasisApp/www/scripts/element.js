@@ -9,6 +9,8 @@ function formatElements(elements) {
         var eleArray = elements.filter(function (ele) { return ((yPos + 5) > getYPos(ele)) })
         elements.splice(0, eleArray.length)
 
+        eleArray.sort(function (a, b) { return getXPos(a) - getXPos(b) })
+
         var column = $(document.createElement('div')).addClass('columnContainer');
         for (var i = 0; i < eleArray.length; i++) {
             column.append(formatElement(eleArray[i]))
@@ -19,6 +21,11 @@ function formatElements(elements) {
 
 function getYPos(ele) {
     var value = parseInt($(ele).attr('position').split(',')[1]);
+    return value;
+}
+
+function getXPos(ele) {
+    var value = parseInt($(ele).attr('position').split(',')[0]);
     return value;
 }
 
