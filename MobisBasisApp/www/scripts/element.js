@@ -41,6 +41,8 @@ function formatElement(eleXML) {
             return formatButtonElement(eleXML)
         case 'List':
             return formatListElement(eleXML);
+        case 'TABLE':
+            return formatTableElement(eleXML);
         default:
             return document.createElement('unknown');
     }
@@ -98,6 +100,7 @@ function formatButtonElement(eleXML) {
     return eleHTML;
 }
 
+//unify column and row processing
 function formatListElement(eleXML) {
     var eleHTML = document.createElement('ul');
     passAttributes(eleXML, eleHTML);
@@ -105,6 +108,52 @@ function formatListElement(eleXML) {
     $(eleHTML).addClass($(eleXML).attr('style'));
 
     formatEvents(eleXML, eleHTML);
+
+    return eleHTML;
+}
+
+function formatTableElement(eleXML) {
+    var eleHTML = $($('#tableContainer-template').html());
+    passAttributes(eleXML, eleHTML);
+
+    var table = $(eleHTML).find('table');
+
+    //format columns
+    var columns = $(eleXML).find('columns');
+    var columnValues = ($(columns).hasAttr('value')) ? ($(columns).attr('value')).split(',') : [""];
+
+    var columnsRow = document.createElement('tr');
+    for (var i = 0; i < columnValues.length; i++) {
+        let cell = document.createElement('th');
+        $(cell).text(columnValues[i]);
+        $(columnsRow).append(cell);
+    }
+    $(table).append(columnsRow);
+
+    //format rows
+    var rows = Array.from($(eleXML).find('row'));
+    for (var i = 0; i < rows.length; i++) {
+        let rowXML = rows[i];
+        let rowValues = ($(rowXML).hasAttr('value')) ? ($(rowXML).attr('value')).split(',') : [""];
+
+        let rowHTML = document.createElement('tr');
+
+        for (var j = 0; j < rowValues.length; j++) {
+            let cell = document.createElement('td');
+            $(cell).text(rowValues[j]);
+            $(rowHTML).append(cell);
+        }
+
+        $(table).append(rowHTML);
+    }
+
+    //format events
+    var eventValues = ($(eleXML).hasAttr('events')) ? ($(eleXML).attr('events')).split(',') : [""];
+    var eventTexts = ($(eleXML).hasAttr('text')) ? ($(eleXML).attr('text')).split(',') : [""];
+
+    if (eventValues.length && eventValues.length == eventTexts.length) {
+        $(eleHTML).addClass('selectable');
+    }
 
     return eleHTML;
 }
@@ -169,7 +218,7 @@ function getRowValue(valueName, columnValues, rowValues) {
     if (index === -1) {
         return "";
     } else {
-        return rowValues[index].replace("§%DEC(44)%§", ".");
+        return rowValues[index].replace(/§%DEC\(44\)%§/g, ".");
     }
 }
 
@@ -198,7 +247,6 @@ function formatEvent(eleHTML, name, eve) {
             TOOLBAR.append(createButton(eve, name, eve));
     }
 }
-
 
 function getAllElements() {
     return Array.from($(`.${ELEMENT_CLASS}`));

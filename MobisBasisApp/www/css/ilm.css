@@ -39,3 +39,55 @@
     .listEntry desc {
         font-weight: normal;
     }
+
+#editButton {
+    display: none;
+}
+
+.selectable #editButton {
+    display: initial;
+}
+
+#selectButton {
+    display: none;
+}
+
+.selectMode #selectButton {
+    display: initial;
+}
+
+.functions {
+    display: none;
+}
+
+.selectMode .functions {
+    display: initial;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-height: 40vh;
+    display: contents;
+    overflow: auto;
+}
+
+    table th, table td {
+        text-align: center;
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    table th {
+        background-color: #009edf;
+        color: white;
+    }
+
+    table td {
+        font-weight: normal;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+

@@ -30,10 +30,22 @@
                 <div class="detailContainer">
                     <div class="groupContainer"></div>
                 </div>
-                    <div class="toolbar" id="buttons"></div>
+                <div class="toolbar" id="buttons"></div>
             </div>
         </div>
     </div>
+
+    <script id="tableContainer-template" type="text/custom-template">
+        <div class="tableContainer">
+            <div class="toolbar">
+                <button class="button" id="selectButton">Alles auswählen</button>
+                <button class="button" id="editButton" onclick="toggleSelectMode()">Bearbeiten</button>
+            </div>
+            <table></table>
+            <div class="toolbar functions">
+            </div>
+        </div>
+    </script>
 
     <script type='application/javascript' src='lib/fastclick.min.js'></script>
     <script type="text/javascript" src="cordova.js"></script>
@@ -48,7 +60,8 @@
     <script type="text/javascript" src="scripts/xmlhttp.js"></script>
     <script type="text/javascript" src="scripts/xmlUtil.js"></script>
     <script type="text/javascript" src="scripts/layout.js"></script>
-    <script type="text/javascript" src="scripts/element.js"></script>  
+    <script type="text/javascript" src="scripts/element.js"></script>
+    <script type="text/javascript" src="scripts/table.js"></script>
     <script type="text/javascript" src="scripts/handler.js"></script>
 </body>
 </html>

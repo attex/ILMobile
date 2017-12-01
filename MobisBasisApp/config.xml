@@ -90,5 +90,5 @@
     <splash height="1920" src="res/screens/windows/SplashScreen.scale-240.png" width="1152" />
     <splash height="1920" src="res/screens/windows/SplashScreenPhone.scale-240.png" width="1152" />
   </platform>
-  <engine name="android" spec="~6.2.3" />
+  <engine name="android" spec="~5.2.1" />
 </widget>
