@@ -13,12 +13,16 @@ function generateLayout(xml) {
     window.localStorage.setItem('project', $(xmlDoc).find('project').attr('value'));
     window.localStorage.setItem('procedure', $(xmlDoc).find('procedure').attr('value'));
     window.localStorage.setItem('format', $(xmlDoc).find('format').attr('value'));
+    window.localStorage.setItem('template', $(xmlDoc).find('template').attr('name'));
+
+    var identifier = `${window.localStorage.getItem('procedure')}_${window.localStorage.getItem('format')}`
+    window.localStorage.setItem('identifier', identifier);
+    DETAILCONTAINER.addClass(identifier);
 
     //needed to make filter() non-ambiguous
     var elements = Array.from($(xmlDoc).find('element'));
 
     formatTitle(xmlDoc);
-    formatTemplate(xmlDoc);
     formatElements(elements);
     formatToolbar(xmlDoc);
 }
@@ -26,12 +30,6 @@ function generateLayout(xml) {
 function formatTitle(xmlDoc) {
     var title = $(xmlDoc).find('formatproperty[key=TITLE]').attr('value');
     TITLE.text(title);
-}
-
-function formatTemplate(xmlDoc) {
-    var template = $(xmlDoc).find('template').attr('name');
-    window.localStorage.setItem('template', template);
-    DETAILCONTAINER.addClass(template);
 }
 
 function formatToolbar(xmlDoc) {
@@ -58,7 +56,8 @@ function createButton(text, source, action) {
 
 function resetLayout() {
     TITLE.text('');
-    DETAILCONTAINER.removeClass(window.localStorage.getItem('template'));
+    DETAILCONTAINER.removeClass(window.localStorage.getItem('identifier'));
+    window.localStorage.removeItem('identifier')
     window.localStorage.removeItem('template')
     GROUPCONTAINER.empty();
     TOOLBAR.empty();

@@ -34,9 +34,8 @@
 }
 
 function elementToXML(ele, source, key) {
-    var elementType = ele.tagName.toLowerCase();
     var xml = `<element events="${escapeXml($(ele).attr('events'))}" image="${escapeXml($(ele).attr('image'))}" name="${escapeXml($(ele).attr('name'))}" type="${escapeXml($(ele).attr('type'))}"`;
-    if (elementType === 'ul') {
+    if ($(ele).hasClass('list') || $(ele).hasClass('table')) {
         if ($(ele).attr('name') === source) {
             xml += `> <content> <selected value="${escapeXml(key)}" /> <checked value="" /> </content> </element>`
         } else {

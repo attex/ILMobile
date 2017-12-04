@@ -51,8 +51,8 @@ function formatElement(eleXML) {
 function formatLabelElement(eleXML) {
     var eleHTML = document.createElement('label');
     passAttributes(eleXML, eleHTML);
-    $(eleHTML).text($(eleXML).attr('content'));
     $(eleHTML).addClass($(eleXML).attr('style'));
+    $(eleHTML).text($(eleXML).attr('content'));
     return eleHTML;
 }
 
@@ -62,8 +62,8 @@ function formatInputElement(eleXML) {
 
     var eleHTML = document.createElement('input');
     passAttributes(eleXML, eleHTML);
-    $(eleHTML).val($(eleXML).attr('content'));
     $(eleHTML).addClass($(eleXML).attr('style'));
+    $(eleHTML).val($(eleXML).attr('content'));
 
     var prefix = $(eleXML).find('formatelementproperty[key=PREFIX_LIST]').attr('value');
     if (prefix !== '' && prefix !== undefined) {
@@ -90,10 +90,10 @@ function formatInputElement(eleXML) {
 }
 
 function formatButtonElement(eleXML) {
-    var eleHTML = document.createElement('button');
+    var listContainer = document.createElement('button');
     passAttributes(eleXML, eleHTML);
-    $(eleHTML).text($(eleXML).attr('content'));
     $(eleHTML).addClass('button');
+    $(eleHTML).text($(eleXML).attr('content'));
 
     formatEvents(eleXML, eleHTML);
 
@@ -102,11 +102,8 @@ function formatButtonElement(eleXML) {
 
 //unify column and row processing
 function formatListElement(eleXML) {
-    var eleHTML = document.createElement('ul');
+    var eleHTML = formatGrid(eleXML, 'list');
     passAttributes(eleXML, eleHTML);
-    formatRows(eleXML, eleHTML);
-    $(eleHTML).addClass($(eleXML).attr('style'));
-
     formatEvents(eleXML, eleHTML);
 
     return eleHTML;
@@ -115,37 +112,7 @@ function formatListElement(eleXML) {
 function formatTableElement(eleXML) {
     var eleHTML = $($('#tableContainer-template').html());
     passAttributes(eleXML, eleHTML);
-
-    var table = $(eleHTML).find('table');
-
-    //format columns
-    var columns = $(eleXML).find('columns');
-    var columnValues = ($(columns).hasAttr('value')) ? ($(columns).attr('value')).split(',') : [""];
-
-    var columnsRow = document.createElement('tr');
-    for (var i = 0; i < columnValues.length; i++) {
-        let cell = document.createElement('th');
-        $(cell).text(columnValues[i]);
-        $(columnsRow).append(cell);
-    }
-    $(table).append(columnsRow);
-
-    //format rows
-    var rows = Array.from($(eleXML).find('row'));
-    for (var i = 0; i < rows.length; i++) {
-        let rowXML = rows[i];
-        let rowValues = ($(rowXML).hasAttr('value')) ? ($(rowXML).attr('value')).split(',') : [""];
-
-        let rowHTML = document.createElement('tr');
-
-        for (var j = 0; j < rowValues.length; j++) {
-            let cell = document.createElement('td');
-            $(cell).text(rowValues[j]);
-            $(rowHTML).append(cell);
-        }
-
-        $(table).append(rowHTML);
-    }
+    $(eleHTML).append(formatGrid(eleXML, 'list'));
 
     //format events
     var eventValues = ($(eleXML).hasAttr('events')) ? ($(eleXML).attr('events')).split(',') : [""];
@@ -164,6 +131,59 @@ function passAttributes(eleXML, eleHTML) {
     $(eleHTML).attr('image', $(eleXML).attr('image'));
     $(eleHTML).attr('name', $(eleXML).attr('name'));
     $(eleHTML).attr('type', $(eleXML).attr('type'));
+}
+
+function formatGrid(eleXML, type) {
+    var gridContainer = createGridContainer(type);
+    var columns = getColumns(eleXML);
+    var rows = getRows(eleXML);
+
+    $(gridContainer).append(createGridHeaderContainer(columns));
+    $(gridContainer).append(createRowContainer(columns, rows));
+
+    return gridContainer;
+}
+
+function getColumns(eleXML) {
+    var columns = $(eleXML).find('columns');
+    return (columns.length && $(columns).hasAttr('value')) ? Array.from($(columns).attr('value').split(',')) : [""];
+}
+
+function getRows(eleXML) {
+    var rows = Array.from($(eleXML).find('row'));
+    return rows.map(function (row) {
+        return ($(row).hasAttr('value')) ? $(row).attr('value').split(',') : [""];
+    })
+}
+
+function formatEvents(eleXML, eleHTML) {
+    var name = $(eleXML).attr('name');
+
+    if ($(eleXML).hasAttr('events')) {
+        var eventsArray = Array.from($(eleXML).attr('events').split(','))
+        for (var i = 0; i < eventsArray.length; i++) {
+            formatEvent(eleHTML, name, eventsArray[i]);
+        }
+    }
+}
+
+function formatEvent(eleHTML, name, eve) {
+    var rowContainer = $(eleHTML).find('.rowContainer');
+    switch (eve) {
+        //TODO make better
+        case 'CLICK':
+            if (rowContainer.length) {
+                let rows = Array.from(rowContainer.find('.row'));
+                for (let i = 0; i < rows.length; i++) {
+                    rows[i].addEventListener("click", handleMenuClick);
+                }
+            } else {
+                eleHTML.addEventListener("click", getHandler(name, eve));
+            }
+            break
+        default:
+            TOOLBAR.append(createButton(eve, name, eve));
+    }
 }
 
 function getContent(eleHTML) {
@@ -186,67 +206,7 @@ function getInputContent(eleHTML) {
     return prefix + input;
 }
 
-function formatRows(eleXML, eleHTML) {
-    var columnValues = Array.from($(eleXML).find('columns').attr('value').split(','));
 
-    var rows = Array.from($(eleXML).find('row'));
-    for (var i = 0; i < rows.length; i++) {
-        $(eleHTML).append(formatRow(columnValues, rows[i]))
-    }
-}
-
-function formatRow(columnValues, row) {
-    var rowValues = Array.from($(row).attr('value').split(','));
-
-    var rowHTML = document.createElement('li');
-    var rowTitle = document.createElement('value');
-    var rowDesc = document.createElement('desc');
-
-    $(rowHTML).addClass('listEntry')
-    $(rowHTML).append(rowTitle);
-    $(rowHTML).append(rowDesc);
-
-    $(rowHTML).attr('key', getRowValue('Key', columnValues, rowValues))
-    $(rowTitle).text(getRowValue('Wert', columnValues, rowValues));
-    $(rowDesc).text(getRowValue('Beschreibung', columnValues, rowValues))
-
-    return rowHTML;
-}
-
-function getRowValue(valueName, columnValues, rowValues) {
-    var index = columnValues.indexOf(valueName);
-    if (index === -1) {
-        return "";
-    } else {
-        return rowValues[index].replace(/§%DEC\(44\)%§/g, ".");
-    }
-}
-
-function formatEvents(eleXML, eleHTML) {
-    var name = $(eleXML).attr('name');
-
-    if ($(eleXML).hasAttr('events')) {
-        var eventsArray = Array.from($(eleXML).attr('events').split(','))
-        for (var i = 0; i < eventsArray.length; i++) {
-            formatEvent(eleHTML, name, eventsArray[i]);
-        }
-    }
-}
-
-function formatEvent(eleHTML, name, eve) {
-    switch (eve) {
-        //TODO make better
-        case 'CLICK':
-            if ($(eleHTML).attr('type') === "List") {
-                eleHTML.addEventListener("click", handleMenuClick);
-            } else {
-                eleHTML.addEventListener("click", getHandler(name, eve));
-            }
-            break
-        default:
-            TOOLBAR.append(createButton(eve, name, eve));
-    }
-}
 
 function getAllElements() {
     return Array.from($(`.${ELEMENT_CLASS}`));
