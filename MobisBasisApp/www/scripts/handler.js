@@ -11,7 +11,7 @@ function handle(source, action) {
     callSOAP('processFormat', ['formatXML', request]).then(response => { handleResponse(response) });
 }
 
-function handleMenuClick() {
+function handleListClick() {
     const action = "CLICK";
     var source = $(event.srcElement).closest('.element').attr('name');
     var key = $(event.srcElement).closest('.row').find('.Key').text();

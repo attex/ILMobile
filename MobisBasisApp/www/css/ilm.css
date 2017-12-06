@@ -26,45 +26,47 @@
     }
 
 .gridContainer {
+    clear: both;
+    padding: 0.3em;
+    border: 2px solid #009edf;
 }
 
-    .gridContainer .headerContainer {
-    }
-
-        .gridContainer .headerContainer .header {
-        }
-
-    .gridContainer .rowContainer {
+    .gridContainer .table {
+        max-height: 40vh;
+        overflow-y: scroll;
     }
 
         .gridContainer .rowContainer .row {
             display: grid;
+            margin: 0.3em;
             border: 1px solid #009edf;
         }
 
-            .gridContainer .rowContainer .row .rowElement {
-            }
+        .gridContainer .rowContainer .row.selected {
+            background-color: lightblue;
+        }
 
-#editButton {
+
+.editButton {
     display: none;
 }
 
-.selectable #editButton {
+.selectable .editButton {
     display: initial;
 }
 
-#selectButton {
+.selectButton {
     display: none;
 }
 
-.selectMode #selectButton {
+.selectMode .selectButton {
     display: initial;
 }
 
-.functions {
+.functionContainer {
     display: none;
 }
 
-.selectMode .functions {
+.selectMode .functionContainer {
     display: initial;
 }

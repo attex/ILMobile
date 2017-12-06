@@ -35,9 +35,10 @@
 
 function elementToXML(ele, source, key) {
     var xml = `<element events="${escapeXml($(ele).attr('events'))}" image="${escapeXml($(ele).attr('image'))}" name="${escapeXml($(ele).attr('name'))}" type="${escapeXml($(ele).attr('type'))}"`;
-    if ($(ele).hasClass('list') || $(ele).hasClass('table')) {
+    if ($(ele).hasClass('gridContainer')) {
         if ($(ele).attr('name') === source) {
-            xml += `> <content> <selected value="${escapeXml(key)}" /> <checked value="" /> </content> </element>`
+            var checkedKeysString = Array.from($('.selected').find('.INT_KEY')).map(function (row) { return $(row).text() }).join(',');
+            xml += `> <content> <selected value="${escapeXml(key)}" /> <checked value="${escapeXml(checkedKeysString)}" /> </content> </element>`
         } else {
             xml += `> <content> <selected value="" /> <checked value="" /> </content> </element>`
         }

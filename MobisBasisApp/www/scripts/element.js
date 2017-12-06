@@ -56,6 +56,7 @@ function formatLabelElement(eleXML) {
     return eleHTML;
 }
 
+//make entire container the element
 function formatInputElement(eleXML) {
     var inputContainer = document.createElement('div');
     $(inputContainer).addClass('inputContainer');
@@ -82,15 +83,14 @@ function formatInputElement(eleXML) {
     var event = $(eleXML).attr('events');
     var name = $(eleXML).attr('name');
     if (event === 'CLICK') {
-        var button = createButton('...', name, event);
-        $(inputContainer).append(button);
+        $(inputContainer).append(createButton('...', name, event));
     }
 
     return inputContainer;
 }
 
 function formatButtonElement(eleXML) {
-    var listContainer = document.createElement('button');
+    var eleHTML = document.createElement('button');
     passAttributes(eleXML, eleHTML);
     $(eleHTML).addClass('button');
     $(eleHTML).text($(eleXML).attr('content'));
@@ -100,7 +100,7 @@ function formatButtonElement(eleXML) {
     return eleHTML;
 }
 
-//unify column and row processing
+//unify event handling processing
 function formatListElement(eleXML) {
     var eleHTML = formatGrid(eleXML, 'list');
     passAttributes(eleXML, eleHTML);
@@ -110,19 +110,21 @@ function formatListElement(eleXML) {
 }
 
 function formatTableElement(eleXML) {
-    var eleHTML = $($('#tableContainer-template').html());
+    var tableContainer = $($('#tableContainer-template').html());
+    var eleHTML = formatGrid(eleXML, 'table');
     passAttributes(eleXML, eleHTML);
-    $(eleHTML).append(formatGrid(eleXML, 'list'));
+    $(tableContainer).append(eleHTML);
 
     //format events
     var eventValues = ($(eleXML).hasAttr('events')) ? ($(eleXML).attr('events')).split(',') : [""];
     var eventTexts = ($(eleXML).hasAttr('text')) ? ($(eleXML).attr('text')).split(',') : [""];
 
     if (eventValues.length && eventValues.length == eventTexts.length) {
-        $(eleHTML).addClass('selectable');
+        $(tableContainer).addClass('selectable');
+        $(tableContainer).append(createTableFunctions(eventTexts, $(eleHTML).attr('name'), eventValues));
     }
 
-    return eleHTML;
+    return tableContainer;
 }
 
 function passAttributes(eleXML, eleHTML) {
@@ -167,22 +169,21 @@ function formatEvents(eleXML, eleHTML) {
     }
 }
 
-function formatEvent(eleHTML, name, eve) {
-    var rowContainer = $(eleHTML).find('.rowContainer');
+//unify event creation
+function formatEvent(eleHTML, name, eve, eventText = eve) {
     switch (eve) {
-        //TODO make better
         case 'CLICK':
-            if (rowContainer.length) {
-                let rows = Array.from(rowContainer.find('.row'));
+            if ($(eleHTML).hasClass('gridContainer list')) {
+                var rows = Array.from($(eleHTML).find('.row'));
                 for (let i = 0; i < rows.length; i++) {
-                    rows[i].addEventListener("click", handleMenuClick);
+                    rows[i].addEventListener("click", handleListClick);
                 }
             } else {
                 eleHTML.addEventListener("click", getHandler(name, eve));
             }
             break
         default:
-            TOOLBAR.append(createButton(eve, name, eve));
+            TOOLBAR.append(createButton(eve, name, eventText));
     }
 }
 
@@ -205,8 +206,6 @@ function getInputContent(eleHTML) {
 
     return prefix + input;
 }
-
-
 
 function getAllElements() {
     return Array.from($(`.${ELEMENT_CLASS}`));

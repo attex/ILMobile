@@ -54,12 +54,37 @@ function createItem(columnValue, rowValue) {
     return rowElement;
 }
 
+function createTableFunctions(eventTexts, name, eventValues) {
+    var functionContainer = document.createElement('div');
+    $(functionContainer).addClass('functionContainer');
+
+    for (let i = 0; i < eventValues.length; i++) {
+        $(functionContainer).append(createButton(eventTexts[i], name, eventValues[i]))
+    }
+
+    return functionContainer;
+}
+
 function toggleSelectMode() {
-    if (!$('.selectMode').length) {
-        $('.tableContainer').addClass('selectMode');
-        $('#editButton').text('Fertig');
+    tableContainer = $(event.srcElement).closest('.tableContainer');
+
+    if ($(tableContainer).hasClass('selectMode')) {
+        $(tableContainer).removeClass('selectMode');
+        $(tableContainer).find('.selected').removeClass('selected');
+        $(tableContainer).find('.row').off('click');
+        $(event.srcElement).text('Bearbeiten');
     } else {
-        $('.tableContainer').removeClass('selectMode');
-        $('#editButton').text('Bearbeiten');
+        $(tableContainer).addClass('selectMode');
+        $(tableContainer).find('.row').click(toogleSelect)
+        $(event.srcElement).text('Fertig');
+    }
+}
+
+function toogleSelect() {
+    var row = $(event.srcElement).closest('.row');
+    if (!$(row).hasClass('selected')) {
+        $(row).addClass('selected');
+    } else {
+        $(row).removeClass('selected');
     }
 }
