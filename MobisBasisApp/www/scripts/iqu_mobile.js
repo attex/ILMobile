@@ -56,16 +56,16 @@ var iqu = (function (my) {
     };
 
     my.wipeRight = function (x, y) {
-        if (!($("#left").hasClass("active"))) {
+        if (!$("#left").hasClass("active")) {
             if (x < 200) {
                 this.showMenu();
             }
         }
-    }
+    };
 
     my.wipeLeft = function (x, y, e) {
         this.hideMenu();
-    }
+    };
 
 
     my.goBack = function () {
@@ -115,8 +115,8 @@ var iqu = (function (my) {
     };
     AFUi.prototype = {
         loadContent: function (target, newView, back, transition, anchor) {
-            if (navStack[navStack.length - 1] != target) { navStack.push(target); }
-            if (navStack.length > 1 && back == false) {
+            if (navStack[navStack.length - 1] !== target) { navStack.push(target); }
+            if (navStack.length > 1 && back === false) {
                 $(target).css({ left: '100%' });
                 $(target).addClass("active");
                 $(navStack[navStack.length - 2]).animate({ left: '-110%' }, 1000);
@@ -232,14 +232,14 @@ function decode64(input) {
         enc3 = keyStr.indexOf(input.charAt(i++));
         enc4 = keyStr.indexOf(input.charAt(i++));
 
-        chr1 = (enc1 << 2) | (enc2 >> 4);
-        chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-        chr3 = ((enc3 & 3) << 6) | enc4;
+        chr1 = enc1 << 2 | enc2 >> 4;
+        chr2 = (enc2 & 15) << 4 | enc3 >> 2;
+        chr3 = (enc3 & 3) << 6 | enc4;
         output = output + String.fromCharCode(chr1);
-        if (enc3 != 64) {
+        if (enc3 !== 64) {
             output = output + String.fromCharCode(chr2);
         }
-        if (enc4 != 64) {
+        if (enc4 !== 64) {
             output = output + String.fromCharCode(chr3);
         }
         chr1 = chr2 = chr3 = "";

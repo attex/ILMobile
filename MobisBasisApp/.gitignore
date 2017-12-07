@@ -5,8 +5,8 @@ plugins/
 www/.idea/
 
 #Visual Studio
-.jsproj
-.jsproj.user
+*.jsproj
+*.jsproj.user
 
 # ANDROID / ECLIPSE
 
