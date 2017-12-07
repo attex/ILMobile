@@ -28,7 +28,7 @@ function getSOAPString(fname, params) {
     var paramstring = '';
     var type = '';
     for (var i = 0; i < params.length; i += 2) {
-        if (fname == "getZippedOfflineData" && params[i] == "params") {
+        if (fname === "getZippedOfflineData" && params[i] === "params") {
             type = "impl:ArrayOf_xsd_string";
         } else {
             type = "xsd:string";   // impl:ArrayOf_xsd_string

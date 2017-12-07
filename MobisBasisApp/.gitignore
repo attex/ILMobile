@@ -4,6 +4,10 @@ plugins/
 .idea/
 www/.idea/
 
+#Visual Studio
+.jsproj
+.jsproj.user
+
 # ANDROID / ECLIPSE
 
 # built application files
