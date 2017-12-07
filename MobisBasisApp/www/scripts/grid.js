@@ -66,7 +66,7 @@ function createTableFunctions(eventTexts, name, eventValues) {
 }
 
 function toggleSelectMode() {
-    tableContainer = $(event.srcElement).closest('.tableContainer');
+    var tableContainer = $(event.srcElement).closest('.tableContainer');
 
     if ($(tableContainer).hasClass('selectMode')) {
         $(tableContainer).removeClass('selectMode');
@@ -87,4 +87,9 @@ function toogleSelect() {
     } else {
         $(row).removeClass('selected');
     }
+}
+
+function selectAll() {
+    var tableContainer = $(event.srcElement).closest('.tableContainer');
+    $(tableContainer).find('.row').addClass('selected')
 }
