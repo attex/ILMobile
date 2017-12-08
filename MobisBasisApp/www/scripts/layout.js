@@ -1,7 +1,5 @@
 ﻿const TITLE = $('header').find('h1');
 const DETAILCONTAINER = $('.detailContainer');
-const GROUPCONTAINER = $('.groupContainer');
-const TOOLBAR = $('#buttons');
 
 function generateLayout(xml) {
     console.log('Response:\n');
@@ -22,8 +20,10 @@ function generateLayout(xml) {
     //needed to make filter() non-ambiguous
     var elements = Array.from($(xmlDoc).find('element'));
 
+    var seperatorHeight = parseInt($(xmlDoc).find('formatproperty[key=DISPLAYHEIGHT]').attr('value'));
+
+    formatElements(elements, seperatorHeight);
     formatTitle(xmlDoc);
-    formatElements(elements);
     formatToolbar(xmlDoc);
 }
 
@@ -41,14 +41,24 @@ function formatToolbar(xmlDoc) {
         var eventTexts = events.attr('text').split(',');
 
         for (var i = 0; i < eventValues.length; i++) {
-            TOOLBAR.append(createButton(eventTexts[i], window.localStorage.getItem('template'), eventValues[i]));
+            getButtonsGroupContainer().append(createButton(findEventText(eventTexts[i]), window.localStorage.getItem('template'), eventValues[i], eventValues[i]));
         }
     }
 }
 
-function createButton(text, source, action) {
+function findEventText(eventText) {
+    var texts = eventText.split(';');
+    if (texts.length > 1 && texts[1] !== '') {
+        return texts[1];
+    } else {
+        return texts[0]
+    }
+}
+
+function createButton(text, source, action, className) {
     var button = document.createElement('button');
     $(button).addClass('button');
+    $(button).addClass(className);
     $(button).text(text);
     $(button).on('click', getHandler(source, action));
     return button;
@@ -56,11 +66,31 @@ function createButton(text, source, action) {
 
 function resetLayout() {
     TITLE.text('');
+    DETAILCONTAINER.empty();
     DETAILCONTAINER.removeClass(window.localStorage.getItem('identifier'));
     window.localStorage.removeItem('identifier')
     window.localStorage.removeItem('template')
-    GROUPCONTAINER.empty();
-    TOOLBAR.empty();
+}
+
+function getUpperGroupContainer() {
+    return getGroupContainer('upper')
+}
+
+function getLowerGroupContainer() {
+    return getGroupContainer('lower')
+}
+
+function getButtonsGroupContainer() {
+    return getGroupContainer('buttonContainer')
+}
+
+function getGroupContainer(type) {
+    var groupContainer = $(`.detailContainer .groupContainer.${type}`);
+    if (!groupContainer.length) {
+        groupContainer = $(`<div class="groupContainer ${type}"/>`);
+        DETAILCONTAINER.append(groupContainer);
+    }
+    return groupContainer;
 }
 
 $.fn.hasAttr = function (name) {

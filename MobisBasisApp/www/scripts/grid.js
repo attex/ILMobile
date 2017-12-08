@@ -55,11 +55,10 @@ function createItem(columnValue, rowValue) {
 }
 
 function createTableFunctions(eventTexts, name, eventValues) {
-    var functionContainer = document.createElement('div');
-    $(functionContainer).addClass('functionContainer');
+    var functionContainer = $('<div class="buttonContainer functions"/>');
 
     for (let i = 0; i < eventValues.length; i++) {
-        $(functionContainer).append(createButton(eventTexts[i], name, eventValues[i]))
+        $(functionContainer).append(createButton(findEventText(eventTexts[i]), name, eventValues[i], 'tableButton'))
     }
 
     return functionContainer;

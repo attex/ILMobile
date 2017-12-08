@@ -1,6 +1,7 @@
 ﻿const ELEMENT_CLASS = "element"
 
-function formatElements(elements) {
+function formatElements(elements, seperatorHeight) {
+    //sort in y direction
     elements.sort(function (a, b) { return getYPos(a) - getYPos(b) })
     while (elements.length !== 0) {
 
@@ -9,13 +10,25 @@ function formatElements(elements) {
         var eleArray = elements.filter(function (ele) { return ((yPos + 5) > getYPos(ele)) })
         elements.splice(0, eleArray.length)
 
+        //sort in x direction
         eleArray.sort(function (a, b) { return getXPos(a) - getXPos(b) })
 
-        var column = $(document.createElement('div')).addClass('columnContainer');
+        //getting corresponding container
+        var container = yPos < seperatorHeight ? getUpperGroupContainer() : getLowerGroupContainer();
+
+        //formating elements in one column and adding enumeration
+        var column = $(document.createElement('div')).addClass('columnContainer').addClass(`quantity-${eleArray.length}`).addClass(`firstName-${$(eleArray[0]).attr('name')}`);
         for (var i = 0; i < eleArray.length; i++) {
-            column.append(formatElement(eleArray[i]))
+            column.append($(formatElement(eleArray[i])).addClass(`order-${i + 1}`))
         }
-        GROUPCONTAINER.append(column);
+
+        //add empty tag if necessary
+        if (columnIsEmpty(column)) {
+            $(column).addClass('empty');
+        }
+
+        //append to container
+        $(container).append(column)
     }
 }
 
@@ -27,6 +40,17 @@ function getYPos(ele) {
 function getXPos(ele) {
     var value = parseInt($(ele).attr('position').split(',')[0]);
     return value;
+}
+
+function columnIsEmpty(column) {
+    var elements = Array.from($(column).children());
+    for (let i = 0; i < elements.length; i++) {
+        var ele = elements[i];
+        if (!($(ele).attr('type') === 'Label' && ($(ele).text()) === '')) {
+            return false;
+        }
+    }
+    return true;
 }
 
 function formatElement(eleXML) {
@@ -83,7 +107,7 @@ function formatInputElement(eleXML) {
     var event = $(eleXML).attr('events');
     var name = $(eleXML).attr('name');
     if (event === 'CLICK') {
-        $(inputContainer).append(createButton('...', name, event));
+        $(inputContainer).append(createButton('...', name, event, 'matchCodeButton'));
     }
 
     return inputContainer;
@@ -183,7 +207,7 @@ function formatEvent(eleHTML, name, eve, eventText = eve) {
             }
             break
         default:
-            TOOLBAR.append(createButton(eve, name, eventText));
+            getButtonsGroupContainer().append(createButton(findEventText(eventText), name, eve, 'elementButton'));
     }
 }
 
