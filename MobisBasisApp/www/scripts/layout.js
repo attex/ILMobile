@@ -25,6 +25,7 @@ function generateLayout(xml) {
     formatElements(elements, seperatorHeight);
     formatTitle(xmlDoc);
     formatToolbar(xmlDoc);
+    hideLoader();
 }
 
 function formatTitle(xmlDoc) {

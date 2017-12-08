@@ -36,6 +36,9 @@
 function elementToXML(ele, source, key) {
     var xml = `<element events="${escapeXml($(ele).attr('events'))}" image="${escapeXml($(ele).attr('image'))}" name="${escapeXml($(ele).attr('name'))}" type="${escapeXml($(ele).attr('type'))}"`;
     if ($(ele).hasClass('gridContainer')) {
+        //query here for selected and checked
+        //key should not be needed
+        //else case should then be redundant
         if ($(ele).attr('name') === source) {
             var checkedKeysString = Array.from($('.selected').find('.INT_KEY')).map(function (row) { return $(row).text() }).join(',');
             xml += `> <content> <selected value="${escapeXml(key)}" /> <checked value="${escapeXml(checkedKeysString)}" /> </content> </element>`

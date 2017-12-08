@@ -92,3 +92,8 @@ function selectAll() {
     var tableContainer = $(event.srcElement).closest('.tableContainer');
     $(tableContainer).find('.row').addClass('selected')
 }
+
+function deselectAll() {
+    var tableContainer = $(event.srcElement).closest('.tableContainer');
+    $(tableContainer).find('.row').removeClass('selected')
+}

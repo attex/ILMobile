@@ -3,6 +3,15 @@
 function formatElements(elements, seperatorHeight) {
     //sort in y direction
     elements.sort(function (a, b) { return getYPos(a) - getYPos(b) })
+
+    //create groupContainer if needed
+    if (getYPos(elements[0]) < seperatorHeight) {
+        getUpperGroupContainer();
+    }
+    if (getYPos(elements[elements.length - 1]) > seperatorHeight) {
+        getLowerGroupContainer();
+    }
+
     while (elements.length !== 0) {
 
         //get all elements in the same column
@@ -17,7 +26,7 @@ function formatElements(elements, seperatorHeight) {
         var container = yPos < seperatorHeight ? getUpperGroupContainer() : getLowerGroupContainer();
 
         //formating elements in one column and adding enumeration
-        var column = $(document.createElement('div')).addClass('columnContainer').addClass(`quantity-${eleArray.length}`).addClass(`firstName-${$(eleArray[0]).attr('name')}`);
+        var column = $(document.createElement('div')).addClass('columnContainer').addClass(`quantity-${eleArray.length}`).addClass(`firstName-${$(eleArray[0]).attr('name')}`).addClass(`firstType-${$(eleArray[0]).attr('type')}`);
         for (var i = 0; i < eleArray.length; i++) {
             column.append($(formatElement(eleArray[i])).addClass(`order-${i + 1}`))
         }
@@ -80,30 +89,28 @@ function formatLabelElement(eleXML) {
     return eleHTML;
 }
 
-//make entire container the element
 function formatInputElement(eleXML) {
-    var inputContainer = document.createElement('div');
-    $(inputContainer).addClass('inputContainer');
+    //create inputContainer
+    var inputContainer = $(`<div class="element inputContainer ${$(eleXML).attr('style')}"/>`);
+    passAttributes(eleXML, inputContainer);
 
-    var eleHTML = document.createElement('input');
-    passAttributes(eleXML, eleHTML);
-    $(eleHTML).addClass($(eleXML).attr('style'));
-    $(eleHTML).val($(eleXML).attr('content'));
-
-    var prefix = $(eleXML).find('formatelementproperty[key=PREFIX_LIST]').attr('value');
-    if (prefix !== '' && prefix !== undefined) {
-        var select = document.createElement('select');
-        var prefixes = Array.from(prefix.split(','))
+    //create prefix selector if needed
+    var prefixString = $(eleXML).find('formatelementproperty[key=PREFIX_LIST]').attr('value');
+    if (prefixString !== '' && prefixString !== undefined) {
+        var select = $('<select/>');
+        var prefixes = Array.from(prefixString.split(','))
         for (var i = 0; i < prefixes.length; i++) {
-            var option = document.createElement('option');
-            $(option).text(prefixes[i]);
+            var option = $(`<option>${prefixes[i]}</option>`);
             $(select).append(option);
         }
         $(inputContainer).append(select);
     }
 
-    $(inputContainer).append(eleHTML);
+    //create input field
+    var input = $(`<input value="${$(eleXML).attr('content')}"/>`)
+    $(inputContainer).append(input);
 
+    //create matchcode button if needed
     var event = $(eleXML).attr('events');
     var name = $(eleXML).attr('name');
     if (event === 'CLICK') {
@@ -140,8 +147,8 @@ function formatTableElement(eleXML) {
     $(tableContainer).append(eleHTML);
 
     //format events
-    var eventValues = ($(eleXML).hasAttr('events')) ? ($(eleXML).attr('events')).split(',') : [""];
-    var eventTexts = ($(eleXML).hasAttr('text')) ? ($(eleXML).attr('text')).split(',') : [""];
+    var eventValues = ($(eleXML).hasAttr('events')) ? ($(eleXML).attr('events')).split(',') : [];
+    var eventTexts = ($(eleXML).hasAttr('text')) ? ($(eleXML).attr('text')).split(',') : [];
 
     if (eventValues.length && eventValues.length == eventTexts.length) {
         $(tableContainer).addClass('selectable');
@@ -193,7 +200,7 @@ function formatEvents(eleXML, eleHTML) {
     }
 }
 
-//unify event creation
+//unify signature with createButton signature
 function formatEvent(eleHTML, name, eve, eventText = eve) {
     switch (eve) {
         case 'CLICK':
@@ -203,30 +210,28 @@ function formatEvent(eleHTML, name, eve, eventText = eve) {
                     rows[i].addEventListener("click", handleListClick);
                 }
             } else {
+                //for buttonElements
                 eleHTML.addEventListener("click", getHandler(name, eve));
             }
             break
         default:
+            //for page_down
             getButtonsGroupContainer().append(createButton(findEventText(eventText), name, eve, 'elementButton'));
     }
 }
 
 function getContent(eleHTML) {
-    var type = eleHTML.tagName.toLowerCase();
-
-    switch (type) {
-        case 'input':
-            return getInputContent(eleHTML);
-        default:
-            return $(eleHTML).text();
+    if ($(eleHTML).hasClass('inputContainer')) {
+        return getInputContent(eleHTML);
+    } else {
+        return $(eleHTML).text();
     }
 }
 
-function getInputContent(eleHTML) {
-    var inputContainer = $(eleHTML).parent('.inputContainer');
+function getInputContent(inputContainer) {
     var select = $(inputContainer).find('select');
     var prefix = (select.length) ? select.val() : "";
-    var input = $(eleHTML).val();
+    var input = $(inputContainer).find('input').val();
 
     return prefix + input;
 }

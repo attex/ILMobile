@@ -12,7 +12,31 @@
     <style id="styles"></style>
 
     <title>MobisBasisApp</title>
+    <style>
+        #loader {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 1;
+            width: 10em;
+            height: 10em;
+            margin: -5em 0 0 -5em;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            animation: spin 2s linear infinite;
+        }
 
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg)
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="view splitview " id="mainview">
@@ -22,8 +46,11 @@
         </header>
         <div id="toaster"></div>
         <div class="pages mainpages">
-            <div class="panel detail editmodus active">
+            <div class="panel mainPanel detail editmodus active">
                 <div class="detailContainer"></div>
+            </div>
+            <div class="panel loaderPanel">
+                <div id="loader"></div>
             </div>
         </div>
     </div>
@@ -32,6 +59,7 @@
         <div class="tableContainer">
             <div class="buttonContainer selectTools">
                 <button class="button selectButton" onclick="selectAll()">Alles auswählen</button>
+                <button class="button selectButton" onclick="deselectAll()">Alles abwählen</button>
                 <button class="button editButton" onclick="toggleSelectMode()">Bearbeiten</button>
             </div>
         </div>

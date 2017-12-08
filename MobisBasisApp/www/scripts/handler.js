@@ -1,4 +1,5 @@
-﻿function getHandler(source, action) {
+﻿//make this compatible to handleListClick
+function getHandler(source, action) {
     if (source === 'LOGIN' && action === 'ENTER' ) {
         return login;
     } else {
@@ -7,11 +8,14 @@
 }
 
 function handle(source, action) {
+    showLoader();
     var request = generateRequest(source, action);
     callSOAP('processFormat', ['formatXML', request]).then(response => { handleResponse(response) });
 }
 
+//addClass selected to clicked item then call handle
 function handleListClick() {
+    showLoader();
     const action = "CLICK";
     var source = $(event.srcElement).closest('.element').attr('name');
     var key = $(event.srcElement).closest('.row').find('.Key').text();
@@ -19,6 +23,7 @@ function handleListClick() {
     callSOAP('processFormat', ['formatXML', request]).then(response => { handleResponse(response) });
 }
 
+//handle escaped content
 function handleResponse(response) {
     var parsedResponse = $.parseXML(response);
     var layoutXML = $(parsedResponse).find('processFormatReturn').text();
@@ -26,6 +31,7 @@ function handleResponse(response) {
 }
 
 function login() {
+    showLoader();
     var application = "iqu ilm";
     var module = "ILM"
     var project = "IQU;PTF;iqu_ilm50_ox72;iqu_ilm50_ox72_PTF";
@@ -37,9 +43,20 @@ function login() {
     callSOAP('login', ['application', application, 'module', module, 'project', project, 'formatSize', formatSize, 'user', user, 'password', password]).then(response => { handleLoginResponse(response) })
 }
 
+//handle escaped content
 function handleLoginResponse(response) {
     var parsedResponse = $.parseXML(response);
     var layoutXML = $(parsedResponse).find('loginReturn').text();
     window.localStorage.setItem('session', $(layoutXML).find('session').attr('value'));
     generateLayout(layoutXML);
+}
+
+function showLoader() {
+    $('.mainPanel').removeClass('active');
+    $('.loaderPanel').addClass('active');
+}
+
+function hideLoader() {
+    $('.loaderPanel').removeClass('active');
+    $('.mainPanel').addClass('active');
 }
