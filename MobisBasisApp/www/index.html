@@ -13,17 +13,25 @@
 
     <title>MobisBasisApp</title>
     <style>
+        .loaderContainer {
+            position: fixed;
+            min-width: 100%;
+            min-height: calc(100vh - 3.5em);
+            background-color: rgba(0,0,0,0.3);
+            z-index: 1;
+        }
+
         #loader {
             position: absolute;
             left: 50%;
             top: 50%;
-            z-index: 1;
+            z-index: 2;
             width: 10em;
             height: 10em;
             margin: -5em 0 0 -5em;
             border: 16px solid #f3f3f3;
             border-radius: 50%;
-            border-top: 16px solid #3498db;
+            border-top: 16px solid #4f5969;
             animation: spin 2s linear infinite;
         }
 
@@ -41,16 +49,57 @@
 <body>
     <div class="view splitview " id="mainview">
         <header>
+            <a class="naviButton" onclick="toggleConfig()" data-left-menu="left" data-transition="flip" style="float:left">
+                <svg class="menuButtonsvg" id="naviButton" width="30" height="30" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="rect1" x="3" y="5" width="20" height="2" fill="#FFFFFF" />
+                    <rect class="rect2" x="3" y="11" width="20" height="2" fill="#FFFFFF" />
+                    <rect class="rect3" x="3" y="17" width="20" height="2" fill="#FFFFFF" />
+                </svg>
+            </a>
             <h1>MobisBasisApp</h1>
             <div class="shine"></div><a state="" class="onlineState toolbar"></a>
         </header>
         <div id="toaster"></div>
         <div class="pages mainpages">
             <div class="panel mainPanel detail editmodus active">
+                <div class="loaderContainer">
+                    <div id="loader"></div>
+                </div>
                 <div class="detailContainer"></div>
             </div>
-            <div class="panel loaderPanel">
-                <div id="loader"></div>
+            <div class="panel configPanel detail editmodus">
+                <div class="groupContainer">
+                    <div class="columnContainer">
+                        <label>Geben Sie die gewünschte Konfiguration ein</label>
+                    </div>
+                    <div class="columnContainer">
+                        <label>Host:</label>
+                        <input class="host" />
+                    </div>
+                    <div class="columnContainer">
+                        <label>Anwendung:</label>
+                        <input class="application" />
+                    </div>
+                    <div class="columnContainer">
+                        <label>Modul:</label>
+                        <input class="module" />
+                    </div>
+                    <div class="columnContainer">
+                        <label>Projekte:</label>
+                        <input class="projects" />
+                    </div>
+                    <div class="columnContainer">
+                        <label>Benutzer:</label>
+                        <input class="user" />
+                    </div>
+                    <div class="columnContainer">
+                        <label>Passwort:</label>
+                        <input class="password" />
+                    </div>
+                    <div class="buttonContainer">
+                        <button class="button" onclick="saveConfig()">Speichern</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -81,5 +130,6 @@
     <script type="text/javascript" src="scripts/element.js"></script>
     <script type="text/javascript" src="scripts/grid.js"></script>
     <script type="text/javascript" src="scripts/handler.js"></script>
+    <script type="text/javascript" src="scripts/config.js"></script>
 </body>
 </html>

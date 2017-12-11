@@ -1,5 +1,5 @@
 ﻿const TITLE = $('header').find('h1');
-const DETAILCONTAINER = $('.detailContainer');
+const MAIN_CONTAINER = $('.mainPanel .detailContainer');
 
 function generateLayout(xml) {
     console.log('Response:\n');
@@ -8,14 +8,16 @@ function generateLayout(xml) {
     resetLayout();
     var xmlDoc = $.parseXML(xml);
 
+    //store main information
     window.localStorage.setItem('project', $(xmlDoc).find('project').attr('value'));
     window.localStorage.setItem('procedure', $(xmlDoc).find('procedure').attr('value'));
     window.localStorage.setItem('format', $(xmlDoc).find('format').attr('value'));
     window.localStorage.setItem('template', $(xmlDoc).find('template').attr('name'));
 
+    //formating identifier "<procedure>_<format>"
     var identifier = `${window.localStorage.getItem('procedure')}_${window.localStorage.getItem('format')}`
     window.localStorage.setItem('identifier', identifier);
-    DETAILCONTAINER.addClass(identifier);
+    MAIN_CONTAINER.addClass(identifier);
 
     //needed to make filter() non-ambiguous
     var elements = Array.from($(xmlDoc).find('element'));
@@ -30,6 +32,7 @@ function generateLayout(xml) {
 
 function formatTitle(xmlDoc) {
     var title = $(xmlDoc).find('formatproperty[key=TITLE]').attr('value');
+    window.localStorage.setItem('title', title);
     TITLE.text(title);
 }
 
@@ -56,19 +59,14 @@ function findEventText(eventText) {
     }
 }
 
-function createButton(text, source, action, className) {
-    var button = document.createElement('button');
-    $(button).addClass('button');
-    $(button).addClass(className);
-    $(button).text(text);
-    $(button).on('click', getHandler(source, action));
-    return button;
+function createButton(text, source, action, buttonClassName) {
+    return $('<button class="button"/>').addClass(buttonClassName).text(text).on('click', getHandler(source, action));
 }
 
 function resetLayout() {
     TITLE.text('');
-    DETAILCONTAINER.empty();
-    DETAILCONTAINER.removeClass(window.localStorage.getItem('identifier'));
+    MAIN_CONTAINER.empty();
+    MAIN_CONTAINER.removeClass(window.localStorage.getItem('identifier'));
     window.localStorage.removeItem('identifier')
     window.localStorage.removeItem('template')
 }
@@ -89,7 +87,7 @@ function getGroupContainer(type) {
     var groupContainer = $(`.detailContainer .groupContainer.${type}`);
     if (!groupContainer.length) {
         groupContainer = $(`<div class="groupContainer ${type}"/>`);
-        DETAILCONTAINER.append(groupContainer);
+        MAIN_CONTAINER.append(groupContainer);
     }
     return groupContainer;
 }

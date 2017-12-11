@@ -1,6 +1,5 @@
-﻿const URL = "http://192.168.230.41:8585/services/MobisPortal.jws?wsdl";
-
-function callSOAP(fname, rawparams) {
+﻿function callSOAP(fname, rawparams) {
+    var URL = window.localStorage.getItem(HOST_STRING);;
     return new Promise(function (resolve, reject) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open('POST', URL);
