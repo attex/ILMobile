@@ -71,7 +71,9 @@ function formatElement(eleXML) {
         case 'TextBox':
             return formatInputElement(eleXML);
         case 'Button':
-            return formatButtonElement(eleXML)
+            return formatButtonElement(eleXML);
+        case 'CheckBox':
+            return formatCheckBoxElement(eleXML);
         case 'List':
             return formatListElement(eleXML);
         case 'TABLE':
@@ -84,14 +86,13 @@ function formatElement(eleXML) {
 function formatLabelElement(eleXML) {
     var eleHTML = document.createElement('label');
     passAttributes(eleXML, eleHTML);
-    $(eleHTML).addClass($(eleXML).attr('style'));
     $(eleHTML).text($(eleXML).attr('content'));
     return eleHTML;
 }
 
 function formatInputElement(eleXML) {
     //create inputContainer
-    var inputContainer = $(`<div class="element inputContainer ${$(eleXML).attr('style')}"/>`);
+    var inputContainer = $('<div class="inputContainer"/>');
     passAttributes(eleXML, inputContainer);
 
     //create prefix selector if needed
@@ -131,6 +132,15 @@ function formatButtonElement(eleXML) {
     return eleHTML;
 }
 
+function formatCheckBoxElement(eleXML) {
+    var eleHTML = $('<input/>');
+    passAttributes(eleXML, eleHTML);
+    var isChecked = $(eleXML).attr('content').toLowerCase() === 'true';
+    $(eleXML).prop('checked', isChecked);
+
+    return eleHTML;
+}
+
 //unify event handling processing
 function formatListElement(eleXML) {
     var eleHTML = formatGrid(eleXML, 'list');
@@ -160,6 +170,7 @@ function formatTableElement(eleXML) {
 
 function passAttributes(eleXML, eleHTML) {
     $(eleHTML).addClass(ELEMENT_CLASS);
+    $(eleHTML).addClass($(eleXML).attr('style'))
     $(eleHTML).attr('events', $(eleXML).attr('events'));
     $(eleHTML).attr('image', $(eleXML).attr('image'));
     $(eleHTML).attr('name', $(eleXML).attr('name'));
@@ -223,6 +234,8 @@ function formatEvent(eleHTML, name, eve, eventText = eve) {
 function getContent(eleHTML) {
     if ($(eleHTML).hasClass('inputContainer')) {
         return getInputContent(eleHTML);
+    } else if ($(eleHTML).attr('type') === 'CheckBox') {
+        return `${eleHTML.checked}`;
     } else {
         return $(eleHTML).text();
     }

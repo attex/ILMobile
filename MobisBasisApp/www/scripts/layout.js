@@ -27,6 +27,10 @@ function generateLayout(xml) {
     formatElements(elements, seperatorHeight);
     formatTitle(xmlDoc);
     formatToolbar(xmlDoc);
+
+    //add Button quantity
+    getButtonsGroupContainer().addClass(`quantity-${getButtonsGroupContainer().children().length}`)
+
     hideLoader();
 }
 

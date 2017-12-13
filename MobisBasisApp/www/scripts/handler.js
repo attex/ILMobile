@@ -14,6 +14,7 @@ function handle(source, action) {
 }
 
 //addClass selected to clicked item then call handle
+//make this compatible to handle()
 function handleListClick() {
     showLoader();
     const action = "CLICK";
@@ -25,12 +26,12 @@ function handleListClick() {
 
 function login() {
     showLoader();
-    var application = window.localStorage.getItem(APPLICATION_STRING);
-    var module = window.localStorage.getItem(MODULE_STRING);
-    var project = window.localStorage.getItem(PROJECTS_STRING);
+    var application = escapeXml(window.localStorage.getItem(APPLICATION_STRING));
+    var module = escapeXml(window.localStorage.getItem(MODULE_STRING));
+    var project = escapeXml(window.localStorage.getItem(PROJECTS_STRING));
     var formatSize = "PDA";
-    var user = getContent("[name='e7']");
-    var password = getContent("[name='e15']");
+    var user = escapeXml(getContent($("[name='e7']")));
+    var password = escapeXml(getContent($("[name='e15']")));
     callSOAP('login', ['application', application, 'module', module, 'project', project, 'formatSize', formatSize, 'user', user, 'password', password]).then(response => { handleResponse(response) })
 }
 
