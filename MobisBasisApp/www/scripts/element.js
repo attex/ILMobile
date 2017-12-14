@@ -17,6 +17,7 @@ function formatElements(elements, seperatorHeight) {
         //get all elements in the same column
         var yPos = getYPos(elements[0]);
         var eleArray = elements.filter(function (ele) { return ((yPos + 5) > getYPos(ele)) })
+        //maybe slice?
         elements.splice(0, eleArray.length)
 
         //sort in x direction
@@ -26,10 +27,25 @@ function formatElements(elements, seperatorHeight) {
         var container = yPos < seperatorHeight ? getUpperGroupContainer() : getLowerGroupContainer();
 
         //formating elements in one column and adding enumeration
-        var column = $(document.createElement('div')).addClass('columnContainer').addClass(`quantity-${eleArray.length}`).addClass(`firstName-${$(eleArray[0]).attr('name')}`).addClass(`firstType-${$(eleArray[0]).attr('type')}`);
+        var column = $(document.createElement('div'))
+            .addClass('columnContainer')
+            .addClass(`quantity-${eleArray.length}`)
+            .addClass(`firstName-${$(eleArray[0]).attr('name')}`)
+
+        var types = "";
         for (var i = 0; i < eleArray.length; i++) {
-            column.append($(formatElement(eleArray[i])).addClass(`order-${i + 1}`))
+            let formatted = $(formatElement(eleArray[i]));
+            column.append(formatted);
+
+            let eleHTML = $(formatted).find('.element').addBack('.element');
+
+            $(eleHTML).addClass(`order-${i + 1}`)
+
+            let classes = $(eleHTML).attr('class').split(' ');
+            types += `-${classes[classes.length - 2]}`
         }
+
+        column.addClass(types.slice(1));
 
         //add empty tag if necessary
         if (columnIsEmpty(column)) {
@@ -170,7 +186,7 @@ function formatTableElement(eleXML) {
 
 function passAttributes(eleXML, eleHTML) {
     $(eleHTML).addClass(ELEMENT_CLASS);
-    $(eleHTML).addClass($(eleXML).attr('style'))
+    $(eleHTML).addClass($(eleXML).attr('style').split(' ')[0]);
     $(eleHTML).attr('events', $(eleXML).attr('events'));
     $(eleHTML).attr('image', $(eleXML).attr('image'));
     $(eleHTML).attr('name', $(eleXML).attr('name'));
@@ -250,5 +266,9 @@ function getInputContent(inputContainer) {
 }
 
 function getAllElements() {
-    return Array.from($(`.${ELEMENT_CLASS}`));
+    return Array.from($(`.${ELEMENT_CLASS}`)).sort(function (a, b) { return getENumber(a) - getENumber(b) })
+}
+
+function getENumber(ele) {
+    return parseInt($(ele).attr('name').slice(1));
 }

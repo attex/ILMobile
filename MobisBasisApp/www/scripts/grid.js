@@ -10,8 +10,11 @@ function createGridHeaderContainer(columnValues) {
     $(gridHeaderContainer).addClass('headerContainer');
 
     for (let i = 0; i < columnValues.length; i++) {
-        $(gridHeaderContainer).append(createGridHeader(columnValues[i].replace(/§%DEC\(44\)%§/g, ".")))
+        $(gridHeaderContainer).append($(createGridHeader(columnValues[i].replace(/§%DEC\(44\)%§/g, ".")))
+            .addClass(`order-${i + 1}`))
     }
+
+    $(gridHeaderContainer).addClass(`quantity-${columnValues.length}`)
 
     return gridHeaderContainer;
 }
@@ -40,8 +43,11 @@ function createRow(columnValues, rowValues) {
     $(row).addClass('row');
 
     for (let i = 0; i < columnValues.length; i++) {
-        $(row).append(createItem(columnValues[i].replace(/§%DEC\(44\)%§/g, "."), rowValues[i].replace(/§%DEC\(44\)%§/g, ".")));
+        $(row).append($(createItem(columnValues[i].replace(/§%DEC\(44\)%§/g, "."), rowValues[i].replace(/§%DEC\(44\)%§/g, ".")))
+            .addClass(`order-${i + 1}`));
     }
+
+    $(row).addClass(`quantity-${columnValues.length}`)
 
     return row;
 }
