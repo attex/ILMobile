@@ -30,8 +30,6 @@ function generateLayout(xml) {
 
     //add Button quantity
     getButtonsGroupContainer().addClass(`quantity-${getButtonsGroupContainer().children().length}`)
-
-    hideLoader();
 }
 
 function formatTitle(xmlDoc) {

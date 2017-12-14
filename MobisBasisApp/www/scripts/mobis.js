@@ -14,7 +14,7 @@
            var module = "WEB";
         }
         $.when(
-            callSOAP("projectLogin", ["username", username, "passwordd", password, "application", application, "version", "3.00", "module", module, "projects", "*SERVER", "params", "3E95094F800D;54E1AD09856E;3C95094F800D;3C95094F800E"])
+            handleSOAP("projectLogin", ["username", username, "passwordd", password, "application", application, "version", "3.00", "module", module, "projects", "*SERVER", "params", "3E95094F800D;54E1AD09856E;3C95094F800D;3C95094F800E"])
         ).then(data => {
             window.sessionID = getSessionId(data);
             console.log("Retrieved ID: " + window.sessionID);

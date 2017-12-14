@@ -1,8 +1,46 @@
-﻿function callSOAP(fname, rawparams) {
-    var URL = window.localStorage.getItem(HOST_STRING);;
+﻿function handleSOAP(fname, keys, values) {
+    showLoader();
+    var url = window.localStorage.getItem(HOST_STRING);
+    var query = getQuery(fname, keys, values);
+
+    executeSOAP(url, query)
+        .then(handleResponse)
+        .catch(handleError)
+        .finally(hideLoader)
+}
+
+function handleResponse(response) {
+    var parsedResponse = $.parseXML(response);
+
+    var loginReturn = $(parsedResponse).find('loginReturn');
+    var processFormatReturn = $(parsedResponse).find('processFormatReturn');
+    if (loginReturn.length) {
+        handleXML(loginReturn.text(), true);
+    } else {
+        handleXML(processFormatReturn.text(), false);
+    }
+}
+
+function handleXML(xml, isLogin) {
+    if ($(xml).find('error[value=true]').length) {
+        handleError($(xml).find('message').attr('value'));
+    } else {
+        if (isLogin) {
+            window.localStorage.setItem('session', $(xml).find('session').attr('value'));
+        }
+        generateLayout(xml);
+    }
+}
+
+//FIXM: toast not working
+function handleError(errorString) {
+    $.afui.toast({ message: errorString });
+}
+
+function executeSOAP(url, query) {
     return new Promise(function (resolve, reject) {
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open('POST', URL);
+        xmlhttp.open('POST', url);
         xmlhttp.setRequestHeader('Content-Type', 'text/xml');
         xmlhttp.setRequestHeader("SOAPAction", 'text');
 
@@ -18,20 +56,17 @@
             reject(`[SOAP] Error: ${this.status} ${this.statusText}`);
         };
 
-        var query = getSOAPString(fname, rawparams);
         xmlhttp.send(query);
     });
 }
 
-function getSOAPString(fname, params) {
+function getQuery(fname, keys, values) {
+    var escapedValues = values.map(escapeXml);
     var paramstring = '';
-    var type = '';
-    for (var i = 0; i < params.length; i += 2) {
-        type = "xsd:string";
-        paramstring += '<' + params[i] + ' xsi:type="' + type + '">' + params[i + 1] + '</' + params[i] + '>';
+    for (var i = 0; i < keys.length; i++) {
+        paramstring += `<${keys[i]} xsi:type="xsd:string">${escapedValues[i]}</${keys[i]}>`;
     }
-    var sr =
-        '<?xml version="1.0" encoding="utf-8"?>' +
+    return '<?xml version="1.0" encoding="utf-8"?>' +
         '<soapenv:Envelope ' +
         'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
         'xmlns:api="http://127.0.0.1/Integrics/Enswitch/API" ' +
@@ -43,6 +78,12 @@ function getSOAPString(fname, params) {
         '</api:' + fname + '>' +
         '</soapenv:Body>' +
         '</soapenv:Envelope>';
+}
 
-    return sr;
+function showLoader() {
+    $('.loaderContainer').show();
+}
+
+function hideLoader() {
+    $('.loaderContainer').hide();
 }

@@ -30,7 +30,7 @@
     console.log('Request:\n');
     console.log(request);
 
-    return escapeXml(request);
+    return request;
 }
 
 function elementToXML(ele, source, key) {
