@@ -12,14 +12,15 @@ function handle(source, action) {
     handleSOAP('processFormat', ['formatXML'], [request]);
 }
 
-//addClass selected to clicked item then call handle
-//make this compatible to handle()
+//change classNames to their xml counterpart
 function handleListClick() {
-    const action = "CLICK";
     var source = $(event.srcElement).closest('.element').attr('name');
-    var key = $(event.srcElement).closest('.row').find('.Key').text();
-    var request = generateRequest(source, action, key);
-    handleSOAP('processFormat', ['formatXML'], [request]);
+    const action = "CLICK";
+
+    //mark selected row
+    var key = $(event.srcElement).closest('.row').addClass('clicked');
+
+    handle(source, action);
 }
 
 function login() {

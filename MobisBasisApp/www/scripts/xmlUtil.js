@@ -1,6 +1,4 @@
-﻿function generateRequest(source, action, key = "") {
-    var elements = getAllElements();
-
+﻿function generateRequest(source, action) {
     var request = "<?xml version= \"1.0\" encoding= \"utf-16\" ?>";
     request += "<mobis>"
     request += "<header>"
@@ -19,9 +17,9 @@
     request += "</callback>"
     request += `<events value="${escapeXml(localStorage.getItem('events'))}"/>`
     request += "<elements>"
+    var elements = getAllElements();
     for (var i = 0; i < elements.length; i++) {
-        var ele = elements[i];
-        request += elementToXML(ele, source, key);
+        request += elementToXML(elements[i], source);
     }
     request += "</elements>"
     request += "</template>"
@@ -33,18 +31,15 @@
     return request;
 }
 
-function elementToXML(ele, source, key) {
+function elementToXML(ele, source) {
     var xml = `<element events="${escapeXml($(ele).attr('events'))}" image="${escapeXml($(ele).attr('image'))}" name="${escapeXml($(ele).attr('name'))}" type="${escapeXml($(ele).attr('type'))}"`;
     if ($(ele).hasClass('gridContainer')) {
-        //query here for selected and checked
-        //key should not be needed
-        //else case should then be redundant
-        if ($(ele).attr('name') === source) {
-            var checkedKeysString = Array.from($('.selected').find('.INT_KEY')).map(function (row) { return $(row).text() }).join(',');
-            xml += `> <content> <selected value="${escapeXml(key)}" /> <checked value="${escapeXml(checkedKeysString)}" /> </content> </element>`
-        } else {
-            xml += `> <content> <selected value="" /> <checked value="" /> </content> </element>`
-        }
+        var key = $(ele).find('.clicked .Key').text();
+        var checkedKeysString = Array.from($(ele).find('.selected .INT_KEY'))
+            .map(function (row) { return $(row).text() })
+            .join(',');
+
+        xml += `> <content> <selected value="${escapeXml(key)}" /> <checked value="${escapeXml(checkedKeysString)}" /> </content> </element>`
     } else {
         xml += ` content="${escapeXml(getContent(ele))}" />`
     }
