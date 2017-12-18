@@ -64,7 +64,7 @@ function findEventText(eventText) {
 }
 
 function createButton(text, source, action, buttonClassName) {
-    return $('<button class="button"/>').addClass(buttonClassName).text(text).on('click', getHandler(source, action));
+    return $('<button class="button" style="button"/>').addClass(buttonClassName).text(text).on('click', getHandler(source, action));
 }
 
 function resetLayout() {

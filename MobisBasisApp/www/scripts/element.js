@@ -140,11 +140,8 @@ function formatInputElement(eleXML) {
 }
 
 function formatButtonElement(eleXML) {
-    var eleHTML = document.createElement('button');
+    var eleHTML = createButton($(eleXML).attr('content'), $(eleXML).attr('name'), 'click', 'elementButton');
     passAttributes(eleXML, eleHTML);
-    $(eleHTML).text($(eleXML).attr('content'));
-
-    formatEvents(eleXML, eleHTML);
 
     return eleHTML;
 }
@@ -195,15 +192,11 @@ function passAttributes(eleXML, eleHTML) {
 }
 
 function formatStyle(eleXML, eleHTML) {
-    var style;
-    if ($(eleXML).attr('type') === 'button') {
-        style = "button";
-    } else {
-        var styleString = $(eleXML).attr('style');
-        style = styleString ? styleString.split(' ')[0] : 'unknownStyle';
+    if ($(eleXML).hasAttr('style')) {
+        let style = $(eleXML).attr('style');
+        $(eleHTML).addClass(style);
+        $(eleHTML).attr('style', style);
     }
-    $(eleHTML).addClass(style);
-    $(eleHTML).attr('style', style);
 }
 
 function formatGrid(eleXML, type) {
@@ -249,9 +242,6 @@ function formatEvent(eleHTML, name, eve, eventText = eve) {
                 for (let i = 0; i < rows.length; i++) {
                     rows[i].addEventListener("click", handleListClick);
                 }
-            } else {
-                //for buttonElements
-                eleHTML.addEventListener("click", getHandler(name, eve));
             }
             break
         default:
