@@ -21,9 +21,9 @@ function createGridHeaderContainer(columnValues) {
 
 function createGridHeader(value) {
     var gridHeader = document.createElement('div');
-    $(gridHeader).addClass('header');
-    $(gridHeader).addClass(value);
-    $(gridHeader).text(value);
+    $(gridHeader).addClass('header')
+        .addClass(value)
+        .text(value);
     return gridHeader;
 }
 

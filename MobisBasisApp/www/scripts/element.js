@@ -32,7 +32,7 @@ function formatElements(elements, seperatorHeight) {
             .addClass(`quantity-${eleArray.length}`)
             .addClass(`firstName-${$(eleArray[0]).attr('name')}`)
 
-        var types = "";
+        var styleList = "";
         for (var i = 0; i < eleArray.length; i++) {
             let formatted = $(formatElement(eleArray[i]));
             column.append(formatted);
@@ -41,11 +41,11 @@ function formatElements(elements, seperatorHeight) {
 
             $(eleHTML).addClass(`order-${i + 1}`)
 
-            let classes = $(eleHTML).attr('class').split(' ');
-            types += `-${classes[classes.length - 2]}`
+            let style = $(eleHTML).attr('style');
+            styleList += `-${style}`
         }
 
-        column.addClass(types.slice(1));
+        column.addClass(styleList.slice(1));
 
         //add empty tag if necessary
         if (columnIsEmpty(column)) {
@@ -78,6 +78,7 @@ function columnIsEmpty(column) {
     return true;
 }
 
+//Element specific formatting
 function formatElement(eleXML) {
     var type = $(eleXML).attr('type');
 
@@ -106,6 +107,7 @@ function formatLabelElement(eleXML) {
     return eleHTML;
 }
 
+//TODO: set Prefix if contained in content
 function formatInputElement(eleXML) {
     //create inputContainer
     var inputContainer = $('<div class="inputContainer"/>');
@@ -140,7 +142,6 @@ function formatInputElement(eleXML) {
 function formatButtonElement(eleXML) {
     var eleHTML = document.createElement('button');
     passAttributes(eleXML, eleHTML);
-    $(eleHTML).addClass('button');
     $(eleHTML).text($(eleXML).attr('content'));
 
     formatEvents(eleXML, eleHTML);
@@ -186,11 +187,23 @@ function formatTableElement(eleXML) {
 
 function passAttributes(eleXML, eleHTML) {
     $(eleHTML).addClass(ELEMENT_CLASS);
-    $(eleHTML).addClass($(eleXML).attr('style').split(' ')[0]);
+    formatStyle(eleXML, eleHTML);
     $(eleHTML).attr('events', $(eleXML).attr('events'));
     $(eleHTML).attr('image', $(eleXML).attr('image'));
     $(eleHTML).attr('name', $(eleXML).attr('name'));
     $(eleHTML).attr('type', $(eleXML).attr('type'));
+}
+
+function formatStyle(eleXML, eleHTML) {
+    var style;
+    if ($(eleXML).attr('type') === 'button') {
+        style = "button";
+    } else {
+        var styleString = $(eleXML).attr('style');
+        style = styleString ? styleString.split(' ')[0] : 'unknownStyle';
+    }
+    $(eleHTML).addClass(style);
+    $(eleHTML).attr('style', style);
 }
 
 function formatGrid(eleXML, type) {

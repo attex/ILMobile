@@ -24,7 +24,9 @@ function generateLayout(xml) {
 
     var seperatorHeight = parseInt($(xmlDoc).find('formatproperty[key=DISPLAYHEIGHT]').attr('value'));
 
-    formatElements(elements, seperatorHeight);
+    if (elements.length) {
+        formatElements(elements, seperatorHeight);
+    }
     formatTitle(xmlDoc);
     formatToolbar(xmlDoc);
 

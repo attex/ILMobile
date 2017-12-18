@@ -1,4 +1,5 @@
-﻿function handleSOAP(fname, keys, values) {
+﻿//added additional hideLoader() calls when finally() is not available
+function handleSOAP(fname, keys, values) {
     showLoader();
     var url = window.localStorage.getItem(HOST_STRING);
     var query = getQuery(fname, keys, values);
@@ -19,6 +20,7 @@ function handleResponse(response) {
     } else {
         handleXML(processFormatReturn.text(), false);
     }
+    hideLoader();
 }
 
 function handleXML(xml, isLogin) {
@@ -35,6 +37,7 @@ function handleXML(xml, isLogin) {
 //FIXM: toast not working
 function handleError(errorString) {
     $.afui.toast({ message: errorString });
+    hideLoader();
 }
 
 function executeSOAP(url, query) {
