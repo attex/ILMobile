@@ -46,10 +46,16 @@ function formatToolbar(xmlDoc) {
     if ($(events).hasAttr('value') && $(events).hasAttr('text')) {
         window.localStorage.setItem('events', events.attr('value'));
         var eventValues = events.attr('value').split(',');
-        var eventTexts = events.attr('text').split(',');
+        var eventTexts = events.attr('text').split(',').map(findEventText);
+        var source = window.localStorage.getItem('template');
+
+        //handles backbutton functionality if template does not include an ESC event
+        if (!eventValues.includes('ESC')) {
+            getEscHandler(source, false);
+        }
 
         for (var i = 0; i < eventValues.length; i++) {
-            getButtonsGroupContainer().append(createButton(findEventText(eventTexts[i]), window.localStorage.getItem('template'), eventValues[i], eventValues[i]));
+            getButtonsGroupContainer().append(createButton(eventTexts[i], source, eventValues[i], eventValues[i]));
         }
     }
 }
@@ -64,7 +70,10 @@ function findEventText(eventText) {
 }
 
 function createButton(text, source, action, buttonClassName) {
-    return $('<button class="button" style="button"/>').addClass(buttonClassName).text(text).on('click', getHandler(source, action));
+    return $('<button class="button" style="button"/>')
+        .addClass(buttonClassName)
+        .text(text)
+        .on('click', { source: source, action: action }, createHandler(source, action));
 }
 
 function resetLayout() {
@@ -73,6 +82,7 @@ function resetLayout() {
     MAIN_CONTAINER.removeClass(window.localStorage.getItem('identifier'));
     window.localStorage.removeItem('identifier')
     window.localStorage.removeItem('template')
+    resetHandler();
 }
 
 function getUpperGroupContainer() {

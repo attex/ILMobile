@@ -4,7 +4,7 @@ function formatElements(elements, seperatorHeight) {
     //sort in y direction
     elements.sort(function (a, b) { return getYPos(a) - getYPos(b) })
 
-    //create groupContainer if needed
+    //create groupContainer if needed (maybe avoidable)
     if (getYPos(elements[0]) < seperatorHeight) {
         getUpperGroupContainer();
     }
@@ -140,7 +140,7 @@ function formatInputElement(eleXML) {
 }
 
 function formatButtonElement(eleXML) {
-    var eleHTML = createButton($(eleXML).attr('content'), $(eleXML).attr('name'), 'click', 'elementButton');
+    var eleHTML = createButton($(eleXML).attr('content'), $(eleXML).attr('name'), 'CLICK', 'elementButton');
     passAttributes(eleXML, eleHTML);
 
     return eleHTML;
@@ -237,6 +237,7 @@ function formatEvents(eleXML, eleHTML) {
 function formatEvent(eleHTML, name, eve, eventText = eve) {
     switch (eve) {
         case 'CLICK':
+            //mit selector arbeiten
             if ($(eleHTML).hasClass('gridContainer list')) {
                 var rows = Array.from($(eleHTML).find('.row'));
                 for (let i = 0; i < rows.length; i++) {

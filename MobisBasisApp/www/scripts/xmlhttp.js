@@ -34,7 +34,6 @@ function handleXML(xml, isLogin) {
     }
 }
 
-//FIXM: toast not working
 function handleError(errorString) {
     $.afui.toast({ message: errorString });
     hideLoader();
