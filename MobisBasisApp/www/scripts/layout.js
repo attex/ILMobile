@@ -1,4 +1,4 @@
-﻿const TITLE = $('header').find('h1');
+﻿const TITLE = $('#mainTitle');
 const MAIN_CONTAINER = $('.mainPanel .detailContainer');
 
 function generateLayout(xml) {

@@ -13,6 +13,10 @@
 
     <title>MobisBasisApp</title>
     <style>
+        #configTitle {
+            display: none;
+        }
+
         .loaderContainer {
             position: fixed;
             min-width: 100%;
@@ -56,7 +60,8 @@
                     <rect class="rect3" x="3" y="17" width="20" height="2" fill="#FFFFFF" />
                 </svg>
             </a>
-            <h1>MobisBasisApp</h1>
+            <h1 id="mainTitle">MobisBasisApp</h1>
+            <h1 id="configTitle">Optionen</h1>
             <div class="shine"></div><a state="" class="onlineState toolbar"></a>
         </header>
         <div id="toaster"></div>
@@ -95,6 +100,18 @@
                     <div class="columnContainer">
                         <label>Passwort:</label>
                         <input class="password" />
+                    </div>
+                    <div class="columnContainer">
+                        <label>Größenformat:</label>
+                        <input class="formatSize" />
+                    </div>
+                    <div class="columnContainer">
+                        <label>Firma:</label>
+                        <input class="company" />
+                    </div>
+                    <div class="columnContainer">
+                        <label>Thema:</label>
+                        <input class="theme" />
                     </div>
                     <div class="buttonContainer">
                         <button class="button" onclick="saveConfig()">Speichern</button>

@@ -17,16 +17,22 @@ function createHandler(source, action) {
     }
 }
 
+//additional method needed for ESC functionality without an ESC event
+//TODO: do this aswell for Enter -> get Config functionality for Enter and Esc 
+//when in configview block generic handler
 function getEscHandler(source, escable) {
     var escFunc = function () {
         handleESC(source, escable);
     };
     $(document).on("backbutton", escFunc);
+    $(document).keyup(createKeyFunc('ESC', escFunc))
     return escFunc;
 }
 
 function handleESC(source, escable) {
-    if (source === 'LOGIN') {
+    if (isInConfigView) {
+
+    } else if (source === 'LOGIN') {
         navigator.app.exitApp()
     } else if (escable) {
         handle(source, 'ESC');
@@ -44,14 +50,16 @@ function createKeyFunc(keyValue, func) {
 function getKeyCode(keyValue) {
     if (keyValue === 'ENTER') {
         return 13;
+    } else if (keyValue === 'ESC') {
+        return 27;
     }
 }
 
 function login() {
-    var application = window.localStorage.getItem(APPLICATION_STRING);
-    var module = window.localStorage.getItem(MODULE_STRING);
-    var project = window.localStorage.getItem(PROJECTS_STRING);
-    var formatSize = "PDA";
+    var application = getConfigValue(APPLICATION_STRING);
+    var module = getConfigValue(MODULE_STRING);
+    var project = getConfigValue(PROJECTS_STRING);
+    var formatSize = getConfigValue(FORMATSIZE_STRING);
     var user = getContent($("[name='e7']"));
     var password = getContent($("[name='e15']"));
     handleSOAP('login', ['application', 'module', 'project', 'formatSize', 'user', 'password'], [application, module, project, formatSize, user, password])
