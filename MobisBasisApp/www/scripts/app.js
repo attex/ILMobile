@@ -1,6 +1,8 @@
 ﻿function initApp() {
     console.log("Initializing App");
     initConfig();
+    loadStyles();
+
 
     //getting safed credentials
     //escaping needed because values are pasted in xml

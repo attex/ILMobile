@@ -1,11 +1,11 @@
-﻿const PAGE = $('.pages.mainpages')
+﻿const MAINVIEW = $('#mainview');
 
 const CONFIG_TITLE = $('#configTitle');
 const MAIN_PANEL = $('.mainPanel');
 const CONFIG_PANEL = $('.configPanel');
 const ACTIVE_CLASS = "active";
 
-var isInConfigView = false
+var isInConfigView = false;
 
 const HOST_STRING = 'host';
 const APPLICATION_STRING = 'application';
@@ -17,6 +17,7 @@ const FORMATSIZE_STRING = 'formatSize';
 const COMPANY_STRING = 'company';
 const THEME_STRING = 'theme';
 const CONFIG_STRING_ARRAY = [HOST_STRING, APPLICATION_STRING, MODULE_STRING, PROJECTS_STRING, USER_STRING, PASSWORD_STRING, FORMATSIZE_STRING, COMPANY_STRING, THEME_STRING]
+const STYLE_STRING_ARRAY = [FORMATSIZE_STRING, COMPANY_STRING, THEME_STRING];
 
 const HOST = $(`.${HOST_STRING}`);
 const APPLICATION = $(`.${APPLICATION_STRING}`);
@@ -56,6 +57,7 @@ function toggleConfig() {
 }
 
 function saveConfig() {
+    deleteStyles();
     for (let i = 0; i < CONFIG_ARRAY.length; i++) {
         saveConfigValue(CONFIG_STRING_ARRAY[i], CONFIG_ARRAY[i].val());
     }
@@ -67,9 +69,6 @@ function initConfig() {
     for (let i = 0; i < CONFIG_ARRAY.length; i++) {
         CONFIG_ARRAY[i].val(getConfigValue(CONFIG_STRING_ARRAY[i]));
     }
-    PAGE.addClass(getConfigValue(FORMATSIZE_STRING))
-        .addClass(getConfigValue(COMPANY_STRING))
-        .addClass(getConfigValue(THEME_STRING))
 }
 
 function saveConfigValue(key, value) {
@@ -78,4 +77,16 @@ function saveConfigValue(key, value) {
 
 function getConfigValue(key) {
     return window.localStorage.getItem(key);
+}
+
+function deleteStyles() {
+    for (let i = 0; i < STYLE_STRING_ARRAY.length; i++) {
+        MAINVIEW.removeClass(getConfigValue(STYLE_STRING_ARRAY[i]));
+    }
+}
+
+function loadStyles() {
+    for (let i = 0; i < STYLE_STRING_ARRAY.length; i++) {
+        MAINVIEW.addClass(getConfigValue(STYLE_STRING_ARRAY[i]));
+    }
 }
