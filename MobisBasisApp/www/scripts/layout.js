@@ -29,6 +29,7 @@ function generateLayout(xml) {
     }
     formatTitle(xmlDoc);
     formatToolbar(xmlDoc);
+    addSpecials();
 
     //add Button quantity
     getButtonsGroupContainer().addClass(`quantity-${getButtonsGroupContainer().children().length}`)
@@ -49,9 +50,14 @@ function formatToolbar(xmlDoc) {
         var eventTexts = events.attr('text').split(',').map(findEventText);
         var source = window.localStorage.getItem('template');
 
+        //handles enter key functionality if template does not include an ENTER event
+        if (!eventValues.includes(ENTER_ACTION)) {
+            createEnterHandler(source, false);
+        }
+
         //handles backbutton functionality if template does not include an ESC event
-        if (!eventValues.includes('ESC')) {
-            getEscHandler(source, false);
+        if (!eventValues.includes(ESC_ACTION)) {
+            createEscHandler(source, false);
         }
 
         for (var i = 0; i < eventValues.length; i++) {
@@ -73,7 +79,7 @@ function createButton(text, source, action, buttonClassName) {
     return $('<button class="button" style="button"/>')
         .addClass(buttonClassName)
         .text(text)
-        .on('click', { source: source, action: action }, createHandler(source, action));
+        .on('click', createHandler(source, action));
 }
 
 function resetLayout() {
@@ -104,6 +110,12 @@ function getGroupContainer(type) {
         MAIN_CONTAINER.append(groupContainer);
     }
     return groupContainer;
+}
+
+function addSpecials() {
+    if (window.localStorage.getItem('template') === LOGIN_SOURCE) {
+        $("[name='e15']").find('input').attr('type', 'password');
+    }
 }
 
 $.fn.hasAttr = function (name) {

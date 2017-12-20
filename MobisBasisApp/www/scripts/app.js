@@ -1,6 +1,5 @@
 ﻿function initApp() {
     console.log("Initializing App");
-    setUpConfig();
     initConfig();
 
     //getting safed credentials

@@ -36,9 +36,6 @@ function setUpConfig() {
     saveConfigValue(PROJECTS_STRING, 'IQU;PTF;iqu_ilm50_ox72;iqu_ilm50_ox72_PTF');
     saveConfigValue(USER_STRING, 'mda2#72');
     saveConfigValue(PASSWORD_STRING, 'mda');
-    saveConfigValue(FORMATSIZE_STRING, 'PDA');
-    saveConfigValue(COMPANY_STRING, 'IQU');
-    saveConfigValue(THEME_STRING, 'Dark');
 }
 
 function toggleConfig() {
