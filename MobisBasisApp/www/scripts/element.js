@@ -140,7 +140,8 @@ function formatInputElement(eleXML) {
 }
 
 function formatButtonElement(eleXML) {
-    var eleHTML = createButton($(eleXML).attr('content'), $(eleXML).attr('name'), 'CLICK', 'elementButton');
+    var eleHTML = createButton($(eleXML).attr('content'), $(eleXML).attr('name'), 'CLICK', 'elementButton').attr('style', 'button');
+    //style attribute will get overridden if the element has a own style
     passAttributes(eleXML, eleHTML);
 
     return eleHTML;

@@ -76,7 +76,7 @@ function findEventText(eventText) {
 }
 
 function createButton(text, source, action, buttonClassName) {
-    return $('<button class="button" style="button"/>')
+    return $('<button class="button"/>')
         .addClass(buttonClassName)
         .text(text)
         .on('click', createHandler(source, action));
@@ -100,7 +100,12 @@ function getLowerGroupContainer() {
 }
 
 function getButtonsGroupContainer() {
-    return getGroupContainer('buttonContainer')
+    var buttonsGroupContainer = getGroupContainer('buttonContainer');
+    if (buttonsGroupContainer.find('.options').length) {
+        return buttonsGroupContainer;
+    } else {
+        return getGroupContainer('buttonContainer').append('<button class="button options" onclick="toggleOptions()"></button>')
+    }
 }
 
 function getGroupContainer(type) {
@@ -110,6 +115,16 @@ function getGroupContainer(type) {
         MAIN_CONTAINER.append(groupContainer);
     }
     return groupContainer;
+}
+
+function toggleOptions() {
+    const openClass = "open";
+    var buttonContainer = getButtonsGroupContainer();
+    if (buttonContainer.hasClass(openClass)) {
+        buttonContainer.removeClass(openClass);
+    } else {
+        buttonContainer.addClass(openClass);
+    }
 }
 
 function addSpecials() {

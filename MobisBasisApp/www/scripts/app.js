@@ -3,7 +3,6 @@
     initConfig();
     loadStyles();
 
-
     //getting safed credentials
     //escaping needed because values are pasted in xml
     var username = window.localStorage.getItem(USER_STRING) ? escapeXml(window.localStorage.getItem(USER_STRING)) : "";
