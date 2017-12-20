@@ -25,10 +25,10 @@ const MODULE = $(`.${MODULE_STRING}`);
 const PROJECTS = $(`.${PROJECTS_STRING}`)
 const USER = $(`.${USER_STRING}`);
 const PASSWORD = $(`.${PASSWORD_STRING}`);
-const SIZEGROUP = $(`.${FORMATSIZE_STRING}`);;
+const FORMATSIZE = $(`.${FORMATSIZE_STRING}`);;
 const COMPANY = $(`.${COMPANY_STRING}`);
 const THEME = $(`.${THEME_STRING}`);
-const CONFIG_ARRAY = [HOST, APPLICATION, MODULE, PROJECTS, USER, PASSWORD, SIZEGROUP, COMPANY, THEME]
+const CONFIG_ARRAY = [HOST, APPLICATION, MODULE, PROJECTS, USER, PASSWORD, FORMATSIZE, COMPANY, THEME]
 
 function setUpConfig() {
     saveConfigValue(HOST_STRING, 'http://192.168.230.41:8585/services/ILMServerPortal.jws');
@@ -37,6 +37,7 @@ function setUpConfig() {
     saveConfigValue(PROJECTS_STRING, 'IQU;PTF;iqu_ilm50_ox72;iqu_ilm50_ox72_PTF');
     saveConfigValue(USER_STRING, 'mda2#72');
     saveConfigValue(PASSWORD_STRING, 'mda');
+    saveConfigValue(FORMATSIZE_STRING, 'PDA');
 }
 
 function toggleConfig() {

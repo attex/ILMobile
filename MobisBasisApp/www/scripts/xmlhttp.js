@@ -21,6 +21,7 @@ function handleResponse(response) {
         handleXML(processFormatReturn.text(), false);
     }
     hideLoader();
+    setFocus();
 }
 
 function handleXML(xml, isLogin) {
@@ -88,4 +89,10 @@ function showLoader() {
 
 function hideLoader() {
     $('.loaderContainer').hide();
+}
+
+function setFocus() {
+    if (window.localStorage.getItem('template') !== LOGIN_SOURCE) {
+        MAIN_CONTAINER.find('input').first().focus();
+    }
 }
