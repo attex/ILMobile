@@ -32,7 +32,7 @@ function generateLayout(xml) {
     addSpecials();
 
     //add Button quantity
-    getButtonsGroupContainer().addClass(`quantity-${getButtonsGroupContainer().children().length}`)
+    getButtonsGroupContainer().addClass(`quantity-${getButtonsGroupContainer().children().length - 1}`)
 }
 
 function formatTitle(xmlDoc) {

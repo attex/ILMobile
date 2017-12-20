@@ -99,6 +99,7 @@ function getKeyCode(action) {
 
 //the login handler
 function login() {
+    removeKeyboardBeforeHandling();
     var application = getConfigValue(APPLICATION_STRING);
     var module = getConfigValue(MODULE_STRING);
     var project = getConfigValue(PROJECTS_STRING);
@@ -110,6 +111,7 @@ function login() {
 
 //the generic handler
 function handle(source, action) {
+    removeKeyboardBeforeHandling();
     var request = generateRequest(source, action);
     handleSOAP('processFormat', ['formatXML'], [request]);
 }
@@ -129,4 +131,8 @@ function handleListClick() {
 //delete all key handler
 function resetHandler() {
     $(document).off('backbutton').off('keyup');
+}
+
+function removeKeyboardBeforeHandling() {
+    $(':focus').blur();
 }

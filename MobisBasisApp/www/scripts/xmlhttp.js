@@ -1,13 +1,17 @@
-﻿//added additional hideLoader() calls when finally() is not available
-function handleSOAP(fname, keys, values) {
-    showLoader();
-    var url = window.localStorage.getItem(HOST_STRING);
-    var query = getQuery(fname, keys, values);
+﻿var canRun = true;
 
-    executeSOAP(url, query)
-        .then(handleResponse)
-        .catch(handleError)
-        .finally(hideLoader)
+//added additional hideLoader() calls when finally() is not available
+function handleSOAP(fname, keys, values) {
+    if (canRun) {
+        start();
+        var url = window.localStorage.getItem(HOST_STRING);
+        var query = getQuery(fname, keys, values);
+
+        executeSOAP(url, query)
+            .then(handleResponse)
+            .catch(handleError)
+            .finally(finish)
+    }
 }
 
 function handleResponse(response) {
@@ -20,7 +24,7 @@ function handleResponse(response) {
     } else {
         handleXML(processFormatReturn.text(), false);
     }
-    hideLoader();
+    finish();
     setFocus();
 }
 
@@ -37,7 +41,7 @@ function handleXML(xml, isLogin) {
 
 function handleError(errorString) {
     $.afui.toast({ message: errorString });
-    hideLoader();
+    finish();
 }
 
 function executeSOAP(url, query) {
@@ -83,16 +87,32 @@ function getQuery(fname, keys, values) {
         '</soapenv:Envelope>';
 }
 
-function showLoader() {
+function start() {
     $('.loaderContainer').show();
+    canRun = false;
 }
 
-function hideLoader() {
+function finish() {
     $('.loaderContainer').hide();
+    canRun = true;
 }
 
 function setFocus() {
     if (window.localStorage.getItem('template') !== LOGIN_SOURCE) {
-        MAIN_CONTAINER.find('input').first().focus();
+        //hack to not show keyboard in initial focus
+        var inputContainer = MAIN_CONTAINER.find('input').first();
+        inputContainer.attr('onfocus', 'moveCursorToEnd(this)');
+        inputContainer.prop('readonly', true);
+        inputContainer.focus();
+        inputContainer.prop('readonly', false);
+    }
+}
+
+function moveCursorToEnd(obj) {
+    if (!(obj.updating)) {
+        obj.updating = true;
+        var oldValue = obj.value;
+        obj.value = '';
+        setTimeout(function () { obj.value = oldValue; obj.updating = false; }, 100);
     }
 }
