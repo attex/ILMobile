@@ -16,7 +16,8 @@ const PASSWORD_STRING = 'password';
 const FORMATSIZE_STRING = 'formatSize';
 const COMPANY_STRING = 'company';
 const THEME_STRING = 'theme';
-const CONFIG_STRING_ARRAY = [HOST_STRING, APPLICATION_STRING, MODULE_STRING, PROJECTS_STRING, USER_STRING, PASSWORD_STRING, FORMATSIZE_STRING, COMPANY_STRING, THEME_STRING]
+const SCANNER_STRING = 'scanner'; 
+const CONFIG_STRING_ARRAY = [HOST_STRING, APPLICATION_STRING, MODULE_STRING, PROJECTS_STRING, USER_STRING, PASSWORD_STRING, FORMATSIZE_STRING, COMPANY_STRING, THEME_STRING, SCANNER_STRING];
 const STYLE_STRING_ARRAY = [FORMATSIZE_STRING, COMPANY_STRING, THEME_STRING];
 
 const HOST = $(`.${HOST_STRING}`);
@@ -28,7 +29,8 @@ const PASSWORD = $(`.${PASSWORD_STRING}`);
 const FORMATSIZE = $(`.${FORMATSIZE_STRING}`);;
 const COMPANY = $(`.${COMPANY_STRING}`);
 const THEME = $(`.${THEME_STRING}`);
-const CONFIG_ARRAY = [HOST, APPLICATION, MODULE, PROJECTS, USER, PASSWORD, FORMATSIZE, COMPANY, THEME]
+const SCANNER = $(`.${SCANNER_STRING}`);
+const CONFIG_ARRAY = [HOST, APPLICATION, MODULE, PROJECTS, USER, PASSWORD, FORMATSIZE, COMPANY, THEME, SCANNER];
 
 function setUpConfig() {
     saveConfigValue(HOST_STRING, 'http://192.168.230.41:8585/services/ILMServerPortal.jws');
@@ -38,6 +40,12 @@ function setUpConfig() {
     saveConfigValue(USER_STRING, 'mda#72');
     saveConfigValue(PASSWORD_STRING, 'mda');
     saveConfigValue(FORMATSIZE_STRING, 'PDA');
+    if (!getConfigValue(THEME_STRING)) {
+        saveConfigValue(THEME_STRING, 'dark')
+    }
+    if (!getConfigValue(SCANNER_STRING)) {
+        saveConfigValue(SCANNER_STRING, 'An')
+    }
 }
 
 function toggleConfig() {
@@ -89,5 +97,16 @@ function deleteStyles() {
 function loadStyles() {
     for (let i = 0; i < STYLE_STRING_ARRAY.length; i++) {
         MAINVIEW.addClass(getConfigValue(STYLE_STRING_ARRAY[i]));
+    }
+}
+
+function scanButtonNeeded() {
+    switch (getConfigValue(SCANNER_STRING)) {
+        case 'An':
+            return true;
+        case 'Aus':
+            return false;
+        default:
+            return true;
     }
 }

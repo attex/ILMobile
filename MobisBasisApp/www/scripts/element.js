@@ -131,7 +131,7 @@ function formatInputElement(eleXML) {
     $(inputContainer).append(input);
 
     //create scan button if needed
-    if (inputContainer.attr('style') === SCAN_STYLE) {
+    if (inputContainer.attr('style') === SCAN_STYLE && scanButtonNeeded()) {
         var scanButton = $('<button class="button scan"/>')
             .click(function () {
                 scanBarcode(input);
