@@ -63,6 +63,12 @@ function executeSOAP(url, query) {
             reject(`[SOAP] Error: ${this.status} ${this.statusText}`);
         };
 
+        xmlhttp.timeout = 15000; // time in milliseconds
+
+        xmlhttp.ontimeout = function (e) {
+            reject(`[SOAP] Error: Timeout`);
+        };
+
         xmlhttp.send(query);
     });
 }

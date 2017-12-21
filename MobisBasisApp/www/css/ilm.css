@@ -1,0 +1,457 @@
+/*------------------------------------------------------*/
+/* Farben                                               */
+/*------------------------------------------------------*/
+/*
+#A89D7D
+#CCBE99
+#E0D0A8
+#DBD2BE
+*/
+
+/* iqu theme */
+header {background-color: #222;}
+.view header h1 {color:#83d0f2;}
+input, .scanner option, .theme option, .theme, .scanner {color:#3f87a6;}
+.groupContainer.upper {background-color:#f4f4f4;}  
+.groupContainer.lower {background-color:#222;}   
+.groupContainer.buttonContainer {background-color:#222;}  
+.columnContainer {border-bottom:1px dotted #f2f2f2;} 
+.groupContainer.upper .columnContainer {background-color:white;} 
+.ORDER  {color:#83d0f2;}
+.groupContainer.lower .ORDER_DISPLAY  {color:inherit;}
+.NOTICE  {color:#db002f;}
+.element.LABEL {}
+.groupContainer.lower .columnContainer:not(.quantity-1) .ORDER  {color:white;}
+.element.VARIABLE_ABC, .element.VARIABLE_123 {color: #3f87a6;}
+.element.LABEL_EDITZONE {color:white;}
+.gridContainer.list.element .rowContainer .row {border-bottom:1px solid transparent;background-color:#eaeadb;}
+.gridContainer.list.element .rowContainer .row .item.Wert  {color:inherit;}
+.button {color: black;background-color: #eaeadb;}
+.button:active {background-color:#db002f;}
+input:focus {border:1px solid #3f87a6;}
+.inputContainer select {background-color:#db002f;color:white;}
+option {color:white;} 
+.tableContainer .headerContainer {background-color:#eaeadb}
+.tableContainer .row {background-color:white;border-bottom: 1px dotted #ccc;}
+/*.buttonContainer.selectTools .button {padding:0.3em;margin:0.7em;margin-right:0;padding-left:1.5em;}*/
+.panel.configPanel.detail {background-color:#ebf1f4;}
+.panel.configPanel.detail .columnContainer label  {color:#6f8295;font-size:0.8em;}
+.groupContainer.lower .columnContainer.quantity-4 .ORDER.element.order-3 {color: white;}
+
+.ERROR_10 .groupContainer.upper .columnContainer.quantity-1.NOTICE {margin-top:0em;border:none;background-color:#db002f;margin-bottom:1em;}
+.ERROR_10 .element.NOTICE {width:100%;margin-top:3em;font-size:1.2em;color:white;text-align:center;}
+
+
+
+
+
+/* Theme Light */
+.light header {background-color: #009edf;}
+.light.view header h1 {color:white;}
+.light input, .light .scanner option, .light .theme option, .light .theme, .light .scanner   {color:#3f87a6;}
+.light .groupContainer.upper {background-color:#f4f4f4;}  
+.light .groupContainer.lower {background-color:#ebf1f4;}   
+.light .groupContainer.buttonContainer {background-color:#ebf1f4;}  
+.light .columnContainer {border-bottom:1px dotted #f2f2f2;} 
+.light .groupContainer.upper .columnContainer {background-color:white;} 
+.light .ORDER  {color:#db002f;}
+.light .groupContainer.lower .ORDER_DISPLAY  {color:inherit}
+.light .NOTICE  {color:#db002f;}
+.light .element.LABEL {}
+.light .groupContainer.lower .columnContainer:not(.quantity-1) .ORDER  {color:#4f5969;}
+.light .element.VARIABLE_ABC {color: #3f87a6;}
+.light .element.VARIABLE_123 {color: #3f87a6;}
+.light .element.LABEL_EDITZONE {color:#4f5969;}
+.light .gridContainer.list.element .rowContainer .row {border-bottom:1px solid transparent;background-color:#eaeadb;}
+.light .gridContainer.list.element .rowContainer .row .item.Wert  {color:inherit;}
+.light .button {color: black;background-color: #eaeadb;}
+.light .button:active {background-color:#db002f;}
+.light input:focus {border:1px solid #3f87a6;}
+.light .inputContainer select {background-color:#db002f;color:white;}
+.light option {color:white;} 
+.light .tableContainer .headerContainer {background-color:#eaeadb}
+.light .tableContainer .row {background-color:white;border-bottom: 1px dotted #ccc;}
+/*.Light .buttonContainer.selectTools .button {padding:0.3em;margin:0.7em;margin-right:0;padding-left:1.5em;}*/
+.light .panel.configPanel.detail {background-color:#ebf1f4;}
+.light .panel.configPanel.detail .columnContainer label  {color:#6f8295;font-size:0.8em;}
+.light .groupContainer.lower .columnContainer.quantity-4 .ORDER.element.order-3 {color: #4f5969;}
+
+.dark .ERROR_10 .groupContainer.upper .columnContainer.quantity-1.NOTICE {margin-top:0em;border:none;background-color:#db002f;margin-bottom:1em;}
+.dark .ERROR_10 .element.NOTICE {width:100%;margin-top:3em;font-size:1.2em;color:white;text-align:center;}
+
+/* Theme oxaion */
+.dark header {background-color: #222;}
+.dark .view header h1 {color:#83d0f2;}
+.dark input, .dark .scanner option, .dark .theme option, .dark .theme, .dark .scanner   {color:#3f87a6;}
+.dark .groupContainer.upper {background-color:#f4f4f4;}  
+.dark .groupContainer.lower {background-color:#222;}   
+.dark .groupContainer.buttonContainer {background-color:#222;}  
+.dark .columnContainer {border-bottom:1px dotted #f2f2f2;} 
+.dark .groupContainer.upper .columnContainer {background-color:white;} 
+.dark .ORDER  {color:#83d0f2;}
+.dark .groupContainer.lower .ORDER_DISPLAY  {color:inherit;}
+.dark .NOTICE  {color:#db002f;}
+.dark .element.LABEL {}
+.dark .groupContainer.lower .columnContainer:not(.quantity-1) .ORDER  {color:white;}
+.dark .element.VARIABLE_ABC {color: #3f87a6;}
+.dark .element.VARIABLE_123 {color: #3f87a6;}
+.dark .element.LABEL_EDITZONE {color:white;}
+.dark .gridContainer.list.element .rowContainer .row {border-bottom:1px solid transparent;background-color:#eaeadb;}
+.dark .gridContainer.list.element .rowContainer .row .item.Wert  {color:inherit;}
+.dark .button {color: black;background-color: #eaeadb;}
+.dark .button:active {background-color:#db002f;}
+.dark input:focus {border:1px solid #3f87a6;}
+.dark .inputContainer select {background-color:#db002f;color:white;}
+.dark option {color:white;} 
+.dark .tableContainer .headerContainer {background-color:#eaeadb}
+.dark .tableContainer .row {background-color:white;border-bottom: 1px dotted #ccc;}
+/*.Dark .buttonContainer.selectTools .button {padding:0.3em;margin:0.7em;margin-right:0;padding-left:1.5em;}*/
+.dark .panel.configPanel.detail {background-color:#ebf1f4;}
+.dark .panel.configPanel.detail .columnContainer label  {color:#6f8295;font-size:0.8em;}
+.dark .groupContainer.lower .columnContainer.quantity-4 .ORDER.element.order-3 {color: white;}
+
+.oxaion .ERROR_10 .groupContainer.upper .columnContainer.quantity-1.NOTICE {margin-top:0em;border:none;background-color:#db002f;margin-bottom:1em;}
+.oxaion .ERROR_10 .element.NOTICE {width:100%;margin-top:3em;font-size:1.2em;color:white;text-align:center;}
+
+
+/*------------------------------------------------------*/
+/* Loader                                      */
+/*------------------------------------------------------*/
+
+#configTitle {
+    display: none;
+}
+
+.loaderContainer {
+    position: fixed;
+    min-width: 100%;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 1;
+}
+
+#loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+    width: 6em;
+    height: 6em;
+    margin: -3em 0 0 -3em;
+    border: 10px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 10px solid #4f5969;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/*------------------------------------------------------*/
+/* Maskenaufbau                                         */
+/*------------------------------------------------------*/
+body {background-color:white;}
+.pages.mainpages {background-color:white;overflow:hidden;} 
+.panel.configPanel.detail {overflow: auto;height: calc(100vh - 2.5em);}
+header {height: 2.5em;}
+.view header h1 {text-shadow: none;font-size: 1.1em;padding-top: 0.5em;}
+.naviButton {top: 0.5em;left: 1em;}
+.pages.mainpages {top: 2.5em;height: calc(100vh - 2.5em);}
+.detailContainer {display: grid;width: 100%;height:calc(100vh - 2.5em);  grid-template: "oben" 1fr  "unten" auto  "toolbar" auto  / 1fr;}
+.groupContainer.upper {grid-area:oben;}   
+.groupContainer.lower   {grid-area:unten;padding: 0.2em;padding-top: 0.4em;}   
+.groupContainer.buttonContainer  {grid-area:toolbar;}   
+
+/*------------------------------------------------------*/
+/* Toolbar                                              */
+/*------------------------------------------------------*/
+.groupContainer.buttonContainer {display:grid;padding:0.5em;}
+.groupContainer.buttonContainer {grid-template-columns:1fr 1fr 1fr;}
+/*.groupContainer.buttonContainer.quantity-4 {grid-template-columns:1fr 1fr 1fr 1fr;}*/
+
+.groupContainer.buttonContainer .button.ESC   {grid-row:1;grid-column:1;justify-self:left;height:3em;margin-top:0;}
+.groupContainer.buttonContainer .button.options {grid-row:1; grid-column:2;justify-self:center;height:2.5em;margin-top:0;align-self:center;}
+.groupContainer.buttonContainer .button.ENTER {grid-row:1; grid-column:3;justify-self:right;height:3em;margin-top:0;}
+/*.groupContainer.buttonContainer.quantity-4 .button.ENTER {grid-row:1; grid-column:4;}*/
+
+.groupContainer.buttonContainer.open {position:absolute;bottom:0;z-index: 1;left: 0;width: 100%;}
+
+.groupContainer.buttonContainer.open .button.ESC     {grid-row:10;grid-column:1;justify-self:left;height:3em;margin-top:0;margin-bottom:0;}
+.groupContainer.buttonContainer.open .button.options {grid-row:10; grid-column:2;justify-self:center;height:2.5em;margin-top:0;align-self:center;margin-bottom:0;}
+.groupContainer.buttonContainer.open .button.ENTER   {grid-row:10; grid-column:3;justify-self:right;height:3em;margin-top:0;margin-bottom:0;}
+.groupContainer.buttonContainer.open .button   {grid-column:1 / 4;justify-self:center;margin-top:0;margin-bottom:0.4em;min-width:50%;}
+.groupContainer.buttonContainer .button {justify-self:center;margin:0;height:2.5em;margin-top:0.5em;}
+
+/*  Optionen ein/ausblenden   */ 
+.groupContainer.buttonContainer.quantity-1 .button.options {display:none;}
+.groupContainer.buttonContainer.quantity-2 .button.options {display:none;}
+.groupContainer.buttonContainer.quantity-3 .button.options {display:none;}
+.groupContainer.buttonContainer.quantity-4 .button.options {display:block;}
+.groupContainer.buttonContainer.quantity-5 .button.options {display:block;}
+.groupContainer.buttonContainer.quantity-6 .button.options {display:block;}
+.groupContainer.buttonContainer.quantity-7 .button.options {display:block;}
+.groupContainer.buttonContainer.quantity-8 .button.options {display:block;}
+.groupContainer.buttonContainer.quantity-9 .button.options {display:block;}
+
+.groupContainer.buttonContainer.quantity-4 .button       {display:none;} 
+.groupContainer.buttonContainer.quantity-5 .button       {display:none;} 
+.groupContainer.buttonContainer.quantity-6 .button       {display:none;} 
+.groupContainer.buttonContainer.quantity-7 .button       {display:none;} 
+.groupContainer.buttonContainer.quantity-8 .button       {display:none;} 
+.groupContainer.buttonContainer.quantity-9 .button       {display:none;} 
+
+.groupContainer.buttonContainer.quantity-4 .button.ESC   {display:block;} 
+.groupContainer.buttonContainer.quantity-5 .button.ESC   {display:block;} 
+.groupContainer.buttonContainer.quantity-6 .button.ESC   {display:block;} 
+.groupContainer.buttonContainer.quantity-7 .button.ESC   {display:block;} 
+.groupContainer.buttonContainer.quantity-8 .button.ESC   {display:block;} 
+.groupContainer.buttonContainer.quantity-9 .button.ESC   {display:block;} 
+
+.groupContainer.buttonContainer.quantity-4 .button.ENTER {display:block;} 
+.groupContainer.buttonContainer.quantity-5 .button.ENTER {display:block;} 
+.groupContainer.buttonContainer.quantity-6 .button.ENTER {display:block;} 
+.groupContainer.buttonContainer.quantity-7 .button.ENTER {display:block;} 
+.groupContainer.buttonContainer.quantity-8 .button.ENTER {display:block;} 
+.groupContainer.buttonContainer.quantity-9 .button.ENTER {display:block;} 
+
+.groupContainer.buttonContainer.quantity-4.open .button  {display:block;} 
+.groupContainer.buttonContainer.quantity-5.open .button  {display:block;} 
+.groupContainer.buttonContainer.quantity-6.open .button  {display:block;} 
+.groupContainer.buttonContainer.quantity-7.open .button  {display:block;} 
+.groupContainer.buttonContainer.quantity-8.open .button  {display:block;} 
+.groupContainer.buttonContainer.quantity-9.open .button  {display:block;} 
+
+/*------------------------------------------------------*/
+/*  Column-Container im oberen Bereich                  */
+/*------------------------------------------------------*/
+.columnContainer {position:relative;float:left;width:100%;margin-bottom:0.2em;padding:0.5em;} 
+.groupContainer.upper .columnContainer.quantity-1.TABELLE {border:0;margin-bottom:0;padding:0;background-color:transparent;}
+.groupContainer.upper .columnContainer.quantity-1.MENU {background-color:transparent;}
+
+/* 1 Teil */
+.groupContainer.upper .columnContainer.quantity-1 {grid-template-columns:100%;}  
+.groupContainer.upper .columnContainer.quantity-1.LABEL {grid-template-columns:100%;}  
+.groupContainer.upper .columnContainer.quantity-1.LABEL .order-1 {grid-row:1;grid-column:1;}
+.groupContainer.upper .columnContainer.quantity-1.VARIABLE_ABC {grid-template-columns:100%;margin-top:-0.4em;font-weight:bold;} 
+.groupContainer.upper .columnContainer.quantity-1.VARIABLE_ABC .order-1 {grid-row:1;grid-column:1;}
+
+/* 2 Teile */
+.groupContainer.upper .columnContainer.quantity-2 {display:grid;grid-template-columns:max-content auto;}
+.groupContainer.upper .columnContainer.quantity-2 .element.order-1 {text-align:left;align-self:center;}    
+.groupContainer.upper .columnContainer.quantity-2 .element.order-2 {text-align:left;align-self:center;}
+.groupContainer.upper .columnContainer.quantity-2 .element.ORDER_DISPLAY.order-1 {margin-right:1em;} 
+.groupContainer.upper .columnContainer.quantity-2 .element.ORDER_DISPLAY.order-2 {font-size: 1.1em;float: right;color: #3f87a6;font-weight:bold;}
+
+.groupContainer.upper .columnContainer.quantity-2.LABEL-LABEL  {display:grid;grid-template-columns:auto auto;}
+.groupContainer.upper .columnContainer.quantity-2.LABEL-LABEL  .element.order-1 {text-align:left;align-self:center;}    
+.groupContainer.upper .columnContainer.quantity-2.LABEL-LABEL  .element.order-2 {text-align:right;align-self:center;font-size:1.1em;color: #3f87a6;}
+
+/* 3 Teile */
+.groupContainer.upper .columnContainer.quantity-3 {display:grid;grid-template-columns:auto max-content max-content;}
+.groupContainer.upper .columnContainer.quantity-3 .element.order-2 {text-align:right;} 
+.groupContainer.upper .columnContainer.quantity-3 .element.order-3 {text-align:right;padding-left:0.5em;} 
+                                                       
+/*------------------------------------------------------*/
+/* columnContainer im unteren Bereich                   */
+/*------------------------------------------------------*/
+.groupContainer.lower .columnContainer {display:grid;grid-gap:0; grid-column-gap:5px;border:0}
+.groupContainer.lower .columnContainer.quantity-4  .ORDER.element.order-3 {font-size:1.1em;text-align:right;align-self:center;}       
+.groupContainer.lower .columnContainer.quantity-4  .element.order-4 {font-size:1.1em;color:initial;text-align:right;align-self:center;} 
+
+/* 2 Teile */
+.groupContainer.lower .columnContainer.quantity-2  {grid-template-columns:auto 0;}   
+.groupContainer.lower .columnContainer.quantity-2 .element.order-1 {grid-row:1;grid-column:1;}
+.groupContainer.lower .columnContainer.quantity-2 .element.order-2 {grid-row:2;grid-column:1;}
+.groupContainer.lower .columnContainer.quantity-2.INPUT_123-LABEL_EDITZONE {grid-template-columns:100%;}   
+.groupContainer.lower .columnContainer.quantity-2.INPUT_123-LABEL_EDITZONE .element.order-1 {grid-row:1;grid-column:1;}
+.groupContainer.lower .columnContainer.quantity-2.INPUT_123-LABEL_EDITZONE .element.order-2 {grid-row:1;grid-column:auto;font-size:1.1em;color:initial;text-align:right;align-self:center;width:10em;margin-left:-11em;}    
+.groupContainer.lower .columnContainer.quantity-2.INPUT_ABC-INPUT_ABC {grid-template-columns:70% 30%;}   
+.groupContainer.lower .columnContainer.quantity-2.INPUT_ABC-INPUT_ABC .element.order-1 {grid-row:1;grid-column:1;}
+.groupContainer.lower .columnContainer.quantity-2.INPUT_ABC-INPUT_ABC .element.order-2 {grid-row:1;grid-column:2;}    
+.groupContainer.lower .columnContainer.quantity-2.INPUT_123-INPUT_ABC {grid-template-columns:70% 30%;}   
+.groupContainer.lower .columnContainer.quantity-2.INPUT_123-INPUT_ABC .element.order-1 {grid-row:1;grid-column:1;}
+.groupContainer.lower .columnContainer.quantity-2.INPUT_123-INPUT_ABC .element.order-2 {grid-row:1;grid-column:2;}    
+
+/* 3 Teile */
+.groupContainer.lower .columnContainer.quantity-3.ORDER-INPUT_123-ORDER  {grid-template-columns:auto 0;}   
+.groupContainer.lower .columnContainer.quantity-3.ORDER-INPUT_123-ORDER .element.order-1 {grid-row:1;grid-column:1;}
+.groupContainer.lower .columnContainer.quantity-3.ORDER-INPUT_123-ORDER .element.order-2 {grid-row:2;grid-column:1;}
+.groupContainer.lower .columnContainer.quantity-3.ORDER-INPUT_123-ORDER .element.order-3 {font-size:1.1em;color:initial;text-align:right;align-self:center;width:5em;margin-left:-6em;margin-bottom:-2.8em;}    
+
+/* 4 Teile */
+.groupContainer.lower .columnContainer.quantity-4.ORDER-INPUT_123-ORDER-LABEL_EDITZONE {grid-template-columns: auto auto 4em;}
+.groupContainer.lower .columnContainer.quantity-4.ORDER-INPUT_123-ORDER-LABEL_EDITZONE .element.order-1 {grid-row:1;grid-column:1;}
+.groupContainer.lower .columnContainer.quantity-4.ORDER-INPUT_123-ORDER-LABEL_EDITZONE .element.order-2 {grid-row:2;grid-column:1;}
+.groupContainer.lower .columnContainer.quantity-4.ORDER-INPUT_123-ORDER-LABEL_EDITZONE .element.order-3 {grid-row:2;grid-column:2;}
+.groupContainer.lower .columnContainer.quantity-4.ORDER-INPUT_123-ORDER-LABEL_EDITZONE .element.order-4 {grid-row:2;grid-column:3;}     
+          
+/*------------------------------------------------------*/
+/* Elemente                                             */
+/*------------------------------------------------------*/
+.empty  {display:none;} 
+.ORDER, .ORDER_DISPLAY  {font-size:1.0em;}
+.NOTICE  {font-size:1.2em;text-align:center;padding-top:1em;width:100%;}
+.element.LABEL {font-size:1em;}
+.groupContainer.upper .columnContainer .element.LABEL {margin-right:1em;}
+.groupContainer.lower .columnContainer:not(.quantity-1) .ORDER  {font-size:0.8em;margin-right:1em;}
+
+.element.VARIABLE_ABC, .element.VARIABLE_123 {font-size:1em;float:right;font-weight:bold;}
+.element.LABEL_EDITZONE {font-size:0.8em;}
+.gridContainer.list.element {position:relative;float:left;width:100%;padding:0;}
+.gridContainer.list.element .headerContainer {display:none;}
+.gridContainer.list.element .rowContainer {position:relative;float:left;width:100%;}
+.gridContainer.list.element .rowContainer .row {position:relative;float:left;width:100%;padding:1em;cursor:pointer; margin-bottom:0.5em; }
+.gridContainer.list.element .rowContainer .row {background-image: url(../icons/icons8-more-than-filled-40.png);background-position-x:calc(100% - 10px);background-position-y:1.1em;background-size: 1.5em;background-repeat: no-repeat;}
+.gridContainer.list.element .rowContainer .row .item  {display:none;}
+.gridContainer.list.element .rowContainer .row .item.Wert  {display:block;width:100%;font-size:1.2em;min-height:1.2em;font-weight:normal;}
+.panel .toolbar {width:100%;position:relative;float:left;bottom:0;padding:1em;}
+.button {padding: 0.5em;width: auto;font-size: 1em;min-width:5em;float:right;margin-left:1em;cursor:pointer;}
+input {border:1px solid transparent;padding:0.35em;}
+.inputContainer {display: flex;flex-direction: row;}
+.inputContainer input {flex: 1;}
+.inputContainer select {border:none;height: auto;width:4em;font-weight:bold;font-size:1em;padding-left:0.5em;}
+.theme, .scanner  {border:1px solid transparent;padding:0.35em;border:none;width:100%;}
+
+/* Loader  */
+.loaderContainer {min-height: calc(100vh - 2.5em) !important;}
+
+ /* Tebelle */
+.tableContainer {display: grid;width: 100%;height:auto;  grid-template: "buttonoben" auto  "liste" 1fr  "buttonunten" auto  / 1fr;padding:0.3em;}
+.buttonContainer.selectTools {grid-area:buttonoben;}   
+.gridContainer.table         {grid-area:liste;}   
+.buttonContainer.functions   {grid-area:buttonunten;}   
+.tableContainer .rowContainer {max-height:calc(100vh - 30em);overflow-y: overlay;position: relative;float: left;width: 100%;margin-bottom:0.5em;}
+.tableContainer .headerContainer {padding:0.5em;}
+.tableContainer .row {padding:0.5em;}
+.tableContainer .headerContainer .header.Key, .tableContainer .headerContainer .header.INT_KEY, .tableContainer .rowContainer .item.INT_KEY {display:none;}
+.tableContainer .buttonContainer.functions {position:relative;float:left;width:100%;display:none;}
+.buttonContainer.selectTools {display:none;}
+.tableContainer.selectable .buttonContainer.selectTools {display:block;position:relative;float:left;width:100%;}
+.tableContainer.selectMode .buttonContainer.functions {display:flex;justify-content: center;}
+.tableContainer.selectMode .buttonContainer.functions .button {padding:0.3em;margin:0.5em;}
+.editButton {display: none;}
+.selectable .editButton {display: block;}
+.selectButton, .deselectButton  {display: none;}
+.selectMode .selectButton, .selectMode .deselectButton {display:block;}
+.selectMode .row {padding-left:2em;} 
+.selectMode .headerContainer {padding-left:2em;} 
+.selectMode .row {background:transparent url(../icons/icons8-unchecked-checkbox-30.png) no-repeat;background-size:1.4em;background-position:left;background-position-y: 0.4em;}
+.selectMode .row.selected {background:transparent url(../icons/icons8-checked-checkbox-30-beige.png) no-repeat;background-size:1.4em;background-position:left;background-position-y: 0.4em;}
+.rowContainer .item  {align-self:center;}
+.tableContainer .headerContainer,.tableContainer .row {display:grid;grid-gap:0; grid-column-gap:5px;}
+.tableContainer .headerContainer.quantity-2, .tableContainer .row.quantity-2 {grid-template-columns:100%;}
+.tableContainer .headerContainer.quantity-3, .tableContainer .row.quantity-3 {grid-template-columns:50% 50%; }
+.tableContainer .headerContainer.quantity-4, .tableContainer .row.quantity-4 {grid-template-columns:50% 20% 20%;}
+.tableContainer .headerContainer.quantity-5, .tableContainer .row.quantity-5 {grid-template-columns:35% 20% 20% 20%}
+.tableContainer .headerContainer.quantity-6, .tableContainer .row.quantity-6 {grid-template-columns:25% 18% 18% 18% 18%;}
+.tableContainer .headerContainer.quantity-7, .tableContainer .row.quantity-7 {grid-template-columns:20% 20% 15% 15% 15% 15%;}
+.tableContainer .headerContainer.quantity-8, .tableContainer .row.quantity-8 {grid-template-columns:14% 14% 14% 14% 14% 14% 14%;}
+.tableContainer .headerContainer.quantity-9, .tableContainer .row.quantity-9 {grid-template-columns:11% 11% 11% 11% 11% 11% 11% 11%;}
+.tableContainer .headerContainer.quantity-10, .tableContainer .row.quantity-10 {grid-template-columns:11% 11% 11% 11% 11% 11%; 11% 11% 11%;}
+.header.order-1, .item.order-1 {grid-row:1;grid-column:1;}
+.header.order-2, .item.order-2 {grid-row:1;grid-column:2;}
+.header.order-3, .item.order-3 {grid-row:1;grid-column:3;}
+.header.order-4, .item.order-4 {grid-row:1;grid-column:4;}
+.header.order-5, .item.order-5 {grid-row:1;grid-column:5;}
+.header.order-6, .item.order-6 {grid-row:1;grid-column:6;}
+.header.order-7, .item.order-7 {grid-row:1;grid-column:7;}
+.header.order-8, .item.order-8 {grid-row:1;grid-column:8;}
+.header.order-9, .item.order-9 {grid-row:1;grid-column:9;}
+.header.order-10, .item.order-10 {grid-row:1;grid-column:10;}
+
+/*------------------------------------------------------*/
+/* Buttons                                              */
+/*------------------------------------------------------*/
+.button.ENTER {margin:0;color:transparent;width:3em;height:3em;min-width:3em;background:transparent url(../icons/icons8-checkmark-filled-50.png) no-repeat;background-size:contain;}
+.button.ESC   {margin:0;color:transparent;width:3em;height:3em;min-width:3em;background:transparent url(../icons/icons8-back-filled-50.png) no-repeat;background-size:contain;}
+.button.options         {margin:0;color:transparent;width:2.5em;height:3em;  background:transparent url(../icons/icons8-Collapse-ArrowFilled-50.png) no-repeat;background-size:2.5em;background-position:center;}
+.open .button.options   {margin:0;color:transparent;width:2.5em;height:2.5em;background:transparent url(../icons/icons8-ExpandArrowFilled-50.png) no-repeat;   background-size:2.5em;background-position:center;}
+.button.scan {margin: 0;position: absolute;right: 0.5em;color: transparent;width: 2em;height: 2em; min-width: 2.45em; background: transparent url(../icons/icons8-barcode-40.png) no-repeat; background-size: 2em;    background-position: center;}.button.matchCodeButton  {margin:0;position:absolute;right:0.5em;color:transparent;width:2.45em;height:2.45em;min-width:2.45em;background:transparent url(../icons/icons8-search-filled-50.png) no-repeat;background-size: 1.7em;background-position-y: 0.3em;;}
+.buttonContainer.selectTools .button {padding:0.2em;margin:0.4em;margin-right:0;padding-left:1.3em;font-size:0.9em;}
+.editButton {background:transparent url(../icons/icons8-choice-30.png) no-repeat;background-size:1.4em;background-position:left;}
+.selectMode .editButton {background:transparent url(../icons/icons8-cancel-30.png) no-repeat;background-size:1.4em;background-position:left;}
+.selectMode .selectButton {background:transparent url(../icons/icons8-checked-checkbox-30.png) no-repeat;background-size:1.4em;background-position:left;}
+.selectMode .deselectButton {background:transparent url(../icons/icons8-unchecked-checkbox-30.png) no-repeat;background-size:1.4em;background-position:left;}
+
+/*------------------------------------------------------*/
+/* Masken Spezial                                       */
+/*------------------------------------------------------*/
+/* Login */
+.LOGIN_10 {position:relative;float:left;padding:0;background: transparent url(../icons/oxaion-bg.svg) no-repeat;background-size: cover;}
+.LOGIN_10 .button.scan {display:none;}
+
+/* MC allgemein  */
+.BAS_MCD_0100_10 .groupContainer.upper .columnContainer.quantity-1.firstType-Label {border:0;} 
+
+/* Einzelne Elemente überschreiben */
+.WEx_KOP_0200_10 .firstName-e10 {margin:0;padding-bottom:0;margin-bottom:-0.5em;}
+.SUB_WEP_0600_10 .groupContainer.lower .columnContainer.firstName-e30 {display:none;} 
+
+/* TPE erfassen  */
+.SUB_WEP_0600_10  .tableContainer .rowContainer {max-height: calc(100vh - 28em);}
+.SUB_WEP_0600_10 .tableContainer .headerContainer, .SUB_WEP_0600_10 .tableContainer .row {grid-template-columns:15% 15% 15% auto;}
+.SUB_WEP_0600_10 .item.Key {grid-row: 2; grid-column: 1 / 8;font-size: 0.7em;} 
+.SUB_WEP_0600_10 .header.Menge, .SUB_WEP_0600_10 .item.Menge {text-align:right;}
+.SUB_WEP_0600_10 .columnContainer.firstName-e31 {width:49%;}
+.SUB_WEP_0600_10 .columnContainer.firstName-e29 {width:49%;}
+.SUB_WEP_0600_10 .selectMode.tableContainer .rowContainer { max-height: calc(100vh - 16em);}
+
+/* Ladehilsmittel */
+.WEx_POS_0300_10 .tableContainer .headerContainer, .WEx_POS_0300_10 .tableContainer .row {grid-template-columns:15% 15% 15% auto;}
+.WEx_POS_0300_10 .item.Key {grid-row: 2; grid-column: 4;   color: #6f8295;    font-size: 0.8em;} 
+.WEx_POS_0300_10 .header.Menge, .WEx_POS_0300_10 .item.Menge {text-align:right;}
+
+/* Auskunftssystem  */
+.INF_STA_0100_10 .element.LABEL {font-size:1em;}
+
+/* Positionsliste Kommission */
+.KOM_POS_0200_10 .tableContainer .headerContainer, .KOM_POS_0200_10 .tableContainer .row {grid-template-columns:20% 15% 15% 15% 15% auto; }
+.KOM_POS_0200_10 .item.Teilenummer, .KOM_POS_0200_10 .header.Teilenummer     {grid-row: 1; grid-column: 1;} 
+.KOM_POS_0200_10 .item.Bezeichnung, .KOM_POS_0200_10 .header.Bezeichnung     {grid-row: 1; grid-column: 2 / 4;}  
+.KOM_POS_0200_10 .item.Menge, .KOM_POS_0200_10 .header.Menge                 {grid-row: 1; grid-column: 5;}  
+.KOM_POS_0200_10 .item.ME, .KOM_POS_0200_10 .header.ME                       {grid-row: 1; grid-column: 6;}  
+.KOM_POS_0200_10 .item.von.Lager, .KOM_POS_0200_10 .header.von.Lager         {grid-row: 2; grid-column: 2;} 
+.KOM_POS_0200_10 .item.von.Platz, .KOM_POS_0200_10 .header.von.Platz         {grid-row: 2; grid-column: 3;} 
+.KOM_POS_0200_10 .item.nach.Lager, .KOM_POS_0200_10 .header.nach.Lager       {grid-row: 2; grid-column: 4;} 
+.KOM_POS_0200_10 .item.nach.Platz, .KOM_POS_0200_10 .header.nach.Platz       {grid-row: 2; grid-column: 5;} 
+.KOM_POS_0200_10 .item.Nummer, .KOM_POS_0200_10 .header.Nummer               {grid-row: 3; grid-column: 2 / 4;} 
+.KOM_POS_0200_10 .item.TPE-Nummer, .KOM_POS_0200_10 .header.TPE-Nummer       {grid-row: 4; grid-column: 2 / 4;} 
+
+.KOM_POS_0200_10 .item.Teilenummer     {color:#3f87a6;font-weight:bold;} 
+.KOM_POS_0200_10 .item.Bezeichnung     {color:#3f87a6;font-weight:bold;}   
+.KOM_POS_0200_10 .item.Menge           {color:#3f87a6;font-weight:bold;}   
+.KOM_POS_0200_10 .item.ME              {color:#3f87a6;font-weight:bold;}  
+.KOM_POS_0200_10 .item.von.Lager       {font-weight:bold;font-size:0.8em;} 
+.KOM_POS_0200_10 .item.von.Platz       {font-weight:bold;font-size:0.8em;}  
+.KOM_POS_0200_10 .item.nach.Lager      {font-weight:bold;font-size:0.8em;}  
+.KOM_POS_0200_10 .item.nach.Platz      {font-weight:bold;font-size:0.8em;}  
+
+/* Infomasken */
+.INF_ART_0100_10 .tableContainer .rowContainer {max-height: calc(100vh - 17em);}
+.INF_ART_0100_10 .tableContainer .headerContainer, .INF_ART_0100_10  .tableContainer .row {grid-template-columns:25% 25% 33% auto;}
+.INF_ART_0200_10 .tableContainer .rowContainer {max-height: calc(100vh - 17em);}
+.INF_ART_0200_10 .tableContainer .headerContainer, .INF_ART_0200_10  .tableContainer .row {grid-template-columns:40% 30% 17% auto;}
+.INF_ART_0200_10 .header.Menge, .INF_ART_0200_10 .item.Menge  {grid-column:3}
+.INF_ART_0200_10 .header.ME, .INF_ART_0200_10 .item.ME  {grid-column:4}
+.INF_ART_0200_10 .header.Sammel-TPE, .INF_ART_0200_10 .item.Sammel-TPE  {grid-column:1; grid-row:2;}
+
+/* Auskunftssystem */
+.INF_STA_0100_10  .groupContainer.upper .columnContainer {margin-bottom:0;border:0;} 
+.INF_STA_0100_10  .columnContainer.firstName-e10,
+.INF_STA_0100_10  .columnContainer.firstName-e12,
+.INF_STA_0100_10  .columnContainer.firstName-e15,
+.INF_STA_0100_10  .columnContainer.firstName-e16 {padding-left:2em;}
+.INF_STA_0100_10  .columnContainer.firstName-e12 {padding-bottom:1em;}
+
+/*------------------------------------------------------*/
+/* Sonstiges Spezial                                    */
+/*------------------------------------------------------*/
+/* Mengen rechtsbündig */
+.header.Menge, .header.Lagerbestand {text-align:right;}
+.item.Menge, .item.Lagerbestand  {text-align:right;}

@@ -1,0 +1,413 @@
+/*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*               Basis / Farben                                                                                                                                                                                                            */
+/*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* oxaion Farben
+t�rkis          	#009edf
+rot             	#db002f
+grauer balken   	#4f5969
+hellgrau        	#ebf1f4  rgba(235,241,244,1.0)
+dunkles hellgrau	#b1b5bd
+
+grün              #32c24d
+gelb              #FFCD00
+
+blaue Schrift neu #0080B7
+grün neu buttons         #2ECC71
+*/
+
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* Grundeinstellungen                                                                                                                                                                       */
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/ 
+* {font-family: Roboto;font-size: 14px;color: #4f5969;} 
+:focus {outline: -webkit-focus-ring-color auto 0px}
+@media only screen and (max-width: 1350px) {
+  * {font-size: 14px;} 
+}
+@media only screen and (max-width: 1200px) {
+  * {font-size: 14px;} 
+}
+/* alternatives box model nutzen */
+*, *:after, *:before {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+body {margin:0;padding:0;background-color:#ebf1f4;}
+
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* Headerbereich                                                                                                                                                                            */
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/ 
+header {background-color: #4f5969;height: 3.5em;position: fixed;top: 0px;left: 0px;width:100%;}
+.naviButton {top: 0.8em;left: 1em;position: absolute;}
+.backButtonsvg .rect1 {transform: translate(5px,5px) rotate(45deg) scaleX(0.7);transition: 0.5s;transform-origin: 15px 5px;}
+.menuButtonsvg .rect1 {transform: translate(0px,0px) rotate(-0deg) scaleX(1);transition: 0.5s;transform-origin: 15px 5px;}
+.menuButtonsvg .rect2 {opacity: 1;transition: 0.5s;}
+.backButtonsvg .rect2 {opacity: 0;transition: 0.5s;}
+.backButtonsvg .rect3 {transform: translate(2px, 0px) rotate(-45deg) scaleX(0.7);transition: 0.5s;transform-origin: 15px 15px;}
+.menuButtonsvg .rect3 {transform: translate(0px, 0px) rotate(0deg) scaleX(1);transition: 0.5s;transform-origin: 15px 15px;}
+.backButtonsvg {transform: rotate(180deg);transform-origin: 13px 14px;transition: 0.5s;}
+.menuButtonsvg {transform: rotate(0deg);transform-origin: 13px 12px;transition: 0.5s;}
+
+/* online-Status  */
+.onlineState.toolbar {position:fixed;top:1em;right:1em;}
+.onlineState {width: 20px;height: 20px;border-radius: 15px;
+        -moz-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 3px 3px 2px 0px rgba(255, 255, 255, 1);
+        box-shadow: -1px -1px 0px 1px rgba(0, 0, 0, 0.5), 1px 1px 0px 1px rgba(255, 255, 255, 0.4);
+        background: #ff3019; /* Old browsers */
+        background: -moz-linear-gradient(top, #ff3019 0%, #cf0404 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, #ff3019 0%,#cf0404 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, #ff3019 0%,#cf0404 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=0 ); /* IE6-9 */}
+.onlineState[state="online"] {
+        background: #83cc53; /* Old browsers */
+        background: -moz-linear-gradient(top, #83cc53 1%, #39ba25 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, #83cc53 1%,#39ba25 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, #83cc53 1%,#39ba25 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#83cc53', endColorstr='#39ba25',GradientType=0 ); /* IE6-9 */ }
+.shine {position:fixed;height:26px;width: 26px;right: 0.8em;top: 0.8em;background-color: rgba(255,255,255,0.1);border-radius: 70px;}
+
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* Menu                                                                                                                                                                                     */
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+.menu_open #left header {display:none;}
+#left {background-color:transparent;height:100vh;position:fixed;top:0;left:0;width:20em; }
+#left .view {overflow:hidden;height:100%;width:100%;}
+#menuPanel {background-color:white;background-image:none;overflow:auto;height:calc(100vh - 2.5em);width:100%;}
+li.menu_item.nav_item.head {background-color:#4f5969;padding:0;padding-top:1em }
+.submenu {padding:0;display:block;margin-top: 1em;}
+.menu_item          {background-color:white;padding:1em;display:block;border-bottom:1px dotted lightgray;font-size:1.1em;text-decoration:none;padding-left:3em;}
+.menu_item.nav_item {border-bottom:0;}
+.menu_item.nav_item.head {padding:0.5em;color:white}
+.list a h3 {text-align:left;display:block;width:100%;-webkit-margin-before: 0em;-webkit-margin-after: 0em;-webkit-margin-start: 0px;-webkit-margin-end: 0px;padding-top:0.2em;float:none;}         
+.menu_item .home  {background-image: url(../images/APP/menu/light/Home-50.png);background-position-x:0.0em;background-position-y:0.9em;background-size: 1.4em;background-repeat: no-repeat;}
+/* Animationen */
+body  #mainview           {transform: translate(0,0)    rotate(-0deg) skew(0deg) scale(1.0);transition: transform 0.5s;}
+body.menu_open  #mainview {transform: translate(10vw,10vh) rotateY(10deg) skewX(0deg) skewY(0deg) scale(0.7);transition: transform 0.5s ;}
+body #left {transform: translate(-20em,0) rotate(20deg) skew(10deg) scale(0.5);transition: transform 0.5s ;}
+body.menu_open #left {transform: translate(0em,0) rotate(0deg) skew(0deg) scale(1.0);transition: transform 0.5s ;}
+
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* Maskenaufbau                                                                                                                                                                             */
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+.pages.mainpages {top:3.5em;height:calc(100vh - 3.5em);width:100%;padding:0em;overflow:auto;position:fixed;background-color:#ebf1f4;}
+.panel {position:relative;width:100%;}
+.panel {display:none;}
+.panel.active {display:block;}
+#left .panel {display:block;}
+.AppHeaderTitle {display:none;}
+
+.AppHeaderGroup, .AppDetailContentGroup {width:100%;position:relative;float:left;background-color:white;}
+.AppDetailGroup {width:100%;position:relative;float:left;border-bottom:1em solid #ebf1f4;margin-bottom: 0em;background-color:white;padding:1em;}
+.AppDetailGroup > .caption  {font-size: 1.5em;padding: 0.5em;margin-bottom: 0.5em;padding-left:0;}
+.caption:empty {display:none;}
+
+ #MSK_UPKADP_V01_DETAIL {position:relative;width:100%;max-width: 1400px;float: none;margin: auto;}
+
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* Eingaben                                                                                                                                                                                 */
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+.Textbox.columnContainer, .Textarea.columnContainer {width:100%;background-color:white;margin-bottom:1em;padding:5px;border-bottom:1px dotted #b1b5bd;}
+.Textboxlabel {width: 100%;color: #6f8295;font-size: 0.8em;float: left;}
+.Textarea {width:100%;border:0;min-height:10em;}
+.RADIOBUTTONGROUP {width:100%;}
+.Radiolabel {position:relative;float:left;width:70%;}
+.Radio {position:relative;width:30%;float:right;}
+
+input {width:100%;border:0;padding-top:0.5em;padding-bottom:0.5em;color:#009edf;padding-left:0.2em;}
+input:not(.search) {pointer-events: none;opacity: 0.7;}
+.panel.editmodus input {pointer-events: visible;opacity: 1;}
+
+
+/*
+input[type=text]:disabled {width:auto;float:right;}
+input[type="text"].detailTextbox {width:auto;position:relative;float:right;}
+input[type=date]:disabled {width:auto;float:right;}
+input[type="date"].detailTextbox {position:relative;float:right;}
+input[type="time"].detailTextbox {position:relative;float:right;}
+input[type=text].detailLabel  {position:relative;float:right;}
+input[type=text].detailTextbox.hasMC {display: none;}
+input[type=text].detailLabel.hasMC  {position:relative;float:right;}
+*/
+
+
+
+
+
+
+/* Überschrift */ 
+.view header h1 {text-shadow: none;font-size:1.2em;text-align:center;width:80%;padding-top:0.8em;margin:auto;color:white;}
+
+
+ul {margin-top:0;margin-bottom:0;-webkit-padding-start:0;display:block;}
+h3 {display: block;-webkit-margin-before: 0em;-webkit-margin-after: 0em;-webkit-margin-start: 0px;-webkit-margin-end: 0px;font-weight: bold;/*color:#009edf;*/position:relative;float:left;padding-top:0;}
+.subgrid h3 {margin-bottom:0.7em;margin-top:0.75em;}
+
+img {
+    height: -webkit-fill-available;
+}
+
+.search {border: 5px solid #f2f2f2;padding: 0.3em 0.3em 0.3em 0.3em;border-radius: 0px;height:4em;background-color:#f4f4f4;padding-left:3em;color:lightgray;background: #f4f4f4 url(../Images/APP/basic/icons8-search-filled-50.png)no-repeat;background-size:2.5em;background-position-y:0.3em;width:10em;}
+.search:focus {width:100vw;color:#4f5969}
+em {background-color:#2ECC71;font-size: inherit;font-style: inherit;}
+
+
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* Buttons                                                                                                                                                                                  */
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/ 
+.button {position:relative;float:left;font-size:1.1em;margin:1em;color:white;background-color:#2ECC71;padding:0.7em;border-radius:5px;cursor:pointer;border:0;}
+.button:active {background-color:#db002f;}
+button:disabled {display:none;}
+
+/*
+.toolbar.button {margin:0;margin-top:0;padding:0;float:right;border-none;}
+button {background-color: transparent;border: none;}
+button:disabled {display:none;}
+.overlay {position: fixed;width: 3em;z-index: 999;height:3em;background-size:90% auto;background-position: center;background-repeat: no-repeat;top:0;background-color:transparent;border:none;}
+.overlay.left {right:4em;}
+.overlay.right {right:0.1em;}
+.saveButton {display: none;}
+.pages.mainpages .panel.detail:not(.editmodus)  .mcButton {display:none;} 
+
+.panel-button   {position: relative;float: left;width: 100%;margin-top: 2em;}
+.button.connect {margin-top:2em;width:14em;margin:auto;text-align:center;}
+*/
+
+
+
+
+
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* Meldungen                                                                                                                                                                                */
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/ 
+#toaster        {display:none;z-index:1;padding:2em;}
+#toaster.active {display:block;width: 100vw;height: 0%;position: fixed;top:3.5em;left:0;text-align: center;margin:0;float:left;padding:1em;height:auto;color:white;background-color:#db002f;}
+
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* Karte - Basiseinstellungen                                                                                                                                                               */
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/ 
+.ol-zoom {top: .5em;left:initial !important;right: .5em; }
+.ol-viewport.ol-touch {width:100vw;height:100vh;}
+
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* Sanduhr                                                                                                                                                                                  */
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/ 
+#spinner {display: none;position:fixed;z-index:999;top:calc(50vh - 1.5em);left:calc(50vw - 1.5em);height:3em;width:3em;}
+
+
+
+
+
+/*---------------------------------------------------------*/
+/* Splash-Screen                                           */
+/*---------------------------------------------------------*/
+#splash {
+    background-color: #fff;
+    opacity: 0.7;
+}
+
+
+
+
+
+
+
+
+/*-------------- ehemals index.css -------------------------------*/
+
+.item img {
+    height: -webkit-fill-available;
+}
+
+
+
+
+
+
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    float:right;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    display: none;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+.switch input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+.switch input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.switch span {
+    padding: 17px;
+}
+
+
+
+
+
+.datarow .item {
+    float: left;
+}
+
+
+.datarow {
+    border-bottom: 1px dotted gray;
+}
+
+
+
+
+
+
+    
+    .loadmore {
+    margin-top: 10px;
+}
+
+.editDelete {
+    background: #F89406;
+    padding: 0.5em;
+    display: inline-block;
+    height: 100%;
+    color: white;
+}
+
+
+.datarowDelete {
+    color: white;
+    background: #BD362F;
+    display: inline-block;
+    padding: 0.5em;
+}
+
+.lastCell {
+    font-family: Raleway,sans-serif;
+    color: white;
+    margin: auto;
+    margin-top: -0.4em;
+    position: absolute;
+    right: -10em;
+}
+
+
+
+/* Placeholder code for modals*/
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%; /* Could be more or less, depending on screen size */
+}
+
+
+.panel.editmodus .Textbox.MC input {
+    pointer-events: none;
+    background-image: url(/images/Forward-50.png);
+    margin-top: -0.2em;
+    background-size: 1.2em;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.panel .Textbox.MC input {
+    pointer-events: none;
+}
+
+
+/* MEDIEN CONTAINER */
+
+
+.Textbox.document {
+    
+    background-image: url(../images/folder.png);
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 2em;
+}
+
+.mediaContainer {
+    padding: 2em;
+    text-align: center;
+}
+
+#spinner {
+    display: none; 
+    position: fixed;
+    top: 30%;
+    left: 40%;
+    width: 20%;
+    z-index: 999;
+}
+
+#spinner.active {
+    display: block; 
+    width: 100%;
+}
+
+
+
+
