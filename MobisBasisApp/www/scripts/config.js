@@ -5,7 +5,7 @@ const MAIN_PANEL = $('.mainPanel');
 const CONFIG_PANEL = $('.configPanel');
 const ACTIVE_CLASS = "active";
 
-var isInConfigView = false;
+var inConfigView = false;
 
 const HOST_STRING = 'host';
 const APPLICATION_STRING = 'application';
@@ -35,21 +35,21 @@ function setUpConfig() {
     saveConfigValue(APPLICATION_STRING, 'iqu ilm');
     saveConfigValue(MODULE_STRING, 'ILM');
     saveConfigValue(PROJECTS_STRING, 'IQU;PTF;iqu_ilm50_ox72;iqu_ilm50_ox72_PTF');
-    saveConfigValue(USER_STRING, 'mda2#72');
+    saveConfigValue(USER_STRING, 'mda#72');
     saveConfigValue(PASSWORD_STRING, 'mda');
     saveConfigValue(FORMATSIZE_STRING, 'PDA');
 }
 
 function toggleConfig() {
     initConfig();
-    if (isInConfigView) {
-        isInConfigView = false;
+    if (inConfigView) {
+        inConfigView = false;
         TITLE.show();
         CONFIG_TITLE.hide();
         MAIN_PANEL.addClass(ACTIVE_CLASS);
         CONFIG_PANEL.removeClass(ACTIVE_CLASS);
     } else {
-        isInConfigView = true;
+        inConfigView = true;
         TITLE.hide();
         CONFIG_TITLE.show();
         MAIN_PANEL.removeClass(ACTIVE_CLASS);

@@ -1,4 +1,5 @@
-﻿const ELEMENT_CLASS = "element"
+﻿const ELEMENT_CLASS = "element";
+const SCAN_STYLE = "INPUT_ABC";
 
 function formatElements(elements, seperatorHeight) {
     //sort in y direction
@@ -128,6 +129,15 @@ function formatInputElement(eleXML) {
     //create input field
     var input = $(`<input value="${$(eleXML).attr('content')}"/>`)
     $(inputContainer).append(input);
+
+    //create scan button if needed
+    if (inputContainer.attr('style') === SCAN_STYLE) {
+        var scanButton = $('<button class="button scan"/>')
+            .click(function () {
+                scanBarcode(input);
+            })
+        inputContainer.append(scanButton);
+    }
 
     //create matchcode button if needed
     var event = $(eleXML).attr('events');
