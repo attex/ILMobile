@@ -201,25 +201,22 @@ function formatStyle(eleXML, eleHTML) {
 }
 
 function formatGrid(eleXML, type) {
-    var gridContainer = createGridContainer(type);
     var columns = getColumns(eleXML);
     var rows = getRows(eleXML);
-
-    $(gridContainer).append(createGridHeaderContainer(columns));
-    $(gridContainer).append(createRowContainer(columns, rows));
+    var gridContainer = createGridContainer(type, columns, rows);
 
     return gridContainer;
 }
 
 function getColumns(eleXML) {
     var columns = $(eleXML).find('columns');
-    return (columns.length && $(columns).hasAttr('value')) ? Array.from($(columns).attr('value').split(',')) : [""];
+    return (columns.length && $(columns).hasAttr('value')) ? Array.from($(columns).attr('value').split(',')) : [];
 }
 
 function getRows(eleXML) {
     var rows = Array.from($(eleXML).find('row'));
     return rows.map(function (row) {
-        return ($(row).hasAttr('value')) ? $(row).attr('value').split(',') : [""];
+        return ($(row).hasAttr('value')) ? $(row).attr('value').split(',') : [];
     })
 }
 

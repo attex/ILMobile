@@ -1,7 +1,15 @@
-﻿function createGridContainer(type) {
-    var gridContainer = document.createElement('div');
-    $(gridContainer).addClass('gridContainer');
-    $(gridContainer).addClass(type);
+﻿function createGridContainer(type, columns, rows) {
+    var gridContainer = $('<div/>')
+        .addClass('gridContainer')
+        .addClass(type)
+
+    if (columns.length) {
+        gridContainer.append(createGridHeaderContainer(columns))
+    }
+    if (rows.length) {
+        gridContainer.append(createRowContainer(columns, rows));
+    }
+
     return gridContainer;
 }
 
@@ -80,12 +88,12 @@ function toggleSelectMode() {
         $(event.srcElement).text('Bearbeiten');
     } else {
         $(tableContainer).addClass('selectMode');
-        $(tableContainer).find('.row').click(toogleSelect)
+        $(tableContainer).find('.row').click(toggleSelect)
         $(event.srcElement).text('Fertig');
     }
 }
 
-function toogleSelect() {
+function toggleSelect() {
     var row = $(event.srcElement).closest('.row');
     if (!$(row).hasClass('selected')) {
         $(row).addClass('selected');

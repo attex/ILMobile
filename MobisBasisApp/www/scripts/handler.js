@@ -117,6 +117,7 @@ function handle(source, action) {
 }
 
 //the list click handler
+//outsource to grid.js
 //change classNames to their xml counterpart
 function handleListClick() {
     var source = $(event.srcElement).closest('.element').attr('name');
