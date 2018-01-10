@@ -33,6 +33,13 @@ const SCANNER = $(`.${SCANNER_STRING}`);
 const CONFIG_ARRAY = [HOST, APPLICATION, MODULE, PROJECTS, USER, PASSWORD, FORMATSIZE, COMPANY, THEME, SCANNER];
 
 function setUpConfig() {
+    saveConfigValue(HOST_STRING, 'http://192.168.230.41:8585/services/ILMServerPortal.jws');
+    saveConfigValue(APPLICATION_STRING, 'iqu ilm');
+    saveConfigValue(MODULE_STRING, 'ILM');
+    saveConfigValue(PROJECTS_STRING, 'IQU;PTF;iqu_ilm50_ox72;iqu_ilm50_ox72_PTF');
+    saveConfigValue(USER_STRING, 'mda2#72');
+    saveConfigValue(PASSWORD_STRING, 'mda');
+    saveConfigValue(FORMATSIZE_STRING, 'PDA');
     if (!getConfigValue(THEME_STRING)) {
         saveConfigValue(THEME_STRING, 'dark')
     }

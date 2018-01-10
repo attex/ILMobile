@@ -1,8 +1,6 @@
 ﻿const ENTER_ACTION = "ENTER";
 const ESC_ACTION = "ESC";
 
-const LOGIN_SOURCE = "LOGIN";
-
 //make this compatible to handleListClick
 function createHandler(source, action) {
     if (action === ENTER_ACTION) {
@@ -111,8 +109,8 @@ function login() {
     var module = getConfigValue(MODULE_STRING);
     var project = getConfigValue(PROJECTS_STRING);
     var formatSize = getConfigValue(FORMATSIZE_STRING);
-    var user = getContent($("[name='e7']"));
-    var password = getContent($("[name='e15']"));
+    var user = getContent($(`[name='${window.localStorage.getItem('userElement')}']`));
+    var password = getContent($(`[name='${window.localStorage.getItem('passwordElement')}']`));
     handleSOAP('login', ['application', 'module', 'project', 'formatSize', 'user', 'password'], [application, module, project, formatSize, user, password])
 }
 

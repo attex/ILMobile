@@ -1,6 +1,10 @@
 ﻿const TITLE = $('#mainTitle');
 const MAIN_CONTAINER = $('.mainPanel .detailContainer');
 
+const LOGIN_SOURCE = "LOGIN";
+const LOGIN_USER_PROPERTY = "LOGIN_USER";
+const LOGIN_PASSWORD_PROPERTY = "LOGIN_PASSWORD";
+
 function generateLayout(xml) {
     console.log('Response:\n');
     console.log(xml);
@@ -29,7 +33,10 @@ function generateLayout(xml) {
     }
     formatTitle(xmlDoc);
     formatToolbar(xmlDoc);
-    addSpecials();
+
+    if (window.localStorage.getItem('template') === LOGIN_SOURCE) {
+        formatLogin(xmlDoc);
+    }
 
     //add Button quantity
     getButtonsGroupContainer().addClass(`quantity-${getButtonsGroupContainer().children().length - 1}`)
@@ -127,10 +134,16 @@ function toggleOptions() {
     }
 }
 
-function addSpecials() {
-    if (window.localStorage.getItem('template') === LOGIN_SOURCE) {
-        $("[name='e15']").find('input').attr('type', 'password');
-    }
+function formatLogin(xmlDoc) {
+    window.localStorage.setItem('userElement', $(xmlDoc).find(`formatproperty[key=${LOGIN_USER_PROPERTY}]`).attr('value'));
+    window.localStorage.setItem('passwordElement', $(xmlDoc).find(`formatproperty[key=${LOGIN_PASSWORD_PROPERTY}]`).attr('value'));
+
+    $(`[name='${window.localStorage.getItem('passwordElement')}']`).find('input').attr('type', 'password');
+
+    var username = window.localStorage.getItem(USER_STRING) ? window.localStorage.getItem(USER_STRING) : "";
+    var password = window.localStorage.getItem(PASSWORD_STRING) ? window.localStorage.getItem(PASSWORD_STRING) : "";
+    $(`[name='${window.localStorage.getItem('userElement')}']`).find('input').val(username);
+    $(`[name='${window.localStorage.getItem('passwordElement')}']`).find('input').val(password);
 }
 
 $.fn.hasAttr = function (name) {
