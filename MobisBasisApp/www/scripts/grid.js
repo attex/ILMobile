@@ -4,46 +4,38 @@
         .addClass(type)
 
     if (columns.length) {
-        gridContainer.append(createGridHeaderContainer(columns))
-    }
-    if (rows.length) {
         gridContainer.append(createRowContainer(columns, rows));
     }
 
     return gridContainer;
 }
 
-function createGridHeaderContainer(columnValues) {
-    var gridHeaderContainer = document.createElement('div');
-    $(gridHeaderContainer).addClass('headerContainer');
-
-    for (let i = 0; i < columnValues.length; i++) {
-        $(gridHeaderContainer).append($(createGridHeader(columnValues[i].replace(/§%DEC\(44\)%§/g, ".")))
-            .addClass(`order-${i + 1}`))
-    }
-
-    $(gridHeaderContainer).addClass(`quantity-${columnValues.length}`)
-
-    return gridHeaderContainer;
-}
-
-function createGridHeader(value) {
-    var gridHeader = document.createElement('div');
-    $(gridHeader).addClass('header')
-        .addClass(value)
-        .text(value);
-    return gridHeader;
-}
-
 function createRowContainer(columnValues, rows) {
     var rowContainer = document.createElement('div');
     $(rowContainer).addClass('rowContainer')
+
+    $(rowContainer).append(createHeaderRow(columnValues));
 
     for (let i = 0; i < rows.length; i++) {
         $(rowContainer).append($(createRow(columnValues, rows[i])));
     }
 
     return rowContainer;
+}
+
+function createHeaderRow(columnValues) {
+    var headerRow = document.createElement('div');
+    $(headerRow).addClass('row').addClass('header');
+
+    for (let i = 0; i < columnValues.length; i++) {
+        let headerValue = columnValues[i].replace(/§%DEC\(44\)%§/g, ".");
+        $(headerRow).append($(createItem(headerValue))
+            .addClass(`order-${i + 1}`))
+    }
+
+    $(headerRow).addClass(`quantity-${columnValues.length}`)
+
+    return headerRow;
 }
 
 function createRow(columnValues, rowValues) {
@@ -60,7 +52,7 @@ function createRow(columnValues, rowValues) {
     return row;
 }
 
-function createItem(columnValue, rowValue) {
+function createItem(columnValue, rowValue = columnValue) {
     var rowElement = document.createElement('div');
     $(rowElement).addClass('item');
     $(rowElement).addClass(columnValue);
