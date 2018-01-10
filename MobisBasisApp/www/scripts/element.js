@@ -68,6 +68,7 @@ function getXPos(ele) {
     return value;
 }
 
+//returns true if column only contains empty label
 function columnIsEmpty(column) {
     var elements = Array.from($(column).children());
     for (let i = 0; i < elements.length; i++) {
@@ -108,11 +109,12 @@ function formatLabelElement(eleXML) {
     return eleHTML;
 }
 
-//TODO: set Prefix if contained in content
 function formatInputElement(eleXML) {
     //create inputContainer
     var inputContainer = $('<div class="inputContainer"/>');
     passAttributes(eleXML, inputContainer);
+    var content = $(eleXML).attr('content');
+    var chosenPrefix = "";
 
     //create prefix selector if needed
     var prefixString = $(eleXML).find('formatelementproperty[key=PREFIX_LIST]').attr('value');
@@ -120,14 +122,26 @@ function formatInputElement(eleXML) {
         var select = $('<select/>');
         var prefixes = Array.from(prefixString.split(','))
         for (var i = 0; i < prefixes.length; i++) {
-            var option = $(`<option>${prefixes[i]}</option>`);
+            var prefix = prefixes[i];
+            var option = $(`<option>${prefix}</option>`);
             $(select).append(option);
+
+            //check if content starts with a prefix
+            if (content.startsWith(prefix)) {
+                chosenPrefix = prefix;
+            } 
         }
         $(inputContainer).append(select);
     }
 
+    //formats content
+    if (chosenPrefix.length) {
+        $(inputContainer).find('select').val(chosenPrefix);
+        content = content.slice(chosenPrefix.length);
+    }
+
     //create input field
-    var input = $(`<input value="${$(eleXML).attr('content')}"/>`)
+    var input = $(`<input value="${content}"/>`)
     $(inputContainer).append(input);
 
     //create scan button if needed
