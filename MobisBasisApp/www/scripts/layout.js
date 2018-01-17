@@ -38,6 +38,10 @@ function generateLayout(xml) {
         formatLogin(xmlDoc);
     }
 
+    if ($('.table').length) {
+        adjustTableHeight();
+    }
+
     //add Button quantity
     getButtonsGroupContainer().addClass(`quantity-${getButtonsGroupContainer().children().length - 1}`)
 }
@@ -144,6 +148,26 @@ function formatLogin(xmlDoc) {
     var password = window.localStorage.getItem(PASSWORD_STRING) ? window.localStorage.getItem(PASSWORD_STRING) : "";
     $(`[name='${window.localStorage.getItem('userElement')}']`).find('input').val(username);
     $(`[name='${window.localStorage.getItem('passwordElement')}']`).find('input').val(password);
+}
+
+function adjustTableHeight() {
+    var upperHeight = getComputedHeight($('.upper'));
+    var restHeight = Array.from(
+        //TODO hange TABELLE
+        $('.upper').children(':not(".TABELLE")'))
+        .reduce(function (sum, column) {
+            return sum + getComputedHeight($(column))
+        }, 0)
+    $('.table').find('.rowContainer').css('max-height', upperHeight - restHeight - 7);
+}
+
+function getComputedHeight(ele) {
+    var height = window.getComputedStyle($(ele).get(0))['height'];
+    if (height.slice(-2) === 'px') {
+        return parseFloat(height.slice(0, height.length - 2));
+    } else {
+        return 0;
+    }
 }
 
 $.fn.hasAttr = function (name) {

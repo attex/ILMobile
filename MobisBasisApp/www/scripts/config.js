@@ -37,7 +37,7 @@ function setUpConfig() {
     saveConfigValue(APPLICATION_STRING, 'iqu ilm');
     saveConfigValue(MODULE_STRING, 'ILM');
     saveConfigValue(PROJECTS_STRING, 'IQU;PTF;iqu_ilm50_ox72;iqu_ilm50_ox72_PTF');
-    saveConfigValue(USER_STRING, 'mda2#72');
+    saveConfigValue(USER_STRING, 'mda1#72');
     saveConfigValue(PASSWORD_STRING, 'mda');
     saveConfigValue(FORMATSIZE_STRING, 'PDA');
     if (!getConfigValue(THEME_STRING)) {
