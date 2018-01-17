@@ -38,12 +38,12 @@ function generateLayout(xml) {
         formatLogin(xmlDoc);
     }
 
+    //add Button quantity
+    getButtonsGroupContainer().addClass(`quantity-${getButtonsGroupContainer().children().length - 1}`)
+
     if ($('.table').length) {
         adjustTableHeight();
     }
-
-    //add Button quantity
-    getButtonsGroupContainer().addClass(`quantity-${getButtonsGroupContainer().children().length - 1}`)
 }
 
 function formatTitle(xmlDoc) {
@@ -151,14 +151,20 @@ function formatLogin(xmlDoc) {
 }
 
 function adjustTableHeight() {
-    var upperHeight = getComputedHeight($('.upper'));
-    var restHeight = Array.from(
-        //TODO hange TABELLE
-        $('.upper').children(':not(".TABELLE")'))
+    var detailHeight = getComputedHeight(MAIN_CONTAINER);
+    var lowerHeight = ($('.lower').length) ? getComputedHeight(getLowerGroupContainer()) : 0;
+    var buttonContainerHeight = getComputedHeight(getButtonsGroupContainer());
+
+    var upperHeight = detailHeight - lowerHeight - buttonContainerHeight;
+    var upperRestHeight = Array.from(
+        $('.upper').children())
         .reduce(function (sum, column) {
             return sum + getComputedHeight($(column))
         }, 0)
-    $('.table').find('.rowContainer').css('max-height', upperHeight - restHeight - 7);
+
+    $('.table').find('.rowContainer')
+        .css('height', 'auto')
+        .css('max-height', upperHeight - upperRestHeight);
 }
 
 function getComputedHeight(ele) {
