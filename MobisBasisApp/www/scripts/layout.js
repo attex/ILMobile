@@ -77,6 +77,7 @@ function formatToolbar(xmlDoc) {
     }
 }
 
+//find the correct Event Text in the ';'-seperated list
 function findEventText(eventText) {
     var texts = eventText.split(';');
     if (texts.length > 1 && texts[1] !== '') {

@@ -63,7 +63,7 @@ function executeSOAP(url, query) {
             reject(`[SOAP] Error: ${this.status} ${this.statusText}`);
         };
 
-        xmlhttp.timeout = 15000; // time in milliseconds
+        xmlhttp.timeout = 30000; // time in milliseconds
 
         xmlhttp.ontimeout = function (e) {
             reject(`[SOAP] Error: Timeout`);
@@ -105,20 +105,10 @@ function finish() {
 
 function setFocus() {
     if (window.localStorage.getItem('template') !== LOGIN_SOURCE) {
-        //hack to not show keyboard in initial focus
         var inputContainer = MAIN_CONTAINER.find('input').first();
-        inputContainer.attr('onfocus', 'moveCursorToEnd(this)');
+        //hack to not show keyboard in initial select
         inputContainer.prop('readonly', true);
-        inputContainer.focus();
+        inputContainer.select();
         inputContainer.prop('readonly', false);
-    }
-}
-
-function moveCursorToEnd(obj) {
-    if (!(obj.updating)) {
-        obj.updating = true;
-        var oldValue = obj.value;
-        obj.value = '';
-        setTimeout(function () { obj.value = oldValue; obj.updating = false; }, 100);
     }
 }

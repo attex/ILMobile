@@ -15,7 +15,7 @@ function initApp() {
 }
 
 /*
- * Scan barcode by invoking Cordova plugin, copy result to matching input elements.
+ * Scan barcode by invoking Cordova plugin, copy result to matching input element.
  */
 function scanBarcode(input) {
     inScanView = true;

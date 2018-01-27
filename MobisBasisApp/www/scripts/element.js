@@ -141,7 +141,7 @@ function formatInputElement(eleXML) {
     }
 
     //create input field
-    var input = $(`<input value="${content}"/>`)
+    var input = $(`<input value="${content}" onclick="this.select()"/>`)
     $(inputContainer).append(input);
 
     //create scan button if needed
