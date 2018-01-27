@@ -43,6 +43,7 @@ function generateLayout(xml) {
 
     if ($('.table').length) {
         adjustTableHeight();
+        adjustTableRowWidth();
     }
 }
 
@@ -140,11 +141,14 @@ function toggleOptions() {
 }
 
 function formatLogin(xmlDoc) {
+    //save element Number of user and password input element 
     window.localStorage.setItem('userElement', $(xmlDoc).find(`formatproperty[key=${LOGIN_USER_PROPERTY}]`).attr('value'));
     window.localStorage.setItem('passwordElement', $(xmlDoc).find(`formatproperty[key=${LOGIN_PASSWORD_PROPERTY}]`).attr('value'));
 
+    //encrypt password field
     $(`[name='${window.localStorage.getItem('passwordElement')}']`).find('input').attr('type', 'password');
 
+    //fill input fields with saved config value
     var username = window.localStorage.getItem(USER_STRING) ? window.localStorage.getItem(USER_STRING) : "";
     var password = window.localStorage.getItem(PASSWORD_STRING) ? window.localStorage.getItem(PASSWORD_STRING) : "";
     $(`[name='${window.localStorage.getItem('userElement')}']`).find('input').val(username);
@@ -157,15 +161,44 @@ function adjustTableHeight() {
     var buttonContainerHeight = getComputedHeight(getButtonsGroupContainer());
 
     var upperHeight = detailHeight - lowerHeight - buttonContainerHeight;
-    var upperRestHeight = Array.from(
-        $('.upper').children())
-        .reduce(function (sum, column) {
-            return sum + getComputedHeight($(column))
-        }, 0)
+    var upperRestHeight = Array.from($('.upper').children())
+        .reduce((sum, column) => sum + getComputedHeight($(column)), 0);
 
     $('.table').find('.rowContainer')
         .css('height', 'auto')
         .css('max-height', upperHeight - upperRestHeight);
+}
+
+function adjustTableRowWidth() {
+    //get all visibile row headers and get their name
+    //Array.from() needed beacuse of jQuery
+    var visibleFields = Array.from($('.table .rowContainer .row.header .item:visible')).map(x => $(x).text());
+
+    //get all widths of corresponding items and find the the max values for width
+    var maxWidths = visibleFields
+        .map(x => Array.from($(`.${x}`))
+            .map(x => getComputedWidth(x))
+            .reduce((a, b) => Math.max(a, b))
+        );
+
+    //get sum of all max widths to calculate correct fractions
+    var maxWidthsSum = maxWidths.reduce((a, b) => a + b);
+
+    //format correct grid-template String
+    var gridTemplateColumns = maxWidths.map(x => `${x / maxWidthsSum}fr`).join(' ');
+
+    //set new format
+    Array.from($('.table .rowContainer .row'))
+        .map(x => $(x).css('grid-template-columns', gridTemplateColumns))
+}
+
+function getComputedWidth(ele) {
+    var height = window.getComputedStyle($(ele).get(0))['width'];
+    if (height.slice(-2) === 'px') {
+        return parseFloat(height.slice(0, height.length - 2));
+    } else {
+        return 0;
+    }
 }
 
 function getComputedHeight(ele) {
@@ -177,6 +210,7 @@ function getComputedHeight(ele) {
     }
 }
 
+//helper
 $.fn.hasAttr = function (name) {
     if (this.attr(name)) {
         return true;

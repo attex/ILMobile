@@ -1,6 +1,5 @@
 ﻿var canRun = true;
 
-//added additional hideLoader() calls when finally() is not available
 function handleSOAP(fname, keys, values) {
     if (canRun) {
         start();
@@ -24,6 +23,7 @@ function handleResponse(response) {
     } else {
         handleXML(processFormatReturn.text(), false);
     }
+    //added additional finish() call when finally() is not available
     finish();
     setFocus();
 }
@@ -41,6 +41,7 @@ function handleXML(xml, isLogin) {
 
 function handleError(errorString) {
     $.afui.toast({ message: errorString });
+    //added additional finish() call when finally() is not available
     finish();
 }
 
