@@ -92,4 +92,5 @@
   </platform>
   <engine name="android" spec="5.1.0" />
   <plugin name="cordova-plugin-barcodescanner" spec="~0.7.3" src="https://github.com/hypery2k/cordova-barcodescanner-plugin" />
+  <plugin name="cordova-plugin-screen-orientation" spec="~3.0.2-dev" src="https://github.com/apache/cordova-plugin-screen-orientation" />
 </widget>
