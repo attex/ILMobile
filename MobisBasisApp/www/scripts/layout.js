@@ -185,8 +185,10 @@ function adjustTableRowWidth() {
     var gridTemplateColumns = maxWidths.map(x => `${x / maxWidthsSum}fr`).join(' ');
 
     //set new format
+    //min-width is equal to the maxWidthSum + row padding + (row gap size * times of gaps)
     Array.from($('.table .rowContainer .row'))
-        .map(x => $(x).css('grid-template-columns', gridTemplateColumns))
+        .map(x => $(x).css('grid-template-columns', gridTemplateColumns)
+            .css('min-width', `calc(${maxWidthsSum}px + 1.0em + ${(maxWidths.length - 1) * 0.2}em)`))
 }
 
 function getComputedWidth(ele) {
