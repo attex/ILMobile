@@ -156,17 +156,14 @@ function formatLogin(xmlDoc) {
 }
 
 function adjustTableHeight() {
-    var detailHeight = getComputedHeight(MAIN_CONTAINER);
+    var upperRestHeight = Array.from($('.upper').children())
+        .reduce((sum, column) => sum + getComputedHeight($(column)), 0);
     var lowerHeight = ($('.lower').length) ? getComputedHeight(getLowerGroupContainer()) : 0;
     var buttonContainerHeight = getComputedHeight(getButtonsGroupContainer());
 
-    var upperHeight = detailHeight - lowerHeight - buttonContainerHeight;
-    var upperRestHeight = Array.from($('.upper').children())
-        .reduce((sum, column) => sum + getComputedHeight($(column)), 0);
-
     $('.table').find('.rowContainer')
         .css('height', 'auto')
-        .css('max-height', upperHeight - upperRestHeight);
+        .css('max-height', `calc(100vh - 2.5em - ${upperRestHeight}px - ${lowerHeight}px - ${buttonContainerHeight}px)`);
 }
 
 function adjustTableRowWidth() {
