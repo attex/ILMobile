@@ -172,12 +172,14 @@ function formatButtonElement(eleXML) {
 }
 
 function formatCheckBoxElement(eleXML) {
-    var eleHTML = $('<input/>');
-    passAttributes(eleXML, eleHTML);
-    var isChecked = $(eleXML).attr('content').toLowerCase() === 'true';
-    $(eleXML).prop('checked', isChecked);
+    var slider = $('<label class="switch"></label>');
+    passAttributes(eleXML, slider);
 
-    return eleHTML;
+    slider.append($('<input type="checkbox"/>')
+            .prop('checked', $(eleXML).attr('content').toLowerCase() === 'true'))
+        .append($('<span class="slider round"></span>'));
+
+    return slider;
 }
 
 //unify event handling processing
@@ -276,8 +278,8 @@ function formatEvent(eleHTML, name, eve, eventText = eve) {
 function getContent(eleHTML) {
     if ($(eleHTML).hasClass('inputContainer')) {
         return getInputContent(eleHTML);
-    } else if ($(eleHTML).attr('type') === 'CheckBox') {
-        return `${eleHTML.checked}`;
+    } else if ($(eleHTML).hasClass('switch')) {
+        return `${$(eleHTML).children('input').is(':checked')}`;
     } else {
         return $(eleHTML).text();
     }
