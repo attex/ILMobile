@@ -137,6 +137,7 @@ function handleListClick() {
 //delete all key handler
 function resetHandler() {
     $(document).off('backbutton').off('keyup');
+    $(window).off('resize');
 }
 
 function removeKeyboardBeforeHandling() {

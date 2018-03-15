@@ -32,6 +32,7 @@ const THEME = $(`.${THEME_STRING}`);
 const SCANNER = $(`.${SCANNER_STRING}`);
 const CONFIG_ARRAY = [HOST, APPLICATION, MODULE, PROJECTS, USER, PASSWORD, FORMATSIZE, COMPANY, THEME, SCANNER];
 
+//In enterprise version comment out lines without a condition
 function setUpConfig() {
     saveConfigValue(HOST_STRING, 'http://192.168.230.41:8585/services/ILMServerPortal.jws');
     saveConfigValue(APPLICATION_STRING, 'iqu ilm');
@@ -40,6 +41,8 @@ function setUpConfig() {
     saveConfigValue(USER_STRING, 'mda1#72');
     saveConfigValue(PASSWORD_STRING, 'mda');
     saveConfigValue(FORMATSIZE_STRING, 'PDA');
+
+    //setting default values to styling options
     if (!getConfigValue(THEME_STRING)) {
         saveConfigValue(THEME_STRING, 'dark')
     }

@@ -54,9 +54,9 @@ function createRow(columnValues, rowValues) {
 
 function createItem(columnValue, rowValue = columnValue) {
     var rowElement = document.createElement('div');
-    $(rowElement).addClass('item');
-    $(rowElement).addClass(columnValue);
-    $(rowElement).text(rowValue);
+    $(rowElement).addClass('item')
+        .addClass(columnValue)
+        .append(`<span>${rowValue}</span>`);
     return rowElement;
 }
 

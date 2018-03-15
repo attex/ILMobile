@@ -43,6 +43,7 @@ function generateLayout(xml) {
 
     if ($('.table').length) {
         adjustTableHeight();
+        $(window).resize(adjustTableHeight);
         adjustTableRowWidth();
     }
 }
@@ -156,39 +157,89 @@ function formatLogin(xmlDoc) {
 }
 
 function adjustTableHeight() {
-    var upperRestHeight = Array.from($('.upper').children())
+    var upperHeight = Array.from($('.upper').children(':visible'))
         .reduce((sum, column) => sum + getComputedHeight($(column)), 0);
+    var tableHeight = $('.rowContainer').height();
+
     var lowerHeight = ($('.lower').length) ? getComputedHeight(getLowerGroupContainer()) : 0;
     var buttonContainerHeight = getComputedHeight(getButtonsGroupContainer());
 
     $('.table').find('.rowContainer')
         .css('height', 'auto')
-        .css('max-height', `calc(100vh - 2.5em - ${upperRestHeight}px - ${lowerHeight}px - ${buttonContainerHeight}px)`);
+        .css('max-height', `calc(100vh - 2.5em - ${upperHeight - tableHeight}px - ${lowerHeight}px - ${buttonContainerHeight}px)`);
 }
 
 function adjustTableRowWidth() {
-    //get all visibile row headers and get their name
-    //Array.from() needed beacuse of jQuery
-    var visibleFields = Array.from($('.table .rowContainer .row.header .item:visible')).map(x => $(x).text());
+    ////get all visibile row headers and get their name
+    ////Array.from() needed beacuse of jQuery
+    //var visibleFields = Array.from($('.table .rowContainer .row.header .item:visible')).map(x => $(x).text());
 
-    //get all widths of corresponding items and find the the max values for width
-    var maxWidths = visibleFields
-        .map(x => Array.from($(`.${x}`))
-            .map(x => getComputedWidth(x))
-            .reduce((a, b) => Math.max(a, b))
-        );
+    ////get all widths of corresponding items and find the the max values for width
+    //var maxWidths = visibleFields
+    //    .map(x => Array.from($(`.${x}`))
+    //        .map(x => getComputedWidth(x))
+    //        .reduce((a, b) => Math.max(a, b), 0)
+    //    );
 
-    //get sum of all max widths to calculate correct fractions
-    var maxWidthsSum = maxWidths.reduce((a, b) => a + b);
+    ////get sum of all max widths to calculate correct fractions
+    //var maxWidthsSum = maxWidths.reduce((a, b) => a + b);
 
-    //format correct grid-template String
-    var gridTemplateColumns = maxWidths.map(x => `${x / maxWidthsSum}fr`).join(' ');
+    ////format correct grid-template String
+    //var gridTemplateColumns = maxWidths.map(x => `${x / maxWidthsSum}fr`).join(' ');
 
-    //set new format
-    //min-width is equal to the maxWidthSum + row padding + (row gap size * times of gaps)
-    Array.from($('.table .rowContainer .row'))
-        .map(x => $(x).css('grid-template-columns', gridTemplateColumns)
-            .css('min-width', `calc(${maxWidthsSum}px + 1.0em + ${(maxWidths.length - 1) * 0.2}em)`))
+    ////set new format
+    ////min-width is equal to the maxWidthSum + row padding + (row gap size * times of gaps)
+
+
+
+    //angenommen wir bekommen immer ein Feld pro Spalte
+    if ($('.table .rowContainer .row').length) {
+
+        adjustTemplates('gridTemplateRows', false);
+        adjustTemplates('gridTemplateColumns', true);
+    }
+}
+
+function adjustTemplates(kind, isWidth) {
+    var templateStrings = Array.from($('.table .rowContainer .row')).map(obj => $(obj).css(kind)).filter(templateString => templateString !== 'none');
+
+    if (templateStrings.length) {
+        var templateArrays = templateStrings.map(templateString => templateStringToFloatArray(templateString));
+        var len = templateArrays[0].length;
+        var resultTemplate = Array(len).fill(0);
+
+        for (var i = 0; i < len; i++) {
+            resultTemplate[i] = findMax(templateArrays, i);
+        }
+
+        resultTemplate = resultTemplate.filter(x => x !== 0);
+
+        var sum = resultTemplate.reduce((a, b) => a + b);
+
+        ////format correct grid-template String
+        var newTemplateString = resultTemplate.map(x => `${x / sum}fr`).join(' ');
+
+        Array.from($('.table .rowContainer .row'))
+            .map(x => $(x).css(kind, newTemplateString));
+
+        //maybe calculate to em? or resize dynamically?
+        if (isWidth) {
+            Array.from($('.table .rowContainer .row')).map(x => $(x)
+                .css('min-width', `calc(${sum}px + 1.0em + ${(resultTemplate.length - 1) * 0.2}em)`));
+        } else {
+            //needs reworking
+            Array.from($('.table .rowContainer .row')).map(x => $(x)
+                .css('min-height', `${sum}px `));
+        }
+    }
+}
+
+function findMax(templateArrays, index) {
+    return templateArrays.reduce((max, arr) => Math.max(max, arr[index]), 0);
+}
+
+function templateStringToFloatArray(templateString) {
+    return templateString.split(' ').map(x => parseFloat(x.slice(0, x.length - 2)));
 }
 
 function getComputedWidth(ele) {
@@ -200,13 +251,9 @@ function getComputedWidth(ele) {
     }
 }
 
+//get full height including margin
 function getComputedHeight(ele) {
-    var height = window.getComputedStyle($(ele).get(0))['height'];
-    if (height.slice(-2) === 'px') {
-        return parseFloat(height.slice(0, height.length - 2));
-    } else {
-        return 0;
-    }
+    return $(ele).outerHeight(true);
 }
 
 //helper
