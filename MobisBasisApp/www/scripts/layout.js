@@ -134,11 +134,16 @@ function getGroupContainer(type) {
 function toggleOptions() {
     const openClass = "open";
     var buttonContainer = getButtonsGroupContainer();
+    // needed for table adjustment with resize
+    var lowerContainer = getLowerGroupContainer();
     if (buttonContainer.hasClass(openClass)) {
         buttonContainer.removeClass(openClass);
+        lowerContainer.show();
     } else {
         buttonContainer.addClass(openClass);
+        lowerContainer.hide();
     }
+    $(window).resize();
 }
 
 function formatLogin(xmlDoc) {
@@ -161,7 +166,7 @@ function adjustTableHeight() {
         .reduce((sum, column) => sum + getComputedHeight($(column)), 0);
     var tableHeight = $('.rowContainer').height();
 
-    var lowerHeight = ($('.lower').length) ? getComputedHeight(getLowerGroupContainer()) : 0;
+    var lowerHeight = getComputedHeight(getLowerGroupContainer());
     var buttonContainerHeight = getComputedHeight(getButtonsGroupContainer());
 
     $('.table').find('.rowContainer')
@@ -170,28 +175,6 @@ function adjustTableHeight() {
 }
 
 function adjustTableRowWidth() {
-    ////get all visibile row headers and get their name
-    ////Array.from() needed beacuse of jQuery
-    //var visibleFields = Array.from($('.table .rowContainer .row.header .item:visible')).map(x => $(x).text());
-
-    ////get all widths of corresponding items and find the the max values for width
-    //var maxWidths = visibleFields
-    //    .map(x => Array.from($(`.${x}`))
-    //        .map(x => getComputedWidth(x))
-    //        .reduce((a, b) => Math.max(a, b), 0)
-    //    );
-
-    ////get sum of all max widths to calculate correct fractions
-    //var maxWidthsSum = maxWidths.reduce((a, b) => a + b);
-
-    ////format correct grid-template String
-    //var gridTemplateColumns = maxWidths.map(x => `${x / maxWidthsSum}fr`).join(' ');
-
-    ////set new format
-    ////min-width is equal to the maxWidthSum + row padding + (row gap size * times of gaps)
-
-
-
     //angenommen wir bekommen immer ein Feld pro Spalte
     if ($('.table .rowContainer .row').length) {
         adjustTemplates(false);
@@ -234,7 +217,11 @@ function templateStringToFloatArray(templateString) {
 
 //get full height including margin
 function getComputedHeight(ele) {
-    return $(ele).outerHeight(true);
+    if ($(ele).is(':visible')) {
+        return $(ele).outerHeight(true);
+    } else {
+        return 0;
+    }
 }
 
 //helper

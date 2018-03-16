@@ -73,15 +73,25 @@ function createTableFunctions(eventTexts, name, eventValues) {
 function toggleSelectMode() {
     var tableContainer = $(event.srcElement).closest('.tableContainer');
 
+    // needed for table adjustment with resize
+    var lowerContainer = getLowerGroupContainer();
+    var buttonContainer = getButtonsGroupContainer();
+
     if ($(tableContainer).hasClass('selectMode')) {
         $(tableContainer).removeClass('selectMode');
         $(tableContainer).find('.selected').removeClass('selected');
         $(tableContainer).find('.row').off('click');
         $(event.srcElement).text('Bearbeiten');
+
+        lowerContainer.show();
+        buttonContainer.show();
     } else {
         $(tableContainer).addClass('selectMode');
         $(tableContainer).find('.row').not('.header').click(toggleSelect)
         $(event.srcElement).text('Fertig');
+
+        lowerContainer.hide();
+        buttonContainer.hide();
     }
 
     $(window).resize();
@@ -89,6 +99,7 @@ function toggleSelectMode() {
 
 function toggleSelect() {
     var row = $(event.srcElement).closest('.row');
+
     if (!$(row).hasClass('selected')) {
         $(row).addClass('selected');
     } else {
