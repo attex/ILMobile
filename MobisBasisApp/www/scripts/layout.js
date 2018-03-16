@@ -194,13 +194,13 @@ function adjustTableRowWidth() {
 
     //angenommen wir bekommen immer ein Feld pro Spalte
     if ($('.table .rowContainer .row').length) {
-
-        adjustTemplates('gridTemplateRows', false);
-        adjustTemplates('gridTemplateColumns', true);
+        adjustTemplates(false);
+        adjustTemplates(true);
     }
 }
 
-function adjustTemplates(kind, isWidth) {
+function adjustTemplates(isWidth) {
+    var kind = isWidth ? 'gridTemplateColumns' : 'gridTemplateRows';
     var templateStrings = Array.from($('.table .rowContainer .row')).map(obj => $(obj).css(kind)).filter(templateString => templateString !== 'none');
 
     if (templateStrings.length) {
@@ -211,21 +211,21 @@ function adjustTemplates(kind, isWidth) {
         for (var i = 0; i < len; i++) {
             resultTemplate[i] = findMax(templateArrays, i);
         }
-
+        //delete hidden columns
         resultTemplate = resultTemplate.filter(x => x !== 0);
-
+        //calculate width in px
         var sum = resultTemplate.reduce((a, b) => a + b);
-
-        ////format correct grid-template String
+        //format correct grid-template String
         var newTemplateString = resultTemplate.map(x => `${x / sum}fr`).join(' ');
-
+        //set templateString
         Array.from($('.table .rowContainer .row'))
             .map(x => $(x).css(kind, newTemplateString));
 
-        //maybe calculate to em? or resize dynamically?
+        var fontSize = parseFloat($("body").css("font-size"));
         if (isWidth) {
+            //no clue why 1.1em and not 1.0em is needed
             Array.from($('.table .rowContainer .row')).map(x => $(x)
-                .css('min-width', `calc(${sum}px + 1.0em + ${(resultTemplate.length - 1) * 0.2}em)`));
+                .css('min-width', `calc(${sum / fontSize}em + 1.1em + ${(resultTemplate.length - 1) * 0.2}em)`));
         } else {
             //needs reworking
             Array.from($('.table .rowContainer .row')).map(x => $(x)
@@ -239,16 +239,7 @@ function findMax(templateArrays, index) {
 }
 
 function templateStringToFloatArray(templateString) {
-    return templateString.split(' ').map(x => parseFloat(x.slice(0, x.length - 2)));
-}
-
-function getComputedWidth(ele) {
-    var height = window.getComputedStyle($(ele).get(0))['width'];
-    if (height.slice(-2) === 'px') {
-        return parseFloat(height.slice(0, height.length - 2));
-    } else {
-        return 0;
-    }
+    return templateString.split(' ').map(x => parseFloat(x));
 }
 
 //get full height including margin

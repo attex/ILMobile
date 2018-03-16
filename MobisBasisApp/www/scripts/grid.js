@@ -80,9 +80,11 @@ function toggleSelectMode() {
         $(event.srcElement).text('Bearbeiten');
     } else {
         $(tableContainer).addClass('selectMode');
-        $(tableContainer).find('.row').click(toggleSelect)
+        $(tableContainer).find('.row').not('.header').click(toggleSelect)
         $(event.srcElement).text('Fertig');
     }
+
+    $(window).resize();
 }
 
 function toggleSelect() {
@@ -96,10 +98,10 @@ function toggleSelect() {
 
 function selectAll() {
     var tableContainer = $(event.srcElement).closest('.tableContainer');
-    $(tableContainer).find('.row').addClass('selected')
+    $(tableContainer).find('.row').not('.header').addClass('selected')
 }
 
 function deselectAll() {
     var tableContainer = $(event.srcElement).closest('.tableContainer');
-    $(tableContainer).find('.row').removeClass('selected')
+    $(tableContainer).find('.row').not('.header').removeClass('selected')
 }
