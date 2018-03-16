@@ -377,25 +377,10 @@ input {border:1px solid transparent;padding:0.4em;}
 .selectable .editButton {display: block;}
 .selectButton, .deselectButton  {display: none;}
 .selectMode .selectButton, .selectMode .deselectButton {display:block;}
-.selectMode .row {padding-left:2em;} 
-.selectMode .headerContainer {padding-left:2em;} 
-.selectMode .row {background:transparent url(../icons/icons8-unchecked-checkbox-30.png) no-repeat;background-size:1.4em;background-position:left;background-position-y: 0.4em;}
-.selectMode .row.selected {background:transparent url(../icons/icons8-checked-checkbox-30-beige.png) no-repeat;background-size:1.4em;background-position:left;background-position-y: 0.4em;}
-.rowContainer .item  {align-self:center;}
+.selectMode .row.selected {background-color: #83d0f2}
+.rowContainer .item  {align-self:center;text-align: center;}
 .tableContainer .headerContainer, .tableContainer .row {grid-template-columns: max-content max-content max-content max-content max-content max-content;display: grid;grid-gap:0.2em;}
 .tableContainer .headerContainer, .tableContainer .row.header .item {font-weight:bold;}
-
-.header.order-1, .item.order-1   {grid-row:1;grid-column:1;}
-.header.order-2, .item.order-2   {grid-row:1;grid-column:2;}
-.header.order-3, .item.order-3   {grid-row:1;grid-column:3;}
-.header.order-4, .item.order-4   {grid-row:1;grid-column:4;}
-.header.order-5, .item.order-5   {grid-row:1;grid-column:5;}
-.header.order-6, .item.order-6   {grid-row:1;grid-column:6;}
-.header.order-7, .item.order-7   {grid-row:1;grid-column:7;}
-.header.order-8, .item.order-8   {grid-row:1;grid-column:8;}
-.header.order-9, .item.order-9   {grid-row:1;grid-column:9;}
-.header.order-10, .item.order-10 {grid-row:1;grid-column:10;}
-
 
 /*------------------------------------------------------*/
 /* Masken Spezial                                       */
@@ -415,8 +400,8 @@ input {border:1px solid transparent;padding:0.4em;}
 /* TPE erfassen  */   
 .SUB_WEP_0600_10 .columnContainer.firstName-e31 {width:49.5%;margin-right:1%;}
 .SUB_WEP_0600_10 .columnContainer.firstName-e29 {width:49.5%;}
-.SUB_WEP_0600_10 .item.Key {grid-row: 2;grid-column: 1 / 4;}
-.SUB_WEP_0600_10 .row.header .item.TPE {display:none;}
+/*.SUB_WEP_0600_10 .item.Key {grid-row: 2;grid-column: 1 / 4;}*/
+.SUB_WEP_0600_10 .row .item.TPE {display:none;}
 
 /* Ladehilsmittel */
 .WEx_POS_0300_10 .tableContainer .headerContainer, .WEx_POS_0300_10 .tableContainer .row {grid-template-columns:15% 15% 15% auto;}
@@ -427,7 +412,6 @@ input {border:1px solid transparent;padding:0.4em;}
 .INF_STA_0100_10 .element.LABEL {font-size:1em;}
 
 /* Positionsliste Kommission */
-/*.KOM_POS_0200_10 .tableContainer .headerContainer, .KOM_POS_0200_10 .tableContainer .row {grid-template-columns:20% 15% 15% 15% 15% auto; }*/
 .KOM_POS_0200_10 .item.Teilenummer, .KOM_POS_0200_10 .header.Teilenummer     {grid-row: 1; grid-column: 1;} 
 .KOM_POS_0200_10 .item.Bezeichnung, .KOM_POS_0200_10 .header.Bezeichnung     {grid-row: 1; grid-column: 2 / 4;}  
 .KOM_POS_0200_10 .item.Menge, .KOM_POS_0200_10 .header.Menge                 {grid-row: 1; grid-column: 5;}  
@@ -449,8 +433,6 @@ input {border:1px solid transparent;padding:0.4em;}
 .KOM_POS_0200_10 .item.nach.Platz      {font-weight:bold;font-size:0.8em;}  
 
 /* Infomasken */
-.INF_ART_0100_10 .tableContainer .headerContainer, .INF_ART_0100_10  .tableContainer .row {grid-template-columns:25% 25% 33% auto !important;}
-.INF_ART_0200_10 .tableContainer .headerContainer, .INF_ART_0200_10  .tableContainer .row {grid-template-columns:40% 30% 17% auto;}
 .INF_ART_0200_10 .header.Menge, .INF_ART_0200_10 .item.Menge  {grid-column:3}
 .INF_ART_0200_10 .header.ME, .INF_ART_0200_10 .item.ME  {grid-column:4}
 .INF_ART_0200_10 .header.Sammel-TPE, .INF_ART_0200_10 .item.Sammel-TPE  {grid-column:1; grid-row:2;}
@@ -470,3 +452,4 @@ input {border:1px solid transparent;padding:0.4em;}
 /* Mengen rechtsbuendig */
 .header.Menge, .header.Lagerbestand {text-align:right;}
 .item.Menge, .item.Lagerbestand, .item.Bestand  {text-align:right;}
+.header.ME, .item.ME {text-align:left;}

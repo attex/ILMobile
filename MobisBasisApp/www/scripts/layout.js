@@ -216,21 +216,11 @@ function adjustTemplates(isWidth) {
         //calculate width in px
         var sum = resultTemplate.reduce((a, b) => a + b);
         //format correct grid-template String
-        var newTemplateString = resultTemplate.map(x => `${x / sum}fr`).join(' ');
+        var fontSize = parseFloat($("body").css("font-size"));
+        var newTemplateString = resultTemplate.map(x => `minmax(${x / fontSize}em, ${x / sum}fr)`).join(' ');
         //set templateString
         Array.from($('.table .rowContainer .row'))
             .map(x => $(x).css(kind, newTemplateString));
-
-        var fontSize = parseFloat($("body").css("font-size"));
-        if (isWidth) {
-            //no clue why 1.1em and not 1.0em is needed
-            Array.from($('.table .rowContainer .row')).map(x => $(x)
-                .css('min-width', `calc(${sum / fontSize}em + 1.1em + ${(resultTemplate.length - 1) * 0.2}em)`));
-        } else {
-            //needs reworking
-            Array.from($('.table .rowContainer .row')).map(x => $(x)
-                .css('min-height', `${sum}px `));
-        }
     }
 }
 
