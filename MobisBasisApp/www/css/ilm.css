@@ -382,7 +382,7 @@ input {border:1px solid transparent;padding:0.4em;}
 .tableContainer .headerContainer, .tableContainer .row {
     grid-template-columns: max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content;
     display: grid;
-    grid-gap: 1em;
+    grid-gap: 0.5em;
 }
 .tableContainer .headerContainer, .tableContainer .row.header .item {font-weight:bold;}
 

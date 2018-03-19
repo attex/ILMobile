@@ -73,7 +73,7 @@ function createTableFunctions(eventTexts, name, eventValues) {
 function toggleSelectMode() {
     var tableContainer = $(event.srcElement).closest('.tableContainer');
 
-    // needed for table adjustment with resize
+    // needed to make invisible
     var lowerContainer = getLowerGroupContainer();
     var buttonContainer = getButtonsGroupContainer();
 

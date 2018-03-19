@@ -134,15 +134,18 @@ function getGroupContainer(type) {
 function toggleOptions() {
     const openClass = "open";
     var buttonContainer = getButtonsGroupContainer();
-    // needed for table adjustment with resize
+    // needed to make invisible
     var lowerContainer = getLowerGroupContainer();
+
     if (buttonContainer.hasClass(openClass)) {
         buttonContainer.removeClass(openClass);
         lowerContainer.show();
+
     } else {
         buttonContainer.addClass(openClass);
         lowerContainer.hide();
     }
+
     $(window).resize();
 }
 
@@ -175,7 +178,6 @@ function adjustTableHeight() {
 }
 
 function adjustTableRowWidth() {
-    //angenommen wir bekommen immer ein Feld pro Spalte
     if ($('.table .rowContainer .row').length) {
         adjustTemplates(false);
         adjustTemplates(true);
@@ -187,6 +189,8 @@ function adjustTemplates(isWidth) {
     var templateStrings = Array.from($('.table .rowContainer .row')).map(obj => $(obj).css(kind)).filter(templateString => templateString !== 'none');
 
     if (templateStrings.length) {
+
+        //generate max value array
         var templateArrays = templateStrings.map(templateString => templateStringToFloatArray(templateString));
         var len = templateArrays[0].length;
         var resultTemplate = Array(len).fill(0);
@@ -194,6 +198,7 @@ function adjustTemplates(isWidth) {
         for (var i = 0; i < len; i++) {
             resultTemplate[i] = findMax(templateArrays, i);
         }
+
         //delete hidden columns
         resultTemplate = resultTemplate.filter(x => x !== 0);
         //calculate width in px
@@ -216,6 +221,7 @@ function templateStringToFloatArray(templateString) {
 }
 
 //get full height including margin
+//only if element is visible
 function getComputedHeight(ele) {
     if ($(ele).is(':visible')) {
         return $(ele).outerHeight(true);
