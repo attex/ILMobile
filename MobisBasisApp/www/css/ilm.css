@@ -173,7 +173,7 @@ body {background-color:white;}
 .panel.configPanel.detail {overflow: auto;height: calc(100vh - 2.5em);}
 header {height: 2.5em;}
 .view header h1 {text-shadow: none;font-size: 1.1em;padding-top: 0.5em;}
-.naviButton {top: 0.5em;left: 1em;}
+.naviButton {top: 0.55em;left: 1em;}
 .pages.mainpages {top: 2.5em;height: calc(100vh - 2.5em);}
 .detailContainer {display: grid;width: 100%;height:calc(100vh - 2.5em);  grid-template: "oben" 1fr  "unten" auto  "toolbar" auto  / 1fr;}
 .groupContainer.upper {grid-area:oben; }   /*display:grid;grid-template-rows: 2em 2em 2em auto; -MS*/
