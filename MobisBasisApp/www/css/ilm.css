@@ -184,10 +184,10 @@ header {height: 2.5em;}
 /* Buttons                                              */
 /*------------------------------------------------------*/
 .groupContainer.buttonContainer {padding:0.5em}
-.buttonContainer .button.ESC   {grid-row:1;grid-column:1;justify-self:left;margin:0;color:transparent;width:3em;height:3em;min-width:3em;background:transparent url(../icons/icons8-back-filled-50.png) no-repeat;background-size:contain;}
-.buttonContainer .button.options {grid-row:1; grid-column:2;justify-self:center;margin:0;color:transparent;width:2.5em;height:3em;  background:transparent url(../icons/icons8-Collapse-ArrowFilled-50.png) no-repeat;background-size:2.5em;background-position:center;}
-.buttonContainer .button.ENTER {grid-row:1; grid-column:3;justify-self:right;margin:0;color:transparent;width:3em;height:3em;min-width:3em;background:transparent url(../icons/icons8-checkmark-filled-50.png) no-repeat right;background-size:contain;}
-.buttonContainer.open .button.options   {margin:0;color:transparent;width:2.5em;height:2.5em;background:transparent url(../icons/icons8-ExpandArrowFilled-50.png) no-repeat;   background-size:2.5em;background-position:center;}
+.groupContainer.buttonContainer .button.ESC   {grid-row:1;grid-column:1;justify-self:left;margin:0;color:transparent;width:3em;height:3em;background:transparent url(../icons/icons8-back-filled-50.png) no-repeat;background-size:contain;}
+.groupContainer.buttonContainer .button.options {grid-row:1; grid-column:2;justify-self:center;margin:0;color:transparent;width:2.5em;height:3em;background:transparent url(../icons/icons8-Collapse-ArrowFilled-50.png) no-repeat;background-size:2.5em;background-position:center;}
+.groupContainer.buttonContainer .button.ENTER {grid-row:1; grid-column:3;justify-self:right;margin:0;color:transparent;width:3em;height:3em;background:transparent url(../icons/icons8-checkmark-filled-50.png) no-repeat right;background-size:contain;}
+.showOptions .button.options   {margin:0;color:transparent;width:2.5em;height:2.5em;background:transparent url(../icons/icons8-ExpandArrowFilled-50.png) no-repeat;   background-size:2.5em;background-position:center;}
 .button.scan {margin: 0;position: absolute;right: 0.5em;top:1em;color: transparent;width: 2em;height: 2em; min-width: 2.45em; background: transparent url(../icons/icons8-barcode-40.png) no-repeat; background-size: 2em;    background-position: center;}
 .button.matchCodeButton  {margin:0;position:absolute;right:0.5em;color:transparent;width:2.45em;height:2.45em;min-width:2.45em;background:transparent url(../icons/icons8-search-filled-50.png) no-repeat;background-size: 1.7em;background-position-y: 0.3em;}
 .button.scan + .button.matchCodeButton {right:2em;top:1em;} 
@@ -204,15 +204,17 @@ header {height: 2.5em;}
 .groupContainer.buttonContainer {display:grid;}
 .groupContainer.buttonContainer {grid-template-columns: 1fr 1fr 1fr}
 
-.groupContainer.buttonContainer.open {position:absolute;bottom:0;z-index: 1;left: 0;width: 100%;}
+.showOptions .groupContainer.buttonContainer {position:absolute;bottom:0;z-index: 1;left: 0;width: 100%;}
 
 .buttonContainer .button {justify-self:center;margin:0;height:2.5em;margin-top:0.5em;}
-.open .button.ESC     {grid-row:10;grid-column:1;justify-self:left;height:3em;margin-top:0;margin-bottom:0;}
-.open .button.options {grid-row:10; grid-column:2;justify-self:center;height:2.5em;margin-top:0;align-self:center;margin-bottom:0;}
-.open .button.ENTER   {grid-row:10; grid-column:3;justify-self:right;height:3em;margin-top:0;margin-bottom:0;}
-.open .button   {grid-column:1 / 4;margin-bottom:0.4em;min-width:50%;}
+.showOptions .groupContainer.buttonContainer .button:not(.ESC):not(.options):not(.ENTER) {grid-column:1 / 4;margin-bottom:0.4em;min-width:50%;}
+.showOptions .groupContainer.buttonContainer .button.ESC     {grid-row:10}
+.showOptions .groupContainer.buttonContainer .button.options {grid-row:10}
+.showOptions .groupContainer.buttonContainer .button.ENTER   {grid-row:10}
 
 /*  Optionen ein/ausblenden   */ 
+.showOptions .lower {display:none;}
+
 .groupContainer.buttonContainer.quantity-1 .button.options {display:none;}
 .groupContainer.buttonContainer.quantity-2 .button.options {display:none;}
 .groupContainer.buttonContainer.quantity-3 .button.options {display:none;}
@@ -244,12 +246,12 @@ header {height: 2.5em;}
 .groupContainer.buttonContainer.quantity-8 .button.ENTER {display:block;} 
 .groupContainer.buttonContainer.quantity-9 .button.ENTER {display:block;} 
 
-.groupContainer.buttonContainer.quantity-4.open .button  {display:block;} 
-.groupContainer.buttonContainer.quantity-5.open .button  {display:block;} 
-.groupContainer.buttonContainer.quantity-6.open .button  {display:block;} 
-.groupContainer.buttonContainer.quantity-7.open .button  {display:block;} 
-.groupContainer.buttonContainer.quantity-8.open .button  {display:block;} 
-.groupContainer.buttonContainer.quantity-9.open .button  {display:block;} 
+.showOptions .groupContainer.buttonContainer.quantity-4 .button  {display:block;} 
+.showOptions .groupContainer.buttonContainer.quantity-5 .button  {display:block;} 
+.showOptions .groupContainer.buttonContainer.quantity-6 .button  {display:block;} 
+.showOptions .groupContainer.buttonContainer.quantity-7 .button  {display:block;} 
+.showOptions .groupContainer.buttonContainer.quantity-8 .button  {display:block;} 
+.showOptions .groupContainer.buttonContainer.quantity-9 .button  {display:block;} 
 
 /*------------------------------------------------------*/
 /*  Column-Container im oberen Bereich                  */
@@ -360,31 +362,34 @@ input {border:1px solid transparent;padding:0.4em;}
 .theme, .scanner  {border:1px solid transparent;padding:0.35em;border:none;width:100%;}
 
  /* Tabelle */
-.tableContainer .rowContainer {height: 0px; max-height: 0px;}
 .tableContainer {display: grid;width: 100%;height: auto;  grid-template: "buttonoben" auto  "liste" 1fr  "buttonunten" auto  / 1fr;padding:0.3em;}
-.buttonContainer.selectTools {grid-area:buttonoben;}   
-.buttonContainer.functions   {grid-area:buttonunten;}   
 .tableContainer .rowContainer {overflow-y: auto;position: relative;float: left;width: calc(100vw - 0.6em);margin-bottom:0.5em;display: grid} 
 .tableContainer .headerContainer {padding:0.5em;}
 .tableContainer .row {padding:0.5em;}
 .tableContainer .headerContainer .header.Key, .tableContainer .headerContainer .header.INT_KEY, .tableContainer .rowContainer .item.INT_KEY {display:none;}
-.tableContainer .buttonContainer.functions {position:relative;float:left;width:100%;display:none;}
-.buttonContainer.selectTools {display:none;}
-.tableContainer.selectable .buttonContainer.selectTools {display:block;position:relative;float:left;width:100%;}
-.tableContainer.selectMode .buttonContainer.functions {display:flex;justify-content: center;}
-.tableContainer.selectMode .buttonContainer.functions .button {padding:0.3em;margin:0.5em;}
+.rowContainer .item  {align-self:center;text-align: left;}
+.tableContainer .headerContainer, .tableContainer .row {
+    grid-template-columns: max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content;
+    display: grid;
+    grid-row-gap: 0.5em;
+    grid-column-gap: 0.2em;
+}
+.tableContainer .headerContainer, .tableContainer .row.header .item {font-weight:bold;}
+
+/*Tabelle Select Tools*/
+.selectTools {grid-area:buttonoben;display:none;}   
+.selectable .selectTools {display:block;position:relative;float:left;width:100%;}
 .editButton {display: none;}
 .selectable .editButton {display: block;}
 .selectButton, .deselectButton  {display: none;}
 .selectMode .selectButton, .selectMode .deselectButton {display:block;}
+.functions   {grid-area:buttonunten;position:relative;float:left;width:100%;display:none;}   
+.selectMode .functions {display:flex;justify-content: center;}
+.selectMode .functions .button {padding:0.3em;margin:0.5em;}
 .selectMode .row.selected {background-color: #83d0f2}
-.rowContainer .item  {align-self:center;text-align: center;}
-.tableContainer .headerContainer, .tableContainer .row {
-    grid-template-columns: max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content;
-    display: grid;
-    grid-gap: 0.5em;
-}
-.tableContainer .headerContainer, .tableContainer .row.header .item {font-weight:bold;}
+
+.selectMode .lower {display:none;}
+.selectMode .groupContainer.buttonContainer {display:none;}
 
 /*------------------------------------------------------*/
 /* Masken Spezial                                       */
@@ -418,14 +423,14 @@ input {border:1px solid transparent;padding:0.4em;}
 /* Positionsliste Kommission */
 .KOM_POS_0200_10 .item.Teilenummer, .KOM_POS_0200_10 .header.Teilenummer     {grid-row: 1; grid-column: 1;} 
 .KOM_POS_0200_10 .item.Bezeichnung, .KOM_POS_0200_10 .header.Bezeichnung     {grid-row: 1; grid-column: 2 / 4;}  
-.KOM_POS_0200_10 .item.Menge, .KOM_POS_0200_10 .header.Menge                 {grid-row: 1; grid-column: 5;}  
-.KOM_POS_0200_10 .item.ME, .KOM_POS_0200_10 .header.ME                       {grid-row: 1; grid-column: 6;}  
+.KOM_POS_0200_10 .item.Menge, .KOM_POS_0200_10 .header.Menge                 {grid-row: 1; grid-column: 4;}  
+.KOM_POS_0200_10 .item.ME, .KOM_POS_0200_10 .header.ME                       {grid-row: 1; grid-column: 5;}  
 .KOM_POS_0200_10 .item.von.Lager, .KOM_POS_0200_10 .header.von.Lager         {grid-row: 2; grid-column: 2;} 
 .KOM_POS_0200_10 .item.von.Platz, .KOM_POS_0200_10 .header.von.Platz         {grid-row: 2; grid-column: 3;} 
-.KOM_POS_0200_10 .item.nach.Lager, .KOM_POS_0200_10 .header.nach.Lager       {grid-row: 2; grid-column: 4;} 
-.KOM_POS_0200_10 .item.nach.Platz, .KOM_POS_0200_10 .header.nach.Platz       {grid-row: 2; grid-column: 5;} 
-.KOM_POS_0200_10 .item.Nummer, .KOM_POS_0200_10 .header.Nummer               {grid-row: 3; grid-column: 2 / 4;} 
-.KOM_POS_0200_10 .item.TPE-Nummer, .KOM_POS_0200_10 .header.TPE-Nummer       {grid-row: 4; grid-column: 2 / 4;} 
+.KOM_POS_0200_10 .item.nach.Lager, .KOM_POS_0200_10 .header.nach.Lager       {grid-row: 3; grid-column: 2;} 
+.KOM_POS_0200_10 .item.nach.Platz, .KOM_POS_0200_10 .header.nach.Platz       {grid-row: 3; grid-column: 3;} 
+.KOM_POS_0200_10 .item.Nummer, .KOM_POS_0200_10 .header.Nummer               {grid-row: 2; grid-column: 1;} 
+.KOM_POS_0200_10 .item.TPE-Nummer, .KOM_POS_0200_10 .header.TPE-Nummer       {grid-row: 3; grid-column: 1;} 
 
 .KOM_POS_0200_10 .item.Teilenummer     {color:#3f87a6;font-weight:bold;} 
 .KOM_POS_0200_10 .item.Bezeichnung     {color:#3f87a6;font-weight:bold;}   

@@ -5,6 +5,7 @@ const LOGIN_SOURCE = "LOGIN";
 const LOGIN_USER_PROPERTY = "LOGIN_USER";
 const LOGIN_PASSWORD_PROPERTY = "LOGIN_PASSWORD";
 
+//MAIN GENERATE METHOD
 function generateLayout(xml) {
     console.log('Response:\n');
     console.log(xml);
@@ -43,6 +44,7 @@ function generateLayout(xml) {
 
     if ($('.table').length) {
         adjustTableHeight();
+        //add handler on resize
         $(window).resize(adjustTableHeight);
         adjustTableRowWidth();
     }
@@ -54,6 +56,7 @@ function formatTitle(xmlDoc) {
     TITLE.text(title);
 }
 
+//TOOLBAR/BUTTONS
 function formatToolbar(xmlDoc) {
     var events = $(xmlDoc).find('events');
 
@@ -79,6 +82,13 @@ function formatToolbar(xmlDoc) {
     }
 }
 
+function createButton(text, source, action, buttonClassName) {
+    return $('<button class="button"/>')
+        .addClass(buttonClassName)
+        .text(text)
+        .on('click', createHandler(source, action));
+}
+
 //find the correct Event Text in the ';'-seperated list
 function findEventText(eventText) {
     var texts = eventText.split(';');
@@ -89,22 +99,19 @@ function findEventText(eventText) {
     }
 }
 
-function createButton(text, source, action, buttonClassName) {
-    return $('<button class="button"/>')
-        .addClass(buttonClassName)
-        .text(text)
-        .on('click', createHandler(source, action));
-}
-
+//RESET
 function resetLayout() {
     TITLE.text('');
     MAIN_CONTAINER.empty();
-    MAIN_CONTAINER.removeClass(window.localStorage.getItem('identifier'));
+    //remove all classes
+    MAIN_CONTAINER.attr('class', 'detailContainer');
     window.localStorage.removeItem('identifier')
     window.localStorage.removeItem('template')
     resetHandler();
 }
 
+
+//GROUP CONTAINER
 function getUpperGroupContainer() {
     return getGroupContainer('upper')
 }
@@ -131,24 +138,20 @@ function getGroupContainer(type) {
     return groupContainer;
 }
 
+//TOGGLE OPTIONS
 function toggleOptions() {
-    const openClass = "open";
-    var buttonContainer = getButtonsGroupContainer();
-    // needed to make invisible
-    var lowerContainer = getLowerGroupContainer();
+    const options = "showOptions";
 
-    if (buttonContainer.hasClass(openClass)) {
-        buttonContainer.removeClass(openClass);
-        lowerContainer.show();
-
+    if (MAIN_CONTAINER.hasClass(options)) {
+        MAIN_CONTAINER.removeClass(options);
     } else {
-        buttonContainer.addClass(openClass);
-        lowerContainer.hide();
+        MAIN_CONTAINER.addClass(options);
     }
 
     $(window).resize();
 }
 
+//FORMAT LOGIN
 function formatLogin(xmlDoc) {
     //save element Number of user and password input element 
     window.localStorage.setItem('userElement', $(xmlDoc).find(`formatproperty[key=${LOGIN_USER_PROPERTY}]`).attr('value'));
@@ -162,72 +165,6 @@ function formatLogin(xmlDoc) {
     var password = window.localStorage.getItem(PASSWORD_STRING) ? window.localStorage.getItem(PASSWORD_STRING) : "";
     $(`[name='${window.localStorage.getItem('userElement')}']`).find('input').val(username);
     $(`[name='${window.localStorage.getItem('passwordElement')}']`).find('input').val(password);
-}
-
-function adjustTableHeight() {
-    var upperHeight = Array.from($('.upper').children(':visible'))
-        .reduce((sum, column) => sum + getComputedHeight($(column)), 0);
-    var tableHeight = $('.rowContainer').height();
-
-    var lowerHeight = getComputedHeight(getLowerGroupContainer());
-    var buttonContainerHeight = getComputedHeight(getButtonsGroupContainer());
-
-    $('.table').find('.rowContainer')
-        .css('height', 'auto')
-        .css('max-height', `calc(100vh - 2.5em - ${upperHeight - tableHeight}px - ${lowerHeight}px - ${buttonContainerHeight}px)`);
-}
-
-function adjustTableRowWidth() {
-    if ($('.table .rowContainer .row').length) {
-        adjustTemplates(false);
-        adjustTemplates(true);
-    }
-}
-
-function adjustTemplates(isWidth) {
-    var kind = isWidth ? 'gridTemplateColumns' : 'gridTemplateRows';
-    var templateStrings = Array.from($('.table .rowContainer .row')).map(obj => $(obj).css(kind)).filter(templateString => templateString !== 'none');
-
-    if (templateStrings.length) {
-
-        //generate max value array
-        var templateArrays = templateStrings.map(templateString => templateStringToFloatArray(templateString));
-        var len = templateArrays[0].length;
-        var resultTemplate = Array(len).fill(0);
-
-        for (var i = 0; i < len; i++) {
-            resultTemplate[i] = findMax(templateArrays, i);
-        }
-
-        //delete hidden columns
-        resultTemplate = resultTemplate.filter(x => x !== 0);
-        //calculate width in px
-        var sum = resultTemplate.reduce((a, b) => a + b);
-        //format correct grid-template String
-        var fontSize = parseFloat($("body").css("font-size"));
-        var newTemplateString = resultTemplate.map(x => `minmax(${x / fontSize}em, ${x / sum}fr)`).join(' ');
-        //set templateString
-        Array.from($('.table .rowContainer .row'))
-            .map(x => $(x).css(kind, newTemplateString));
-    }
-}
-
-function findMax(templateArrays, index) {
-    return templateArrays.reduce((max, arr) => Math.max(max, arr[index]), 0);
-}
-
-function templateStringToFloatArray(templateString) {
-    return templateString.split(' ').map(x => parseFloat(x));
-}
-
-//get full height including margin
-//only if element is visible
-function getComputedHeight(ele) {
-    if ($(ele).is(':visible')) {
-        return $(ele).outerHeight(true);
-    } else {
-        return 0;
-    }
 }
 
 //helper

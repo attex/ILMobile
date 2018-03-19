@@ -1,4 +1,5 @@
-﻿function createGridContainer(type, columns, rows) {
+﻿//FORMAT GRIDS
+function createGridContainer(type, columns, rows) {
     var gridContainer = $('<div/>')
         .addClass('gridContainer')
         .addClass(type)
@@ -70,28 +71,21 @@ function createTableFunctions(eventTexts, name, eventValues) {
     return functionContainer;
 }
 
+//SELECT FUNCTIONALITY
 function toggleSelectMode() {
+    const selectMode = 'selectMode';
     var tableContainer = $(event.srcElement).closest('.tableContainer');
 
-    // needed to make invisible
-    var lowerContainer = getLowerGroupContainer();
-    var buttonContainer = getButtonsGroupContainer();
-
-    if ($(tableContainer).hasClass('selectMode')) {
-        $(tableContainer).removeClass('selectMode');
+    if (MAIN_CONTAINER.hasClass(selectMode)) {
+        MAIN_CONTAINER.removeClass(selectMode);
         $(tableContainer).find('.selected').removeClass('selected');
         $(tableContainer).find('.row').off('click');
         $(event.srcElement).text('Bearbeiten');
 
-        lowerContainer.show();
-        buttonContainer.show();
     } else {
-        $(tableContainer).addClass('selectMode');
+        MAIN_CONTAINER.addClass(selectMode);
         $(tableContainer).find('.row').not('.header').click(toggleSelect)
         $(event.srcElement).text('Fertig');
-
-        lowerContainer.hide();
-        buttonContainer.hide();
     }
 
     $(window).resize();
