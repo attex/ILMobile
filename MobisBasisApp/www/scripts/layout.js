@@ -158,13 +158,13 @@ function formatLogin(xmlDoc) {
     window.localStorage.setItem('passwordElement', $(xmlDoc).find(`formatproperty[key=${LOGIN_PASSWORD_PROPERTY}]`).attr('value'));
 
     //encrypt password field
-    $(`[name='${window.localStorage.getItem('passwordElement')}']`).find('input').attr('type', 'password');
+    $(`[${HTML_NAME}='${window.localStorage.getItem('passwordElement')}']`).find('input').attr('type', 'password');
 
     //fill input fields with saved config value
     var username = window.localStorage.getItem(USER_STRING) ? window.localStorage.getItem(USER_STRING) : "";
     var password = window.localStorage.getItem(PASSWORD_STRING) ? window.localStorage.getItem(PASSWORD_STRING) : "";
-    $(`[name='${window.localStorage.getItem('userElement')}']`).find('input').val(username);
-    $(`[name='${window.localStorage.getItem('passwordElement')}']`).find('input').val(password);
+    $(`[${HTML_NAME}='${window.localStorage.getItem('userElement')}']`).find('input').val(username);
+    $(`[${HTML_NAME}='${window.localStorage.getItem('passwordElement')}']`).find('input').val(password);
 }
 
 //helper

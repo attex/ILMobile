@@ -18,12 +18,13 @@ grün neu buttons         #2ECC71
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 body {
     font-family: Roboto;
-    font-size: 14px;
+    font-size: 13px;
     color: #4f5969;
 } 
 :focus {outline: -webkit-focus-ring-color auto 0}
+
 @media only screen and (max-width: 3000px) {
-  body {font-size: 16px;} 
+  body {font-size: 21px;} 
 }
 
 @media only screen and (max-width: 1350px) {

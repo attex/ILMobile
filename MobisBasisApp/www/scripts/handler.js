@@ -109,8 +109,8 @@ function login() {
     var module = getConfigValue(MODULE_STRING);
     var project = getConfigValue(PROJECTS_STRING);
     var formatSize = getConfigValue(FORMATSIZE_STRING);
-    var user = getContent($(`[name='${window.localStorage.getItem('userElement')}']`));
-    var password = getContent($(`[name='${window.localStorage.getItem('passwordElement')}']`));
+    var user = getContent($(`[${HTML_NAME}='${window.localStorage.getItem('userElement')}']`));
+    var password = getContent($(`[${HTML_NAME}='${window.localStorage.getItem('passwordElement')}']`));
     handleSOAP('login', ['application', 'module', 'project', 'formatSize', 'user', 'password'], [application, module, project, formatSize, user, password])
 }
 
@@ -125,7 +125,7 @@ function handle(source, action) {
 //outsource to grid.js
 //change classNames to their xml counterpart
 function handleListClick() {
-    var source = $(event.srcElement).closest('.element').attr('name');
+    var source = $(event.srcElement).closest('.element').attr(HTML_NAME);
     const action = "CLICK";
 
     //marking clicked row

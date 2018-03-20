@@ -32,7 +32,7 @@
 }
 
 function elementToXML(ele, source) {
-    var xml = `<element events="${escapeXml($(ele).attr('events'))}" image="${escapeXml($(ele).attr('image'))}" name="${escapeXml($(ele).attr('name'))}" type="${escapeXml($(ele).attr('type'))}"`;
+    var xml = `<element events="${escapeXml($(ele).attr(HTML_EVENTS))}" image="${escapeXml($(ele).attr(HTML_IMAGE))}" name="${escapeXml($(ele).attr(HTML_NAME))}" type="${escapeXml($(ele).attr(HTML_TYPE))}"`;
     if ($(ele).hasClass('gridContainer')) {
         var key = $(ele).find('.clicked .Key').text();
         var checkedKeysString = Array.from($(ele).find('.selected .INT_KEY'))
