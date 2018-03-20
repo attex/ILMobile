@@ -296,8 +296,7 @@ function getContent(eleHTML) {
         case 'CheckBox':
             return `${$(eleHTML).children('input').is(':checked')}`
         case 'DateControl':
-            //TODO: implement
-            return $(eleHTML).text();
+            return getDateContent(eleHTML);
         default:
             return $(eleHTML).text();
     }
@@ -309,6 +308,15 @@ function getInputContent(inputContainer) {
     var input = $(inputContainer).find('input').val();
 
     return prefix + input;
+}
+
+function getDateContent(dateInputContainer) {
+    var date = $(dateInputContainer).val();
+    if (date.length) {
+
+        return date.split('-').reverse().join('.');
+    }
+    return "";
 }
 
 //getting all elements in correct order
