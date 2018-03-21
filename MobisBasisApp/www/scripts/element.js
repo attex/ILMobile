@@ -41,8 +41,8 @@ function formatElements(elements, seperatorHeight) {
         //adding elements to column and adding styling information
         var column = $('<div class="columnContainer"/>')
             .addClass(`quantity-${eleHTMLArray.length}`)
-            .addClass(`firstName-${$(eleHTMLArray[0]).attr(HTML_NAME)}`)
-            .addClass(eleHTMLArray.map(eleHTML => $(eleHTML).attr(HTML_STYLE)).join('-'))
+            .addClass(`firstName-${$(eleHTMLArray[0]).findElement().attr(HTML_NAME)}`)
+            .addClass(eleHTMLArray.map(eleHTML => $(eleHTML).findElement().attr(HTML_STYLE)).join('-'))
             .append(eleHTMLArray);
         
         //add empty tag if necessary
@@ -64,6 +64,11 @@ function getXPos(ele) {
     var value = parseInt($(ele).attr(XML_POSITION).split(',')[0]);
     return value;
 }
+
+//helper to find closest element
+$.fn.findElement = function () {
+    return this.find('.element').addBack('.element');
+};
 
 //returns true if column only contains empty labels
 function columnIsEmpty(column) {

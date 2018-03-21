@@ -3,7 +3,7 @@
         .reduce((sum, column) => sum + getComputedHeight($(column)), 0);
     var tableHeight = $('.rowContainer').height();
 
-    var lowerHeight = getComputedHeight(getLowerGroupContainer());
+    var lowerHeight = getComputedHeight($('.lower'));
     var buttonContainerHeight = getComputedHeight(getButtonsGroupContainer());
 
     $('.table').find('.rowContainer')
