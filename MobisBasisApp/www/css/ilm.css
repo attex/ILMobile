@@ -187,7 +187,11 @@ header .naviButton, header h1, header .galleryButton {align-self: center;}
 /* Gallery                                             */
 /*------------------------------------------------------*/
 
-.galleryPanel .columnContainer {background-color:transparent;}
+.directoryPanel .columnContainer {background-color:transparent;}
+.gallery {display:grid;margin:0.5em;grid-template-columns:1fr 1fr 1fr;grid-template-rows:max-content;}
+figure {margin:0.2em;display:flex}
+figure a {display:flex}
+figure img {width:100%;height:auto;justify-self:center;align-self:center;}
 
 /*------------------------------------------------------*/
 /* Buttons                                              */

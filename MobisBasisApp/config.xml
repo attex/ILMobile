@@ -90,7 +90,7 @@
     <splash height="1920" src="res/screens/windows/SplashScreen.scale-240.png" width="1152" />
     <splash height="1920" src="res/screens/windows/SplashScreenPhone.scale-240.png" width="1152" />
   </platform>
-  <engine name="android" spec="~5.2.1" />
+  <engine name="android" spec="5.2.1" />
   <plugin name="cordova-plugin-barcodescanner" spec="~0.7.3" src="https://github.com/hypery2k/cordova-barcodescanner-plugin" />
   <plugin name="es6-promise-plugin" spec="~4.2.2" />
   <plugin name="cordova-plugin-camera" spec="~2.4.1" />

@@ -77,13 +77,29 @@ function loadDirs() {
 }
 
 function displayDirs(dirEntryList) {
-    var galleryPanel = $('.galleryPanel');
-    $(galleryPanel).empty();
+    var directoryPanel = $('.directoryPanel');
+    $(directoryPanel).empty();
 
     var dirs = dirEntryList.map(dir => [deEscapeDir(dir)]);
 
     var liste = $('<div class="columnContainer"/>').append(createGridContainer('list', ['Wert'], dirs));
-    $(galleryPanel).append(liste);
+    $(liste).find('.row').click(toggleGallery);
+    $(directoryPanel).append(liste);
+}
+
+function displayGallery() {
+    var gallery = $('.gallery');
+
+    var imageUrls = ['www/images/1.jpg', 'www/images/2.jpg', 'www/images/3.jpg', 'www/images/4.jpg', 'www/images/5.jpg']
+
+    for (var i = 0; i < imageUrls.length; i++) {
+
+        let image = $(`<figure><a href="${window.location.origin + '/' + imageUrls[i]}"><img src="${window.location.origin + '/' + imageUrls[i]}" /></a></figure>`)
+        $('.gallery').append(image);
+    }
+
+    // execute above function
+    initPhotoSwipeFromDOM('.gallery');
 }
 
 
@@ -97,12 +113,23 @@ function resOnError(error) {
 }
 
 //use promises
+function toggleDirectories() {
+    if ($('.active').hasClass('directoryPanel')) {
+        $('.active').removeClass('active');
+        MAIN_PANEL.addClass(ACTIVE_CLASS);
+    } else {
+        loadDirs();
+        $('.active').removeClass('active');
+        $('.directoryPanel').addClass(ACTIVE_CLASS);
+    }
+}
+
 function toggleGallery() {
     if ($('.active').hasClass('galleryPanel')) {
         $('.active').removeClass('active');
         MAIN_PANEL.addClass(ACTIVE_CLASS);
     } else {
-        loadDirs();
+        displayGallery();
         $('.active').removeClass('active');
         $('.galleryPanel').addClass(ACTIVE_CLASS);
     }
