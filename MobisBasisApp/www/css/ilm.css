@@ -170,9 +170,13 @@ option {color:white;}
 body {background-color:white;}
 .pages.mainpages {background-color:white;overflow:hidden;} 
 .panel.configPanel.detail {overflow: auto;height: calc(100vh - 2.5em);}
-header {height: 2.5em;}
-.view header h1 {text-shadow: none;font-size: 1.1em;padding-top: 0.5em;}
-.naviButton {top: 0.55em;left: 1em;}
+
+header {display: grid;grid-template-columns: 1fr auto 1fr;height: 2.5em;}
+header .naviButton, header h1, header .galleryButton {align-self: center;}
+.naviButton {justify-self: left;margin-left: 1em;grid-column:1}
+.view header h1 {justify-self: center;text-shadow: none;font-size: 1.2em;grid-column:2;margin:0}
+.galleryButton {justify-self: right;margin-right: 1em;grid-column:3}
+
 .pages.mainpages {top: 2.5em;height: calc(100vh - 2.5em);}
 .detailContainer {display: grid;width: 100%;height:calc(100vh - 2.5em);  grid-template: "oben" 1fr  "unten" auto  "toolbar" auto  / 1fr;}
 .groupContainer.upper {grid-area:oben; }
@@ -343,7 +347,7 @@ header {height: 2.5em;}
 .groupContainer.upper .columnContainer .element.LABEL {margin-right:1em;}
 .groupContainer.lower .columnContainer:not(.quantity-1) .ORDER  {font-size:0.8em;margin-right:1em;}
 
-.element.VARIABLE_ABC, .element.VARIABLE_123 {font-size:1em;float:right;font-weight:bold;}
+.element.VARIABLE_ABC, .element.VARIABLE_123 {font-size:1em;font-weight:bold;}
 .element.LABEL_EDITZONE {font-size:0.8em;}
 .gridContainer.list.element {position:relative;float:left;width:100%;padding:0;}
 .gridContainer.list.element .headerContainer {display:none;}

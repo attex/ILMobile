@@ -44,7 +44,7 @@ function formatElements(elements, seperatorHeight) {
             .addClass(`firstName-${$(eleHTMLArray[0]).findElement().attr(HTML_NAME)}`)
             .addClass(eleHTMLArray.map(eleHTML => $(eleHTML).findElement().attr(HTML_STYLE)).join('-'))
             .append(eleHTMLArray);
-        
+
         //add empty tag if necessary
         if (columnIsEmpty(column)) {
             $(column).addClass('empty');
@@ -149,6 +149,11 @@ function formatInputElement(eleXML) {
     var input = $(`<input value="${content}" onclick="this.select()"/>`)
     $(inputContainer).append(input);
 
+    //if input is only upper add helper method
+    if ($(eleXML).find('formatelementproperty[key="UPPER"][value="true"]').length) {
+        $(input).get(0).oninput = function () { this.value = this.value.toUpperCase() };
+    }
+
     //create scan button if needed
     if (inputContainer.attr(HTML_STYLE) === SCAN_STYLE && scanButtonNeeded()) {
         var scanButton = $('<button class="button scan"/>')
@@ -169,11 +174,20 @@ function formatInputElement(eleXML) {
 }
 
 function formatButtonElement(eleXML) {
-    //TODO: why style button
-    var eleHTML = createButton($(eleXML).attr(XML_CONTENT), $(eleXML).attr(XML_NAME), 'CLICK', 'elementButton').attr('style', 'button');
-    //style attribute will get overridden if the element has a own style
-    passAttributes(eleXML, eleHTML);
+    var eleHTML;
 
+    if ($(eleXML).find('formatelementproperty[key="CLIENTFUNCTION"]').length) {
+        eleHTML = $('<div class="dummy"/>')
+
+        var info = $(eleXML).find('formatelementproperty[key="CLIENTFUNCTION"]').attr('value').split(',')[1]
+        var button = $(`<button class="button" onclick="openCamera('${info}')">Foto aufnehmen</button>`);
+        getButtonsGroupContainer().append(button);
+    } else {
+        //TODO: why style button
+        eleHTML = createButton($(eleXML).attr(XML_CONTENT), $(eleXML).attr(XML_NAME), 'CLICK', 'elementButton').attr('style', 'button');
+    }
+
+    passAttributes(eleXML, eleHTML);
     return eleHTML;
 }
 
