@@ -92,11 +92,11 @@ function createButton(text, source, action, buttonClassName) {
 //find the correct Event Text in the ';'-seperated list
 function findEventText(eventText) {
     var texts = eventText.split(';');
-    if (texts.length > 1 && texts[1] !== '') {
-        return texts[1];
-    } else {
+    //if (texts.length > 1 && texts[1] !== '') {
+    //    return texts[1];
+    //} else {
         return texts[0]
-    }
+    //}
 }
 
 //RESET

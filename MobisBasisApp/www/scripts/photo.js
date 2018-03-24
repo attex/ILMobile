@@ -64,25 +64,26 @@ function moveFile(info, file) {
 
 }
 
-function showDirs() {
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSys) {
+function loadDirs() {
+    //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSys) {
 
-        fileSys.root.getDirectory("photos", { create: true, exclusive: false },
-            function (directory) {
-                directory.createReader().readEntries(displayDirs, resOnError)
+    //    fileSys.root.getDirectory("photos", { create: true, exclusive: false },
+    //        function (directory) {
+    //            directory.createReader().readEntries(displayDirs, resOnError)
 
-            }, resOnError)
-    }, resOnError);
+    //        }, resOnError)
+    //}, resOnError);
+    displayDirs(['Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder']);
 }
 
 function displayDirs(dirEntryList) {
     var galleryPanel = $('.galleryPanel');
-    var dirEntry = dirEntryList[0];
-    var dir = $(`<div class="columnContainer"><div info="${dirEntry.name}">${escapeDir(dirEntry.name)}</div></div>`)
+    $(galleryPanel).empty();
 
-    $(dir).appendTo(galleryPanel);
+    var dirs = dirEntryList.map(dir => [deEscapeDir(dir)]);
 
-    toggleGallery();
+    var liste = $('<div class="columnContainer"/>').append(createGridContainer('list', ['Wert'], dirs));
+    $(galleryPanel).append(liste);
 }
 
 
@@ -95,12 +96,13 @@ function resOnError(error) {
     console.log('Awwww shnap!: ' + error);
 }
 
+//use promises
 function toggleGallery() {
     if ($('.active').hasClass('galleryPanel')) {
         $('.active').removeClass('active');
         MAIN_PANEL.addClass(ACTIVE_CLASS);
     } else {
-        showDirs();
+        loadDirs();
         $('.active').removeClass('active');
         $('.galleryPanel').addClass(ACTIVE_CLASS);
     }
