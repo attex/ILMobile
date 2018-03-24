@@ -3,6 +3,7 @@ platforms/
 plugins/
 .idea/
 www/.idea/
+www/lib/*
 
 #Visual Studio
 *.jsproj
