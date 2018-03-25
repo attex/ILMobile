@@ -53,7 +53,7 @@ function moveFile(info, file) {
 
                                 entry.moveTo(infoDir, newFileName, function (entry) {
                                     //Now we can use "entry.toURL()" for the img src
-                                    console.log(infoDir + newFileName);
+                                    console.log(infoDir.nativeURL + newFileName);
 
                                 }, resOnError);
                             }, resOnError);
@@ -65,36 +65,48 @@ function moveFile(info, file) {
 }
 
 function loadDirs() {
-    //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSys) {
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSys) {
 
-    //    fileSys.root.getDirectory("photos", { create: true, exclusive: false },
-    //        function (directory) {
-    //            directory.createReader().readEntries(displayDirs, resOnError)
+        fileSys.root.getDirectory("photos", { create: true, exclusive: false },
+            function (directory) {
+                directory.createReader().readEntries(displayDirs, resOnError);
 
-    //        }, resOnError)
-    //}, resOnError);
-    displayDirs(['Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder', 'Hübsche Bilder', 'Tolle Bilder', 'Viele Bilder']);
+            }, resOnError)
+    }, resOnError);
 }
 
 function displayDirs(dirEntryList) {
     var directoryPanel = $('.directoryPanel');
     $(directoryPanel).empty();
 
-    var dirs = dirEntryList.map(dir => [deEscapeDir(dir)]);
+    var dirs = dirEntryList.map(dir => [deEscapeDir(dir.name)]);
 
     var liste = $('<div class="columnContainer"/>').append(createGridContainer('list', ['Wert'], dirs));
+
+    for (var i = 0; i < dirEntryList.length; i++) {
+        //offset to skip header row
+        $($(liste).find('.row').get(i + 1)).attr('data_path', dirEntryList[i].nativeURL);
+    }
+
     $(liste).find('.row').click(toggleGallery);
     $(directoryPanel).append(liste);
 }
 
-function displayGallery() {
+function loadGallery(pathToDir) {
+    window.resolveLocalFileSystemURL(pathToDir,
+        function (dirEntry) {
+            dirEntry.createReader().readEntries(displayGallery, resOnError)
+        }, resOnError);
+}
+
+function displayGallery(imageEntries) {
     var gallery = $('.gallery');
 
-    var imageUrls = ['www/images/1.jpg', 'www/images/2.jpg', 'www/images/3.jpg', 'www/images/4.jpg', 'www/images/5.jpg']
+    var imageUrls = imageEntries.map(imageEntry => imageEntry.nativeURL);
 
     for (var i = 0; i < imageUrls.length; i++) {
 
-        let image = $(`<figure><a href="${window.location.origin + '/' + imageUrls[i]}"><img src="${window.location.origin + '/' + imageUrls[i]}" /></a></figure>`)
+        let image = $(`<figure><a href="${imageUrls[i]}"><img src="${imageUrls[i]}" /></a></figure>`)
         $('.gallery').append(image);
     }
 
@@ -125,11 +137,13 @@ function toggleDirectories() {
 }
 
 function toggleGallery() {
+    var path = $(event.srcElement).closest('.row').attr('data_path');
+
     if ($('.active').hasClass('galleryPanel')) {
         $('.active').removeClass('active');
         MAIN_PANEL.addClass(ACTIVE_CLASS);
     } else {
-        displayGallery();
+       loadGallery(path);
         $('.active').removeClass('active');
         $('.galleryPanel').addClass(ACTIVE_CLASS);
     }
