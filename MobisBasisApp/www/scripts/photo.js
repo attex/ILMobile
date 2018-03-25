@@ -7,7 +7,7 @@
         sourceType: srcType,
         encodingType: Camera.EncodingType.JPEG,
         mediaType: Camera.MediaType.PICTURE,
-        saveToPhotoAlbum: true,
+        saveToPhotoAlbum: false,
         allowEdit: false,
         correctOrientation: true  //Corrects Android orientation quirks
     }
@@ -114,11 +114,6 @@ function displayGallery(imageEntries) {
     initPhotoSwipeFromDOM('.gallery');
 }
 
-
-function displayImageByFileURL(fileEntry) {
-    var elem = document.getElementById('imageFile');
-    elem.src = fileEntry.toURL();
-}
 
 function resOnError(error) {
     console.log('Awwww shnap!: ' + error);
