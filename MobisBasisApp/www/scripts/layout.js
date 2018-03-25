@@ -167,6 +167,10 @@ function formatLogin(xmlDoc) {
     $(`[${HTML_NAME}='${window.localStorage.getItem('passwordElement')}']`).find('input').val(password);
 }
 
+function isInMainView() {
+    return MAIN_PANEL.hasClass(ACTIVE_CLASS);
+}
+
 //helper
 $.fn.hasAttr = function (name) {
     if (this.attr(name)) {

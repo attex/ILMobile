@@ -1,4 +1,10 @@
-﻿var initPhotoSwipeFromDOM = function (gallerySelector) {
+﻿function isInPhotoSwipeView() {
+    return ($('.pswp--open').length && true)
+}
+
+var gallery;
+
+var initPhotoSwipeFromDOM = function (gallerySelector) {
 
     // parse slide data (url, title, size ...) from DOM elements 
     // (children of gallerySelector)
@@ -57,6 +63,7 @@
 
     // triggers when user clicks on thumbnail
     var onThumbnailsClick = function (e) {
+
         e = e || window.event;
         e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
@@ -130,7 +137,6 @@
 
     var openPhotoSwipe = function (index, galleryElement, disableAnimation, fromURL) {
         var pswpElement = document.querySelectorAll('.pswp')[0],
-            gallery,
             options,
             items;
 

@@ -9,10 +9,8 @@ function createHandler(source, action) {
         return createEscHandler(source, true)
     } else {
         var handler = function () {
-            if (!inScanView) {
-                if (!inConfigView) {
-                    handle(source, action)
-                }
+            if (!inScanView && isInMainView()) {
+                handle(source, action)
             }
         };
         bindToKey(action, handler);
@@ -32,7 +30,7 @@ function createEnterHandler(source, enterable) {
 
 function handleEnter(source, enterable) {
     if (!inScanView) {
-        if (inConfigView) {
+        if (isInConfigView()) {
             saveConfig();
         } else if (enterable) {
             if (source === LOGIN_SOURCE) {
@@ -58,14 +56,21 @@ function createEscHandler(source, escable) {
 function handleESC(source, escable) {
     if (inScanView) {
         inScanView = false;
-    } else if (inConfigView) {
+    } else if (isInConfigView()) {
         toggleConfig();
+    } else if (isInDirView()) {
+        toggleDirectories();
+    } else if (isInGalleryView()) {
+        if (isInPhotoSwipeView()) {
+            gallery.close();
+        } else {
+            toggleGallery();
+        }
     } else if (source === LOGIN_SOURCE) {
         navigator.app.exitApp()
     } else if (escable) {
         handle(source, ESC_ACTION);
     }
-
 }
 
 //create bind func to a keyup event if the action value matches a key

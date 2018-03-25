@@ -5,8 +5,6 @@ const MAIN_PANEL = $('.mainPanel');
 const CONFIG_PANEL = $('.configPanel');
 const ACTIVE_CLASS = "active";
 
-var inConfigView = false;
-
 const HOST_STRING = 'host';
 const APPLICATION_STRING = 'application';
 const MODULE_STRING = 'module';
@@ -53,19 +51,21 @@ function setUpConfig() {
 
 function toggleConfig() {
     initConfig();
-    if (inConfigView) {
-        inConfigView = false;
+    if (isInConfigView()) {
         TITLE.show();
         CONFIG_TITLE.hide();
+        $('.active').removeClass('active');
         MAIN_PANEL.addClass(ACTIVE_CLASS);
-        CONFIG_PANEL.removeClass(ACTIVE_CLASS);
     } else {
-        inConfigView = true;
         TITLE.hide();
         CONFIG_TITLE.show();
-        MAIN_PANEL.removeClass(ACTIVE_CLASS);
+        $('.active').removeClass('active');
         CONFIG_PANEL.addClass(ACTIVE_CLASS);
     }
+}
+
+function isInConfigView() {
+    return CONFIG_PANEL.hasClass(ACTIVE_CLASS);
 }
 
 function saveConfig() {

@@ -1,4 +1,11 @@
-﻿function setOptions(srcType) {
+﻿const DIR_PANEL = $('.directoryPanel');
+
+const GALLERY_PANEL = $('.galleryPanel');
+const GALLERY = $('.gallery');
+
+const PHOTO_DIR = "photos";
+
+function setOptions(srcType) {
     var options = {
         // Some common settings are 20, 50, and 100
         quality: 50,
@@ -14,21 +21,26 @@
     return options;
 }
 
+//fehler bei empty info
 function openCamera(info) {
 
-    var srcType = Camera.PictureSourceType.CAMERA;
-    var options = setOptions(srcType);
+    if (info === "") {
+        $.afui.toast({ message: 'Keine geeignete Daten, um speichern zu können' });
+    } else {
 
-    navigator.camera.getPicture(function cameraSuccess(imageUri) {
+        var srcType = Camera.PictureSourceType.CAMERA;
+        var options = setOptions(srcType);
 
-        console.log(imageUri);
+        navigator.camera.getPicture(function cameraSuccess(imageUri) {
 
-        moveFile(info, imageUri);
+            console.log(imageUri);
+            moveFile(info, imageUri);
 
-    }, function cameraError(error) {
-        console.debug("Unable to obtain picture: " + error, "app");
+        }, function cameraError(error) {
+            console.debug("Unable to obtain picture: " + error, "app");
 
-    }, options);
+        }, options);
+    }
 }
 
 function moveFile(info, file) {
@@ -38,12 +50,11 @@ function moveFile(info, file) {
         function resolveOnSuccess(entry) {
 
             var newFileName = entry.name;
-            var newDirectory = "photos";
 
             window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSys) {
 
                 //The folder is created if doesn't exist
-                fileSys.root.getDirectory(newDirectory,
+                fileSys.root.getDirectory(PHOTO_DIR,
                     { create: true, exclusive: false },
                     function (directory) {
 
@@ -60,14 +71,12 @@ function moveFile(info, file) {
                     }, resOnError);
             }, resOnError);
         }, resOnError);
-
-
 }
 
 function loadDirs() {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSys) {
 
-        fileSys.root.getDirectory("photos", { create: true, exclusive: false },
+        fileSys.root.getDirectory(PHOTO_DIR, { create: true, exclusive: false },
             function (directory) {
                 directory.createReader().readEntries(displayDirs, resOnError);
 
@@ -76,11 +85,9 @@ function loadDirs() {
 }
 
 function displayDirs(dirEntryList) {
-    var directoryPanel = $('.directoryPanel');
-    $(directoryPanel).empty();
+    DIR_PANEL.empty();
 
     var dirs = dirEntryList.map(dir => [deEscapeDir(dir.name)]);
-
     var liste = $('<div class="columnContainer"/>').append(createGridContainer('list', ['Wert'], dirs));
 
     for (var i = 0; i < dirEntryList.length; i++) {
@@ -89,7 +96,7 @@ function displayDirs(dirEntryList) {
     }
 
     $(liste).find('.row').click(toggleGallery);
-    $(directoryPanel).append(liste);
+    DIR_PANEL.append(liste);
 }
 
 function loadGallery(pathToDir) {
@@ -100,50 +107,58 @@ function loadGallery(pathToDir) {
 }
 
 function displayGallery(imageEntries) {
-    var gallery = $('.gallery');
+    GALLERY.empty();
 
     var imageUrls = imageEntries.map(imageEntry => imageEntry.nativeURL);
 
     for (var i = 0; i < imageUrls.length; i++) {
 
         let image = $(`<figure><a href="${imageUrls[i]}"><img src="${imageUrls[i]}" /></a></figure>`)
-        $('.gallery').append(image);
+        GALLERY.append(image);
     }
 
-    // execute above function
     initPhotoSwipeFromDOM('.gallery');
 }
-
 
 function resOnError(error) {
     console.log('Awwww shnap!: ' + error);
 }
 
+function isInDirView() {
+    return DIR_PANEL.hasClass(ACTIVE_CLASS);
+}
+
 //use promises
 function toggleDirectories() {
-    if ($('.active').hasClass('directoryPanel')) {
+    if (isInDirView()) {
         $('.active').removeClass('active');
         MAIN_PANEL.addClass(ACTIVE_CLASS);
     } else {
         loadDirs();
         $('.active').removeClass('active');
-        $('.directoryPanel').addClass(ACTIVE_CLASS);
+        DIR_PANEL.addClass(ACTIVE_CLASS);
     }
 }
 
+function isInGalleryView() {
+    return GALLERY_PANEL.hasClass(ACTIVE_CLASS);
+}
+
+//use promises
 function toggleGallery() {
-    var path = $(event.srcElement).closest('.row').attr('data_path');
 
-    if ($('.active').hasClass('galleryPanel')) {
+    if (isInGalleryView()) {
         $('.active').removeClass('active');
-        MAIN_PANEL.addClass(ACTIVE_CLASS);
+        DIR_PANEL.addClass(ACTIVE_CLASS);
     } else {
-       loadGallery(path);
+        var path = $(event.srcElement).closest('.row').attr('data_path');
+        loadGallery(path);
         $('.active').removeClass('active');
-        $('.galleryPanel').addClass(ACTIVE_CLASS);
+        GALLERY_PANEL.addClass(ACTIVE_CLASS);
     }
 }
 
+//needs TESTING!!!
 function escapeDir(unsafe) {
     return unsafe.replace(/[\\/:*?"<>|&]/g, function (c) {
         switch (c) {
