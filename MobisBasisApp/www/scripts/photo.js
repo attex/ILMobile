@@ -128,37 +128,26 @@ function resOnError(error) {
     console.log('Awwww shnap!: ' + error);
 }
 
-function isInDirView() {
-    return DIR_PANEL.hasClass(ACTIVE_CLASS);
-}
-
 //use promises
 function toggleDirectories() {
-    if (isInDirView()) {
-        $('.active').removeClass('active');
-        MAIN_PANEL.addClass(ACTIVE_CLASS);
+
+    if (isInDirectoryView()) {
+        setMainView();
     } else {
         loadDirs();
-        $('.active').removeClass('active');
-        DIR_PANEL.addClass(ACTIVE_CLASS);
+        setDirectoryView();
     }
-}
-
-function isInGalleryView() {
-    return GALLERY_PANEL.hasClass(ACTIVE_CLASS);
 }
 
 //use promises
 function toggleGallery() {
 
     if (isInGalleryView()) {
-        $('.active').removeClass('active');
-        DIR_PANEL.addClass(ACTIVE_CLASS);
+        setDirectoryView();
     } else {
         var path = $(event.srcElement).closest('.row').attr('data_path');
         loadGallery(path);
-        $('.active').removeClass('active');
-        GALLERY_PANEL.addClass(ACTIVE_CLASS);
+        setGalleryView();
     }
 }
 

@@ -40,66 +40,66 @@ option {color:white;}
 .ERROR_10 .NOTICE {width:100%;margin-top:3em;font-size:1.2em;color:white;text-align:center;}
 
 /* Theme Light */
-.light header {background-color: #009edf;}
-.light.view header h1 {color:white;}
-.light input, .light .scanner option, .light .theme option, .light .theme, .light .scanner   {color:#3f87a6;}
-.light .groupContainer.upper {background-color:#f4f4f4;}  
-.light .groupContainer.lower {background-color:#ebf1f4;}   
-.light .groupContainer.buttonContainer {background-color:#ebf1f4;}  
-.light .columnContainer {border-bottom:1px dotted #f2f2f2;} 
-.light .groupContainer.upper .columnContainer {background-color:white;} 
-.light .ORDER  {color:#db002f;background-color:transparent;}
-.light .groupContainer.lower .ORDER_DISPLAY  {color:#83d0f2;}
-.light .groupContainer.upper .ORDER_DISPLAY  {color:inherit;color:#db002f;font-weight:bold;}
-.light .NOTICE  {color:#db002f;}
-.light .lower .LABEL {color:#4f5969}
-.light .groupContainer.lower .columnContainer:not(.quantity-1) .ORDER  {color:#4f5969;}
-.light .VARIABLE_ABC {color: #3f87a6;}
-.light .VARIABLE_123 {color: #3f87a6;}
-.light .LABEL_EDITZONE {color:#4f5969;}
-.light .gridContainer.list .rowContainer .row {border-bottom:1px solid transparent;background-color:#eaeadb;}
-.light .gridContainer.list .rowContainer .row .item.Wert  {color:inherit;}
-.light .button {color: black;background-color: #eaeadb;}
-.light .button:active {background-color:#db002f;}
-.light input:focus {border:1px solid transparent;}
-.light .inputContainer select {background-color:#db002f;color:white;}
-.light option {color:white;} 
-.light .tableContainer .headerContainer {background-color:#eaeadb}
-.light .tableContainer .row {background-color:white;border-bottom: 1px dotted #ccc;}
-.light .panel.configPanel.detail {background-color:#ebf1f4;}
-.light .panel.configPanel.detail .columnContainer label  {color:#6f8295;font-size:0.8em;}
-.light .groupContainer.lower .columnContainer.quantity-4 .ORDER.order-3 {color: #4f5969;}
+.style_light header {background-color: #009edf;}
+.style_light.view header h1 {color:white;}
+.style_light input, .style_light .scanner option, .style_light .theme option, .style_light .theme, .style_light .scanner   {color:#3f87a6;}
+.style_light .groupContainer.upper {background-color:#f4f4f4;}  
+.style_light .groupContainer.lower {background-color:#ebf1f4;}   
+.style_light .groupContainer.buttonContainer {background-color:#ebf1f4;}  
+.style_light .columnContainer {border-bottom:1px dotted #f2f2f2;} 
+.style_light .groupContainer.upper .columnContainer {background-color:white;} 
+.style_light .ORDER  {color:#db002f;background-color:transparent;}
+.style_light .groupContainer.lower .ORDER_DISPLAY  {color:#83d0f2;}
+.style_light .groupContainer.upper .ORDER_DISPLAY  {color:inherit;color:#db002f;font-weight:bold;}
+.style_light .NOTICE  {color:#db002f;}
+.style_light .lower .LABEL {color:#4f5969}
+.style_light .groupContainer.lower .columnContainer:not(.quantity-1) .ORDER  {color:#4f5969;}
+.style_light .VARIABLE_ABC {color: #3f87a6;}
+.style_light .VARIABLE_123 {color: #3f87a6;}
+.style_light .LABEL_EDITZONE {color:#4f5969;}
+.style_light .gridContainer.list .rowContainer .row {border-bottom:1px solid transparent;background-color:#eaeadb;}
+.style_light .gridContainer.list .rowContainer .row .item.Wert  {color:inherit;}
+.style_light .button {color: black;background-color: #eaeadb;}
+.style_light .button:active {background-color:#db002f;}
+.style_light input:focus {border:1px solid transparent;}
+.style_light .inputContainer select {background-color:#db002f;color:white;}
+.style_light option {color:white;} 
+.style_light .tableContainer .headerContainer {background-color:#eaeadb}
+.style_light .tableContainer .row {background-color:white;border-bottom: 1px dotted #ccc;}
+.style_light .panel.configPanel.detail {background-color:#ebf1f4;}
+.style_light .panel.configPanel.detail .columnContainer label  {color:#6f8295;font-size:0.8em;}
+.style_light .groupContainer.lower .columnContainer.quantity-4 .ORDER.order-3 {color: #4f5969;}
 
 /* Theme oxaion */
-.dark header {background-color: #222;}
-.dark .view header h1 {color:#83d0f2;}
-.dark input, .dark .scanner option, .dark .theme option, .dark .theme, .dark .scanner   {color:#3f87a6;}
-.dark .groupContainer.upper {background-color:#f4f4f4;}  
-.dark .groupContainer.lower {background-color:#222;}   
-.dark .groupContainer.buttonContainer {background-color:#222;}  
-.dark .columnContainer {border-bottom:1px dotted #f2f2f2;} 
-.dark .groupContainer.upper .columnContainer {background-color:white;} 
-.dark .ORDER  {color:#83d0f2;background-color:transparent;}
-.dark .groupContainer.lower .ORDER_DISPLAY  {color:#83d0f2;}
-.dark .groupContainer.upper .ORDER_DISPLAY  {color:#db002f;font-weight:bold;}
-.dark .NOTICE  {color:#db002f;}
-.dark .lower .LABEL {color:white;}
-.dark .groupContainer.lower .columnContainer:not(.quantity-1) .ORDER  {color:#4f5969;}
-.dark .VARIABLE_ABC {color: #3f87a6;}
-.dark .VARIABLE_123 {color: #3f87a6;}
-.dark .LABEL_EDITZONE {color:#4f5969;}
-.dark .gridContainer.list .rowContainer .row {border-bottom:1px solid transparent;background-color:#eaeadb;}
-.dark .gridContainer.list .rowContainer .row .item.Wert  {color:inherit;}
-.dark .button {color: black;background-color: #eaeadb;}
-.dark .button:active {background-color:#db002f;}
-.dark input:focus {border:1px solid transparent;}
-.dark .inputContainer select {background-color:#db002f;color:white;}
-.dark option {color:white;} 
-.dark .tableContainer .headerContainer {background-color:#eaeadb}
-.dark .tableContainer .row {background-color:white;border-bottom: 1px dotted #ccc;}
-.dark .panel.configPanel.detail {background-color:#ebf1f4;}
-.dark .panel.configPanel.detail .columnContainer label  {color:#6f8295;font-size:0.8em;}
-.dark .groupContainer.lower .columnContainer.quantity-4 .ORDER.order-3 {color: #4f5969;}
+.style_dark header {background-color: #222;}
+.style_dark .view header h1 {color:#83d0f2;}
+.style_dark input, .style_dark .scanner option, .style_dark .theme option, .style_dark .theme, .style_dark .scanner   {color:#3f87a6;}
+.style_dark .groupContainer.upper {background-color:#f4f4f4;}  
+.style_dark .groupContainer.lower {background-color:#222;}   
+.style_dark .groupContainer.buttonContainer {background-color:#222;}  
+.style_dark .columnContainer {border-bottom:1px dotted #f2f2f2;} 
+.style_dark .groupContainer.upper .columnContainer {background-color:white;} 
+.style_dark .ORDER  {color:#83d0f2;background-color:transparent;}
+.style_dark .groupContainer.lower .ORDER_DISPLAY  {color:#83d0f2;}
+.style_dark .groupContainer.upper .ORDER_DISPLAY  {color:#db002f;font-weight:bold;}
+.style_dark .NOTICE  {color:#db002f;}
+.style_dark .lower .LABEL {color:white;}
+.style_dark .groupContainer.lower .columnContainer:not(.quantity-1) .ORDER  {color:#4f5969;}
+.style_dark .VARIABLE_ABC {color: #3f87a6;}
+.style_dark .VARIABLE_123 {color: #3f87a6;}
+.style_dark .LABEL_EDITZONE {color:#4f5969;}
+.style_dark .gridContainer.list .rowContainer .row {border-bottom:1px solid transparent;background-color:#eaeadb;}
+.style_dark .gridContainer.list .rowContainer .row .item.Wert  {color:inherit;}
+.style_dark .button {color: black;background-color: #eaeadb;}
+.style_dark .button:active {background-color:#db002f;}
+.style_dark input:focus {border:1px solid transparent;}
+.style_dark .inputContainer select {background-color:#db002f;color:white;}
+.style_dark option {color:white;} 
+.style_dark .tableContainer .headerContainer {background-color:#eaeadb}
+.style_dark .tableContainer .row {background-color:white;border-bottom: 1px dotted #ccc;}
+.style_dark .panel.configPanel.detail {background-color:#ebf1f4;}
+.style_dark .panel.configPanel.detail .columnContainer label  {color:#6f8295;font-size:0.8em;}
+.style_dark .groupContainer.lower .columnContainer.quantity-4 .ORDER.order-3 {color: #4f5969;}
 
 /*------------------------------------------------------*/
 /* Loader                                      */
@@ -175,6 +175,21 @@ header {display: grid;grid-template-columns: 1fr auto 1fr;height: 2.5em;}
 header .naviButton, header h1, header .galleryButton {align-self: center;}
 .naviButton {justify-self: left;margin-left: 1em;grid-column:1}
 .view header h1 {justify-self: center;text-shadow: none;font-size: 1.2em;grid-column:2;margin:0}
+
+/*
+    show title depending on view
+*/
+header h1:not(#mainTitle), .panel:not(.mainPanel) {display:none;}
+
+.configView header h1#configTitle, .configView .panel.configPanel {display:block;}
+.configView header h1#mainTitle, .configView .panel.mainPanel {display:none;}
+
+.directoryView header h1#directoryTitle, .directoryView .panel.directoryPanel {display:block;}
+.directoryView header h1#mainTitle, .directoryView .panel.mainPanel {display:none;}
+
+.galleryView header h1#galleryTitle, .galleryView .panel.galleryPanel {display:block;}
+.galleryView header h1#mainTitle, .galleryView .panel.mainPanel {display:none;}
+
 .galleryButton {justify-self: right;margin-right: 1em;grid-column:3}
 
 .pages.mainpages {top: 2.5em;height: calc(100vh - 2.5em);}

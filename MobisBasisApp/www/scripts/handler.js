@@ -58,7 +58,7 @@ function handleESC(source, escable) {
         inScanView = false;
     } else if (isInConfigView()) {
         toggleConfig();
-    } else if (isInDirView()) {
+    } else if (isInDirectoryView()) {
         toggleDirectories();
     } else if (isInGalleryView()) {
         if (isInPhotoSwipeView()) {

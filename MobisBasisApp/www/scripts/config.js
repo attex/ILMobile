@@ -1,11 +1,4 @@
-﻿const MAINVIEW = $('#mainview');
-
-const CONFIG_TITLE = $('#configTitle');
-const MAIN_PANEL = $('.mainPanel');
-const CONFIG_PANEL = $('.configPanel');
-const ACTIVE_CLASS = "active";
-
-const HOST_STRING = 'host';
+﻿const HOST_STRING = 'host';
 const APPLICATION_STRING = 'application';
 const MODULE_STRING = 'module';
 const PROJECTS_STRING = 'projects'
@@ -14,8 +7,10 @@ const PASSWORD_STRING = 'password';
 const FORMATSIZE_STRING = 'formatSize';
 const COMPANY_STRING = 'company';
 const THEME_STRING = 'theme';
-const SCANNER_STRING = 'scanner'; 
+const SCANNER_STRING = 'scanner';
 const CONFIG_STRING_ARRAY = [HOST_STRING, APPLICATION_STRING, MODULE_STRING, PROJECTS_STRING, USER_STRING, PASSWORD_STRING, FORMATSIZE_STRING, COMPANY_STRING, THEME_STRING, SCANNER_STRING];
+
+const STYLE_PREFIX = 'style_';
 const STYLE_STRING_ARRAY = [FORMATSIZE_STRING, COMPANY_STRING, THEME_STRING];
 
 const HOST = $(`.${HOST_STRING}`);
@@ -51,21 +46,12 @@ function setUpConfig() {
 
 function toggleConfig() {
     initConfig();
-    if (isInConfigView()) {
-        TITLE.show();
-        CONFIG_TITLE.hide();
-        $('.active').removeClass('active');
-        MAIN_PANEL.addClass(ACTIVE_CLASS);
-    } else {
-        TITLE.hide();
-        CONFIG_TITLE.show();
-        $('.active').removeClass('active');
-        CONFIG_PANEL.addClass(ACTIVE_CLASS);
-    }
-}
 
-function isInConfigView() {
-    return CONFIG_PANEL.hasClass(ACTIVE_CLASS);
+    if (isInConfigView()) {
+        setMainView();
+    } else {
+        setConfigView();
+    }
 }
 
 function saveConfig() {
@@ -91,15 +77,22 @@ function getConfigValue(key) {
     return window.localStorage.getItem(key);
 }
 
+//prefix to prohib collision with views
 function deleteStyles() {
     for (let i = 0; i < STYLE_STRING_ARRAY.length; i++) {
-        MAINVIEW.removeClass(getConfigValue(STYLE_STRING_ARRAY[i]));
+        var styleValue = getConfigValue(STYLE_STRING_ARRAY[i]);
+        if (styleValue) {
+            MAINVIEW.removeClass(STYLE_PREFIX + styleValue);
+        }
     }
 }
 
 function loadStyles() {
     for (let i = 0; i < STYLE_STRING_ARRAY.length; i++) {
-        MAINVIEW.addClass(getConfigValue(STYLE_STRING_ARRAY[i]));
+        var styleValue = getConfigValue(STYLE_STRING_ARRAY[i]);
+        if (styleValue) {
+            MAINVIEW.addClass(STYLE_PREFIX + styleValue);
+        }
     }
 }
 
