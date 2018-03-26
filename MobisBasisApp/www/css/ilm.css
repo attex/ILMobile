@@ -69,6 +69,7 @@ option {color:white;}
 .style_light .panel.configPanel.detail {background-color:#ebf1f4;}
 .style_light .panel.configPanel.detail .columnContainer label  {color:#6f8295;font-size:0.8em;}
 .style_light .groupContainer.lower .columnContainer.quantity-4 .ORDER.order-3 {color: #4f5969;}
+.style_light .ERROR_10 .NOTICE {padding: 0;width:100%;margin-top:3em;font-size:1.2em;color:white;text-align:center;}
 
 /* Theme oxaion */
 .style_dark header {background-color: #222;}
@@ -100,6 +101,7 @@ option {color:white;}
 .style_dark .panel.configPanel.detail {background-color:#ebf1f4;}
 .style_dark .panel.configPanel.detail .columnContainer label  {color:#6f8295;font-size:0.8em;}
 .style_dark .groupContainer.lower .columnContainer.quantity-4 .ORDER.order-3 {color: #4f5969;}
+.style_dark .ERROR_10 .NOTICE {padding: 0;width:100%;margin-top:3em;font-size:1.2em;color:white;text-align:center;}
 
 /*------------------------------------------------------*/
 /* Loader                                      */
@@ -231,11 +233,11 @@ figure img {width:100%;height:auto;justify-self:center;align-self:center;}
 /*------------------------------------------------------*/
 /* Toolbar                                              */
 /*------------------------------------------------------*/
-.groupContainer.buttonContainer {display:grid;grid-template-columns: 1fr 1fr 1fr}
+.groupContainer.buttonContainer {display:grid;grid-template-columns:minmax(3em, max-content) auto minmax(3em, max-content)}
 
 .showOptions .groupContainer.buttonContainer {position:absolute;bottom:0;z-index: 1;left: 0;width: 100%;}
 
-.showOptions .groupContainer.buttonContainer .button:not(.ESC):not(.options):not(.ENTER) {grid-column:1 / 4;margin-bottom:0.4em;min-width:50%;}
+.showOptions .groupContainer.buttonContainer .button:not(.ESC):not(.options):not(.ENTER) {grid-column:1 / 4;margin-bottom:0.4em;min-width:80%;}
 .showOptions .button.ESC     {grid-row:10}
 .showOptions .button.options {grid-row:10;background:transparent url(../icons/icons8-ExpandArrowFilled-50.png) no-repeat center;background-size: contain;}
 .showOptions .button.ENTER   {grid-row:10}
@@ -437,7 +439,7 @@ input {border:1px solid transparent;padding:0.4em;}
 .SUB_WEP_0600_10 .columnContainer.firstName-e31 {width:49.5%;margin-right:1%;}
 .SUB_WEP_0600_10 .columnContainer.firstName-e29 {width:49.5%;}
 /*.SUB_WEP_0600_10 .item.Key {grid-row: 2;grid-column: 1 / 4;}*/
-.SUB_WEP_0600_10 .row .item.TPE {display:none;}
+.SUB_WEP_0600_10 .row .item.Key {display:none;}
 
 /* Ladehilsmittel */
 .WEx_POS_0300_10 .tableContainer .headerContainer, .WEx_POS_0300_10 .tableContainer .row {grid-template-columns:15% 15% 15% auto;}
