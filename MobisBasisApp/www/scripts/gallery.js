@@ -28,7 +28,7 @@ var initPhotoSwipeFromDOM = function (gallerySelector) {
 
             linkEl = figureEl.children[0]; // <a> element
 
-            size = size = [linkEl.children[0].naturalWidth, linkEl.children[0].naturalHeight];
+            size = [linkEl.children[0].naturalWidth, linkEl.children[0].naturalHeight];
 
             // create slide object
             item = {

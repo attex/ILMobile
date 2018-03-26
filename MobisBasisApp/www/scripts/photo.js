@@ -11,6 +11,10 @@ function setOptions(srcType) {
         quality: 50,
         destinationType: Camera.DestinationType.FILE_URI,
         // In this app, dynamically set the picture source, Camera or photo gallery
+
+        targetWidth: 800,
+        targetHeight: 800,
+
         sourceType: srcType,
         encodingType: Camera.EncodingType.JPEG,
         mediaType: Camera.MediaType.PICTURE,
