@@ -103,6 +103,7 @@ function generateOpenXML(fname, values) {
         .endDocument();
 
     var xml = xw.toString();
+    xml = xml.replace(/(\r\n\t|\n|\r\t)/gm, "")
     return xml;
 }
 
