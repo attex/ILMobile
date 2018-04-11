@@ -116,14 +116,23 @@ function login() {
     var formatSize = getConfigValue(FORMATSIZE_STRING);
     var user = getContent($(`[${HTML_NAME}='${window.localStorage.getItem('userElement')}']`));
     var password = getContent($(`[${HTML_NAME}='${window.localStorage.getItem('passwordElement')}']`));
-    handleSOAP('login', ['application', 'module', 'project', 'formatSize', 'user', 'password'], [application, module, project, formatSize, user, password])
+    findHandler('login', ['application', 'module', 'project', 'formatSize', 'user', 'password'], [application, module, project, formatSize, user, password])
 }
 
 //the generic handler
 function handle(source, action) {
     removeKeyboardBeforeHandling();
     var request = generateRequest(source, action);
-    handleSOAP('processFormat', ['formatXML'], [request]);
+    findHandler('processFormat', ['formatXML'], [request]);
+}
+
+function findHandler(fname, keys, values) {
+    var backend = window.localStorage.getItem(BACKEND_STRING);
+    if (backend === 'open') {
+        handleOPEN(fname, values);
+    } else if (backend == 'buisness') {
+        handleSOAP(fname, keys, values);
+    }
 }
 
 //the list click handler

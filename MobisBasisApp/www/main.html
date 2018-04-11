@@ -46,6 +46,13 @@
                         <label class="ORDER">Geben Sie die gewünschte Konfiguration ein</label>
                     </div>
                     <div class="columnContainer">
+                        <label>Oxaion Version:</label>
+                        <select class="backend">
+                            <option value='open'>Oxaion-Open</option>
+                            <option value='buisness'>Oxaion-Buisness</option>
+                        </select>
+                    </div>
+                    <div class="columnContainer">
                         <label>Host:</label>
                         <input class="host" />
                     </div>
@@ -120,6 +127,7 @@
     <script type="text/javascript" src="lib/jszip.min.js"></script>
     <script type="text/javascript" src="lib/jspath.min.js"></script>
     <script type="text/javascript" src="lib/platformOverrides.js"></script>
+    <script type="text/javascript" src="lib/xml-writer.js"></script>
     <script type="text/javascript" src="scripts/iqu_mobile.js"></script>
     <script type="text/javascript" src="scripts/mobis.js"></script>
     <script type="text/javascript" src="scripts/app.js"></script>
@@ -134,6 +142,7 @@
     <script type="text/javascript" src="scripts/photo.js"></script>
     <script type="text/javascript" src="scripts/gallery.js"></script>
     <script type="text/javascript" src="scripts/view.js"></script>
+    <script type="text/javascript" src="scripts/oxaionOpenConnectionHandler.js"></script>
 
     <!-- Core CSS file -->
     <link rel="stylesheet" href="lib/photoswipe/dist/photoswipe.css">

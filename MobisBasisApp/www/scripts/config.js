@@ -1,4 +1,5 @@
-﻿const HOST_STRING = 'host';
+﻿const BACKEND_STRING = 'backend';
+const HOST_STRING = 'host';
 const APPLICATION_STRING = 'application';
 const MODULE_STRING = 'module';
 const PROJECTS_STRING = 'projects'
@@ -8,11 +9,12 @@ const FORMATSIZE_STRING = 'formatSize';
 const COMPANY_STRING = 'company';
 const THEME_STRING = 'theme';
 const SCANNER_STRING = 'scanner';
-const CONFIG_STRING_ARRAY = [HOST_STRING, APPLICATION_STRING, MODULE_STRING, PROJECTS_STRING, USER_STRING, PASSWORD_STRING, FORMATSIZE_STRING, COMPANY_STRING, THEME_STRING, SCANNER_STRING];
+const CONFIG_STRING_ARRAY = [BACKEND_STRING, HOST_STRING, APPLICATION_STRING, MODULE_STRING, PROJECTS_STRING, USER_STRING, PASSWORD_STRING, FORMATSIZE_STRING, COMPANY_STRING, THEME_STRING, SCANNER_STRING];
 
 const STYLE_PREFIX = 'style_';
 const STYLE_STRING_ARRAY = [FORMATSIZE_STRING, COMPANY_STRING, THEME_STRING];
 
+const BACKEND = $(`.${BACKEND_STRING}`);
 const HOST = $(`.${HOST_STRING}`);
 const APPLICATION = $(`.${APPLICATION_STRING}`);
 const MODULE = $(`.${MODULE_STRING}`);
@@ -23,17 +25,21 @@ const FORMATSIZE = $(`.${FORMATSIZE_STRING}`);;
 const COMPANY = $(`.${COMPANY_STRING}`);
 const THEME = $(`.${THEME_STRING}`);
 const SCANNER = $(`.${SCANNER_STRING}`);
-const CONFIG_ARRAY = [HOST, APPLICATION, MODULE, PROJECTS, USER, PASSWORD, FORMATSIZE, COMPANY, THEME, SCANNER];
+const CONFIG_ARRAY = [BACKEND, HOST, APPLICATION, MODULE, PROJECTS, USER, PASSWORD, FORMATSIZE, COMPANY, THEME, SCANNER];
 
 //In enterprise version comment out lines without a condition
 function setUpConfig() {
-    saveConfigValue(HOST_STRING, 'http://192.168.230.41:8585/services/ILMServerPortal.jws');
-    saveConfigValue(APPLICATION_STRING, 'iqu ilm');
-    saveConfigValue(MODULE_STRING, 'ILM');
-    saveConfigValue(PROJECTS_STRING, 'IQU;PTF;iqu_ilm50_ox72;iqu_ilm50_ox72_PTF');
-    saveConfigValue(USER_STRING, 'mda2#72');
-    saveConfigValue(PASSWORD_STRING, 'mda');
-    saveConfigValue(FORMATSIZE_STRING, 'PDA');
+    //saveConfigValue(HOST_STRING, 'http://192.168.230.51:43928');
+    //saveConfigValue(APPLICATION_STRING, 'iqu ilm');
+    //saveConfigValue(MODULE_STRING, 'ILM');
+    //saveConfigValue(PROJECTS_STRING, 'iqu60,ilm60_bas,ilm60_op412');
+    //saveConfigValue(USER_STRING, 'ENDERS');
+    //saveConfigValue(PASSWORD_STRING, 'oxaion');
+    //saveConfigValue(FORMATSIZE_STRING, 'PDA');
+
+    if (!getConfigValue(BACKEND_STRING)) {
+        saveConfigValue(BACKEND_STRING, 'open')
+    }
 
     //setting default values to styling options
     if (!getConfigValue(THEME_STRING)) {

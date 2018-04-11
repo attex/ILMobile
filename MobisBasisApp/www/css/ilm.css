@@ -11,7 +11,7 @@
 /* iqu theme */
 header {background-color: #222;}
 .view header h1 {color:#83d0f2;}
-input, .scanner option, .theme option, .theme, .scanner {color:#3f87a6;}
+input, .scanner option, .theme option, .theme, .scanner, .backend {color:#3f87a6;}
 .groupContainer.upper {background-color:#f4f4f4;}  
 .groupContainer.lower {background-color:#222;}   
 .groupContainer.buttonContainer {background-color:#222;}  
@@ -42,7 +42,9 @@ option {color:white;}
 /* Theme Light */
 .style_light header {background-color: #009edf;}
 .style_light.view header h1 {color:white;}
-.style_light input, .style_light .scanner option, .style_light .theme option, .style_light .theme, .style_light .scanner   {color:#3f87a6;}
+.style_light input, .style_light .scanner option, .style_light .theme option, .style_light .theme, .style_light .scanner, .style_light option .backend {
+    color: #3f87a6;
+}
 .style_light .groupContainer.upper {background-color:#f4f4f4;}  
 .style_light .groupContainer.lower {background-color:#ebf1f4;}   
 .style_light .groupContainer.buttonContainer {background-color:#ebf1f4;}  
@@ -74,7 +76,7 @@ option {color:white;}
 /* Theme oxaion */
 .style_dark header {background-color: #222;}
 .style_dark .view header h1 {color:#83d0f2;}
-.style_dark input, .style_dark .scanner option, .style_dark .theme option, .style_dark .theme, .style_dark .scanner   {color:#3f87a6;}
+.style_dark input, .style_dark .scanner option, .style_dark .theme option, .style_dark .theme, .style_dark .scanner, .style_dark .backend option {color:#3f87a6;}
 .style_dark .groupContainer.upper {background-color:#f4f4f4;}  
 .style_dark .groupContainer.lower {background-color:#222;}   
 .style_dark .groupContainer.buttonContainer {background-color:#222;}  
@@ -394,7 +396,7 @@ input {border:1px solid transparent;padding:0.4em;}
 .inputContainer {display: flex;flex-direction: row;}
 .inputContainer input {flex: 1;}
 .inputContainer select {border:none;height: auto;width:4em;font-weight:bold;font-size:1em;padding-left:0.5em;}
-.theme, .scanner  {border:1px solid transparent;padding:0.35em;border:none;width:100%;}
+.theme, .scanner, .backend {border:1px solid transparent;padding:0.35em;border:none;width:100%;}
 
  /* Tabelle */
 .tableContainer {display: grid;width: 100%;height: auto;  grid-template: "buttonoben" auto  "liste" 1fr  "buttonunten" auto  / 1fr;padding:0.3em;}

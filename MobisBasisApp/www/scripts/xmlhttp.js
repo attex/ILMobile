@@ -19,9 +19,9 @@ function handleResponse(response) {
     var loginReturn = $(parsedResponse).find('loginReturn');
     var processFormatReturn = $(parsedResponse).find('processFormatReturn');
     if (loginReturn.length) {
-        handleXML(loginReturn.text(), true);
+        return handleXML(loginReturn.text(), true);
     } else {
-        handleXML(processFormatReturn.text(), false);
+        return handleXML(processFormatReturn.text(), false);
     }
     //added additional finish() call when finally() is not available
     finish();
@@ -37,6 +37,7 @@ function handleXML(xml, isLogin) {
         }
         generateLayout(xml);
     }
+    setFocus();
 }
 
 function handleError(errorString) {

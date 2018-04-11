@@ -4,9 +4,6 @@
   <description>Ein leeres Projekt, das Apache Cordova verwendet, damit Sie eine App für mehrere mobile Plattformen erstellen können: Android, iOS und die universelle Windows-Plattform.</description>
   <author email="dev@cordova.apache.org" href="http://cordova.io">Ihr Name hier</author>
   <vs:template-name>BlankJS</vs:template-name>
-  <vs:toolsetVersion>6.3.1</vs:toolsetVersion>
-  <engine name="ios" spec="4.2.0" />
-  <engine name="windows" spec="4.4.2" />
   <content src="index.html" />
   <access origin="*" />
   <preference name="SplashScreen" value="screen" />
@@ -90,9 +87,12 @@
     <splash height="1920" src="res/screens/windows/SplashScreen.scale-240.png" width="1152" />
     <splash height="1920" src="res/screens/windows/SplashScreenPhone.scale-240.png" width="1152" />
   </platform>
-  <engine name="android" spec="5.2.1" />
   <plugin name="cordova-plugin-barcodescanner" spec="~0.7.3" src="https://github.com/hypery2k/cordova-barcodescanner-plugin" />
   <plugin name="es6-promise-plugin" spec="~4.2.2" />
   <plugin name="cordova-plugin-camera" spec="~2.4.1" />
   <plugin name="cordova-plugin-file" spec="~4.3.3" />
+  <vs:toolsetVersion>6.3.1</vs:toolsetVersion>
+  <engine name="android" spec="5.2.1" />
+  <engine name="ios" spec="4.2.0" />
+  <engine name="windows" spec="4.4.2" />
 </widget>
