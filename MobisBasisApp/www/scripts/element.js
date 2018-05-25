@@ -89,6 +89,8 @@ function formatElement(eleXML) {
     switch (type) {
         case 'Label':
             return formatLabelElement(eleXML);
+        case 'ScrollLabel':
+            return formatLabelElement(eleXML);
         case 'TextBox':
             return formatInputElement(eleXML);
         case 'Button':
@@ -146,7 +148,7 @@ function formatInputElement(eleXML) {
     }
 
     //create input field
-    var input = $(`<input value="${content}" onclick="this.select()"/>`)
+    var input = $(`<input value="${content}" onclick="this.select()" autocomplete="new-password"/>`)
     $(inputContainer).append(input);
 
     //if input is only upper add helper method
