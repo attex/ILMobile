@@ -148,7 +148,7 @@ function formatInputElement(eleXML) {
     }
 
     //create input field
-    var input = $(`<input value="${content}" onclick="this.select()" autocomplete="new-password"/>`)
+    var input = $(`<input value="${content}" autocomplete="new-password"/>`)
     $(inputContainer).append(input);
 
     //if input is only upper add helper method
