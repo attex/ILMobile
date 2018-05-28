@@ -1,5 +1,13 @@
-﻿//ENTRY FUNCTION
+﻿var firstTry = true;
+var lastUser;
+var lastPass;
+var lastValues;
+
+//ENTRY FUNCTION
 function handleOPEN(fname, values) {
+    firstTry = true;
+    lastValues = values;
+
     if (canRun) {
         if (fname === 'login') {
             handleOpenLogin(values);
@@ -14,7 +22,7 @@ function handleOpenLogin(values) {
     start();
 
     oxaionLogin(values[4], values[5])
-        .then(sessionID => { return ilmLogin(sessionID, values) })
+        .then(_ => { return ilmLogin(values) })
         .catch(handleError)
         .finally(finish)
 }
@@ -24,6 +32,9 @@ function oxaionLogin(user, pw) {
     var oxaionSession = window.localStorage.getItem('oxaionSession');
     var host = window.localStorage.getItem('host');
     var oxaionHost = "OXAION";
+
+    lastUser = user;
+    lastPass = pw;
 
     var disconnectUri = host + "/app-tunnel/disconnect?user=" + oxaionSession;
     var loginUri = host + "/app-tunnel/connect?user=" + user + "&pwd=" + pw + "&host=" + oxaionHost;
@@ -41,16 +52,19 @@ function handleOxaionLoginResponse(loginResponse) {
     if ($(parsedResponse).find('ERROR').length) {
         return Promise.reject('Anmeldung fehlgeschlagen');
     } else {
-        return Promise.resolve($(parsedResponse).text());
+        var oxaionSession = $(parsedResponse).text();
+        window.localStorage.setItem('oxaionSession', oxaionSession);
+
+        return Promise.resolve();
     }
 }
 
 //ILM LOGIN
-function ilmLogin(session, values) {
-    //save oxaion sessionID
-    window.localStorage.setItem('oxaionSession', session);
-
+function ilmLogin(values) {
+    //get oxaion sessionID
+    var session = window.localStorage.getItem('oxaionSession');
     var host = window.localStorage.getItem('host');
+
     //create xml
     var xml = generateOpenXML('ilmLogin', values);
 
@@ -82,8 +96,17 @@ function handleOpenProcess(values) {
 function handleOpenResponse(response) {
     var parsedResponse = $.parseXML(response);
 
-    if ($(parsedResponse).find("ERROR[ID=TUN0001]").length || $(parsedResponse).find("ERROR[ID=TUN0002]").length) {
-        return Promise.reject('Oxaion Fehler');
+    if (($(parsedResponse).find("ERROR[ID=TUN0001]").length || $(parsedResponse).find("ERROR[ID=TUN0002]").length) && firstTry) {
+        firstTry = false;
+
+        return oxaionLogin(lastUser, lastPass)
+            .then(_ => { return handleOpenProcess(lastValues) })
+
+    } else if ($(parsedResponse).find("ERROR").length) {
+        window.localStorage.removeItem('oxaionSession');
+        window.localStorage.removeItem('session');
+        initApp();
+        return Promise.reject('Oxaion Fehler')
     }
 
     var xml = $($.parseXML(response)).find('response').text();

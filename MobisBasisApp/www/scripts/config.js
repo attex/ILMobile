@@ -29,13 +29,13 @@ const CONFIG_ARRAY = [BACKEND, HOST, APPLICATION, MODULE, PROJECTS, USER, PASSWO
 
 //In enterprise version comment out lines without a condition
 function setUpConfig() {
-    //saveConfigValue(HOST_STRING, 'http://192.168.230.51:43928');
-    //saveConfigValue(APPLICATION_STRING, 'iqu ilm');
-    //saveConfigValue(MODULE_STRING, 'ILM');
-    //saveConfigValue(PROJECTS_STRING, 'iqu60,ilm60_bas,ilm60_op412');
-    //saveConfigValue(USER_STRING, 'ENDERS');
-    //saveConfigValue(PASSWORD_STRING, 'oxaion');
-    //saveConfigValue(FORMATSIZE_STRING, 'PDA');
+    saveConfigValue(HOST_STRING, 'http://192.168.230.51:43108');
+    saveConfigValue(APPLICATION_STRING, 'iqu ilm');
+    saveConfigValue(MODULE_STRING, 'ILM');
+    saveConfigValue(PROJECTS_STRING, 'iqu60,ilm60_bas,ilm60_op412');
+    saveConfigValue(USER_STRING, 'DUNKEL');
+    saveConfigValue(PASSWORD_STRING, 'oxaion');
+    saveConfigValue(FORMATSIZE_STRING, 'PDA');
 
     if (!getConfigValue(BACKEND_STRING)) {
         saveConfigValue(BACKEND_STRING, 'open')
