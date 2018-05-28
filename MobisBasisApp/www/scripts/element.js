@@ -328,7 +328,11 @@ function getInputContent(inputContainer) {
     var prefix = (select.length) ? select.val() : "";
     var input = $(inputContainer).find('input').val();
 
-    return prefix + input;
+    if (input.startsWith(prefix)) {
+        return input
+    } else {
+        return prefix + input;
+    }
 }
 
 function getDateContent(dateInputContainer) {
