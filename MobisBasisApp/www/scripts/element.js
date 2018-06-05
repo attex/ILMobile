@@ -50,6 +50,11 @@ function formatElements(elements, seperatorHeight) {
             $(column).addClass('empty');
         }
 
+        //format column
+        if (yPos > seperatorHeight) {
+            formatLowerColumn(column)
+        }
+
         //append to container
         $(container).append(column)
     }
