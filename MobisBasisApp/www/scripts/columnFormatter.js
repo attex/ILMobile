@@ -46,6 +46,7 @@ function formatLowerColumn(columnContainer) {
             }
         })
 
+        //generate Layout String
         var templateColumnsString = LESections.map(function (section) {
             return generateSectionColumnsTemplate(section)
         }).join(' ');

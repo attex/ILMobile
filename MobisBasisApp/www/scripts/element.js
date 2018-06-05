@@ -184,11 +184,11 @@ function formatButtonElement(eleXML) {
     var eleHTML;
 
     if ($(eleXML).find('formatelementproperty[key="CLIENTFUNCTION"]').length) {
-        eleHTML = $('<div class="dummy"/>')
+        //eleHTML = $('<div class="dummy"/>')
 
-        var info = $(eleXML).find('formatelementproperty[key="CLIENTFUNCTION"]').attr('value').split(',')[1]
-        var button = $(`<button class="button" onclick="openCamera('${info}')">Foto aufnehmen</button>`);
-        getButtonsGroupContainer().append(button);
+        //var info = $(eleXML).find('formatelementproperty[key="CLIENTFUNCTION"]').attr('value').split(',')[1]
+        //var button = $(`<button class="button" onclick="openCamera('${info}')">Foto aufnehmen</button>`);
+        //getButtonsGroupContainer().append(button);
     } else {
         //TODO: why style button
         eleHTML = createButton($(eleXML).attr(XML_CONTENT), $(eleXML).attr(XML_NAME), 'CLICK', 'elementButton').attr('style', 'button');
