@@ -94,7 +94,8 @@ function handleOpenProcess(values) {
 }
 
 function handleOpenResponse(response) {
-    var parsedResponse = $.parseXML(response);
+    var escapedReponse = openXMLUnEscape(response);
+    var parsedResponse = $.parseXML(escapedReponse);
 
     if (($(parsedResponse).find("ERROR[ID=TUN0001]").length || $(parsedResponse).find("ERROR[ID=TUN0002]").length) && firstTry) {
         firstTry = false;
@@ -109,7 +110,7 @@ function handleOpenResponse(response) {
         return Promise.reject('Oxaion Fehler')
     }
 
-    var xml = $($.parseXML(response)).find('response').text();
+    var xml = $(parsedResponse).find('response').text();
     handleXML(xml, true);
 }
 
@@ -143,6 +144,20 @@ function openXMLEscape(unsafe) {
             case '#xD;': return '__DKXD__';
             case '#xA;': return '__DKXA__';
             case '#': return '__DK__';
+        }
+    });
+}
+
+function openXMLUnEscape(safe) {
+    return safe.replace(/__nl__|__cr__|__ampamp__|__amplt__|__ampgt__|__ampquot__|__ampapos__/g, function (c) {
+        switch (c) {
+            case '__nl__': return '\n';
+            case '__cr__': return '\r';
+            case '__ampamp__': return '&amp;amp;';
+            case '__amplt__': return '&amp;lt;';
+            case '__ampgt__': return '&amp;gt;';
+            case '__ampquot__': return '&amp;quot;';
+            case '__ampapos__': return '&amp;apos;';
         }
     });
 }
