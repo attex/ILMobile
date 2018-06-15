@@ -57,7 +57,7 @@ function moveFile(info, file) {
 
             window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSys) {
 
-                //The folder is created if doesn't exist
+                //The folder is created if it doesn't exist
                 fileSys.root.getDirectory(PHOTO_DIR,
                     { create: true, exclusive: false },
                     function (directory) {
