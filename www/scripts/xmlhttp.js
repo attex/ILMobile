@@ -41,6 +41,9 @@ function handleXML(xml, isLogin) {
 }
 
 function handleError(errorString) {
+    if (errorString.endsWith('APPL_ERROR_WRONG_SESSION_ID')) {
+        initApp();
+    }
     $.afui.toast({ message: errorString });
     //added additional finish() call when finally() is not available
     finish();

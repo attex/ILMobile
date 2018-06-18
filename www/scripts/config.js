@@ -33,7 +33,7 @@ function setUpConfig() {
     saveConfigValue(APPLICATION_STRING, 'iqu ilm');
     saveConfigValue(MODULE_STRING, 'ILM');
     saveConfigValue(PROJECTS_STRING, 'iqu60,ilm60_bas,ilm60_op412');
-    saveConfigValue(USER_STRING, 'ENDERS');
+    saveConfigValue(USER_STRING, 'DUNKEL');
     saveConfigValue(PASSWORD_STRING, 'oxaion');
     saveConfigValue(FORMATSIZE_STRING, 'PDA');
 

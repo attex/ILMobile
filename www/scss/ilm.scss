@@ -22,14 +22,6 @@ body { font-family: Roboto; font-size: 13px; color: #222; }
 body { margin: 0; padding: 0; background-color: #ebf1f4; }
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/* Headerbereich                                                                                                                                                                            */
-/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/* online-Status  */
-header[state="offline"] { border-bottom: 3px solid red; }
-
-header[state="online"] { border-bottom: 3px solid limegreen; }
-
-/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /* Maskenaufbau                                                                                                                                                                             */
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 .pages.mainpages { top: 3.5em; height: calc(100vh - 3.5em); width: 100%; padding: 0em; overflow: auto; position: fixed; background-color: white; }
@@ -126,7 +118,6 @@ option { color: white; }
 .panel.configPanel.detail { background-color: #ebf1f4; }
     .panel.configPanel.detail .columnContainer label { color: #6f8295; font-size: 0.8em; }
 .groupContainer.lower .columnContainer.quantity-4 .ORDER.order-3 { color: white; }
-.ERROR_10 .groupContainer.upper .columnContainer.quantity-1.NOTICE { margin-top: 0em; border: none; background-color: #db002f; margin-bottom: 1em; }
 .ERROR_10 .NOTICE { width: 100%; margin-top: 3em; font-size: 1.2em; color: white; text-align: center; }
 }
 
@@ -143,13 +134,10 @@ header { background-color: $tuerkis; }
 .NOTICE { color: #db002f; }
 .lower .LABEL { color: #4f5969 }
 .groupContainer.lower .columnContainer:not(.quantity-1) .ORDER { color: #4f5969; }
-.VARIABLE_ABC { color: #3f87a6; }
-.VARIABLE_123 { color: #3f87a6; }
+.VARIABLE_ABC, .VARIABLE_123 { color: #3f87a6; }
 .LABEL_EDITZONE { color: #4f5969; }
 .gridContainer.list .rowContainer .row { border-bottom: 1px solid transparent; background-color: #eaeadb; }
     .gridContainer.list .rowContainer .row .item.Wert { color: inherit; }
-.button { color: black; background-color: #eaeadb; }
-    .button:active { background-color: #db002f; }
 input:focus { border: 1px solid transparent; }
 .inputContainer select { background-color: #db002f; color: white; }
 option { color: white; }
@@ -158,14 +146,16 @@ option { color: white; }
 .panel.configPanel.detail { background-color: #ebf1f4; }
 .panel.configPanel.detail .columnContainer label { color: #6f8295; font-size: 0.8em; }
 .groupContainer.lower .columnContainer.quantity-4 .ORDER.order-3 { color: #4f5969; }
-.ERROR_10 .NOTICE { padding: 0; width: 100%; margin-top: 3em; font-size: 1.2em; color: white; text-align: center; }
+/* Default Theme */
+.button { color: black; background-color: #eaeadb; }
+    .button:active { background-color: #db002f; }
 
 /* Theme dark */
 .style_dark { 
     header { background-color: $dark;
         h1 { color: $white; } 
     }
-    input { background-color: $white; }
+    input { background-color: $white;color: black; font-weight: bold }
     .upper { background-color: $light-grey; 
         .columnContainer { background-color: $white; }
         .ORDER_DISPLAY, .ORDER, .NOTICE { color: $red; }
@@ -173,25 +163,26 @@ option { color: white; }
     .lower { background-color: $dark; 
         .columnContainer { background-color: transparent }
         .LABEL_EDITZONE, .ORDER_DISPLAY, .ORDER, .NOTICE { color: $tuerkis; }
-        .LABEL { color: white; }
+        .VARIABLE_ABC, .VARIABLE_123 { color: $white; }
     }
     .buttonContainer { background-color:$dark; }
+    .configPanel {background-color: $dark;
+        label {color: $tuerkis;}
+        select, option {background-color: $white;color: black; font-weight: bold}
+    }
 
 
 .gridContainer.list .rowContainer .row { border-bottom: 1px solid transparent; background-color: #eaeadb; }
     .gridContainer.list .rowContainer .row .item.Wert { color: inherit; }
-.button { color: black; background-color: #eaeadb; }
-    .button:active { background-color: #db002f; }
 input:focus { border: 1px solid transparent; }
 .inputContainer select { background-color: #db002f; color: white; }
 option { color: white; }
 .tableContainer .headerContainer { background-color: #eaeadb }
 .tableContainer .row { background-color: white; border-bottom: 1px dotted #ccc; }
 .panel.configPanel.detail { background-color: #ebf1f4; }
-    input, .scanner option, .theme option, .theme, .scanner, .backend option { color: #3f87a6; }
     .panel.configPanel.detail .columnContainer label { color: #6f8295; font-size: 0.8em; }
 .groupContainer.lower .columnContainer.quantity-4 .ORDER.order-3 { color: #4f5969; }
-.ERROR_10 .NOTICE { padding: 0; width: 100%; margin-top: 3em; font-size: 1.2em; color: white; text-align: center; }
+
 }
 /*------------------------------------------------------*/
 /* Loader                                      */
@@ -213,9 +204,14 @@ option { color: white; }
 /* Meldungen                                                                                                                                                                                */
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 #toaster { display: none; z-index: 1; padding: 2em; }
-
     #toaster.active { display: block; width: 100vw; height: 0%; position: fixed; top: 2.5em; left: 0; text-align: center; margin: 0; float: left; padding: 1em; height: auto; color: white; background-color: #db002f; }
 
+.detailContainer[class*=' ERROR'] ,.detailContainer[class^='ERROR'] {
+    .columnContainer.NOTICE {
+        background-color: $red; 
+        .NOTICE { font-size: 1.2rem; color: $white; text-align: center; word-break: break-all;}
+    }
+}
 /*------------------------------------------------------*/
 /* Maskenaufbau                                         */
 /*------------------------------------------------------*/
@@ -233,21 +229,18 @@ header { display: grid; grid-template-columns: 1fr auto 1fr; height: 2.5em; }
 
 .view header h1 { justify-self: center; text-shadow: none; grid-column: 2; margin: 0 }
 
-/*
-    show title depending on view
-*/
+/*------------------------------------------------------*/
+/* CSS State Machine                                    */
+/*------------------------------------------------------*/
 header h1:not(#mainTitle), .panel:not(.mainPanel) { display: none; }
 
 .configView header h1#configTitle, .configView .panel.configPanel { display: block; }
-
 .configView header h1#mainTitle, .configView .panel.mainPanel { display: none; }
 
 .directoryView header h1#directoryTitle, .directoryView .panel.directoryPanel { display: block; }
-
 .directoryView header h1#mainTitle, .directoryView .panel.mainPanel { display: none; }
 
 .galleryView header h1#galleryTitle, .galleryView .panel.galleryPanel { display: block; }
-
 .galleryView header h1#mainTitle, .galleryView .panel.mainPanel { display: none; }
 
 .galleryButton { justify-self: right; margin-right: 1em; grid-column: 3 }
@@ -293,14 +286,6 @@ figure { margin: 0.2em; display: flex }
     .button.ENTER { grid-column: 3; justify-self: right; background: transparent url(../icons/icons8-checkmark-filled-50.png) no-repeat right; background-size: contain; }
     .button.scan { margin: 0; color: transparent; width: 2em; height: 2em; min-width: 2.45em; background: transparent url(../icons/icons8-barcode-40.png) no-repeat; background-size: 2em; background-position: center; }
     .button.matchCodeButton { margin: 0; color: transparent; width: 2em; height: 2em; background: transparent url(../icons/icons8-search-filled-50.png) no-repeat; background-size: 1.7em; background-position: center; }
-
-.buttonContainer.selectTools .button { padding: 0.2em; margin: 0.4em; margin-right: 0; padding-left: 1.3em; font-size: 0.9em; }
-
-.editButton { background: transparent url(../icons/icons8-choice-30.png) no-repeat; background-size: 1.4em; background-position: left; }
-
-.selectMode .editButton { background: transparent url(../icons/icons8-cancel-30.png) no-repeat; background-size: 1.4em; background-position: left; }
-.selectMode .selectButton { background: transparent url(../icons/icons8-checked-checkbox-30.png) no-repeat; background-size: 1.4em; background-position: left; }
-.selectMode .deselectButton { background: transparent url(../icons/icons8-unchecked-checkbox-30.png) no-repeat; background-size: 1.4em; background-position: left; }
 
 /*------------------------------------------------------*/
 /* Toolbar                                              */
@@ -418,8 +403,6 @@ figure { margin: 0.2em; display: flex }
 
 .empty { display: none !important; }
 
-.NOTICE { font-size: 1.2em; text-align: center; padding-top: 1em; width: 100%; }
-
 .groupContainer.upper .columnContainer .LABEL { margin-right: 1em; }
 
 .groupContainer.lower .columnContainer:not(.quantity-1) .ORDER { font-size: 0.8em; margin-right: 1em; }
@@ -461,9 +444,9 @@ input { border: 1px solid transparent; padding: 0.4em; }
 .theme, .scanner, .backend { border: 1px solid transparent; padding: 0.35em; border: none; width: 100%; }
 
 /* Tabelle */
-.tableContainer { display: grid; width: 100%; height: auto; grid-template: "buttonoben" auto "liste" 1fr "buttonunten" auto / 1fr; padding: 0.3em; }
+.tableContainer { display: grid; width: 100%; height: auto; grid-template: "buttonoben" auto "liste" 1fr "buttonunten" auto / 1fr;}
 
-    .tableContainer .rowContainer { overflow-y: auto; position: relative; float: left; width: calc(100vw - 0.6em); margin-bottom: 0.5em; display: grid }
+    .tableContainer .rowContainer { overflow-y: auto; position: relative; float: left; width: 100vw; display: grid;border: 1px solid black }
 
     .tableContainer .headerContainer { padding: 0.5em; }
 
@@ -478,17 +461,31 @@ input { border: 1px solid transparent; padding: 0.4em; }
     .tableContainer .headerContainer, .tableContainer .row.header .item { font-weight: bold; }
 
 /*Tabelle Select Tools*/
-.selectTools { grid-area: buttonoben; display: none; }
+.editButton {
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4IgogICAgIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIgogICAgIHZpZXdCb3g9IjAgMCA1MCA1MCIKICAgICBzdHlsZT0iZmlsbDojMDAwMDAwOyI+PGcgaWQ9InN1cmZhY2UxIj48cGF0aCBzdHlsZT0iICIgZD0iTSAyLjgxMjUgMCBDIDEuMjc3MzQ0IDAgMCAxLjI3NzM0NCAwIDIuODEyNSBMIDAgNy44MTI1IEMgLTAuMDA3ODEyNSA3Ljg3NSAtMC4wMDc4MTI1IDcuOTM3NSAwIDggTCAwIDQwIEMgMCA0MC41NTA3ODEgMC40NDkyMTkgNDEgMSA0MSBMIDI0IDQxIEMgMjQuMzU5Mzc1IDQxLjAwMzkwNiAyNC42OTUzMTMgNDAuODE2NDA2IDI0Ljg3ODkwNiA0MC41MDM5MDYgQyAyNS4wNTg1OTQgNDAuMTkxNDA2IDI1LjA1ODU5NCAzOS44MDg1OTQgMjQuODc4OTA2IDM5LjQ5NjA5NCBDIDI0LjY5NTMxMyAzOS4xODM1OTQgMjQuMzU5Mzc1IDM4Ljk5NjA5NCAyNCAzOSBMIDIgMzkgTCAyIDkgTCA0MiA5IEwgNDIgMjIgQyA0MS45OTYwOTQgMjIuMzU5Mzc1IDQyLjE4MzU5NCAyMi42OTUzMTMgNDIuNDk2MDk0IDIyLjg3ODkwNiBDIDQyLjgwODU5NCAyMy4wNTg1OTQgNDMuMTkxNDA2IDIzLjA1ODU5NCA0My41MDM5MDYgMjIuODc4OTA2IEMgNDMuODE2NDA2IDIyLjY5NTMxMyA0NC4wMDM5MDYgMjIuMzU5Mzc1IDQ0IDIyIEwgNDQgOCBDIDQ0LjAwNzgxMyA3LjkzNzUgNDQuMDA3ODEzIDcuODc1IDQ0IDcuODEyNSBMIDQ0IDIuODEyNSBDIDQ0IDEuMjc3MzQ0IDQyLjcyMjY1NiAwIDQxLjE4NzUgMCBaIE0gMi44MTI1IDIgTCA0MS4xODc1IDIgQyA0MS42NTIzNDQgMiA0MiAyLjM0NzY1NiA0MiAyLjgxMjUgTCA0MiA3IEwgMiA3IEwgMiAyLjgxMjUgQyAyIDIuMzQ3NjU2IDIuMzQ3NjU2IDIgMi44MTI1IDIgWiBNIDcgMTUgTCA3IDE3IEwgMTEgMTcgTCAxMSAxNSBaIE0gMTQgMTUgTCAxNCAxNyBMIDM3IDE3IEwgMzcgMTUgWiBNIDcgMjAgTCA3IDIyIEwgMTEgMjIgTCAxMSAyMCBaIE0gMTQgMjAgTCAxNCAyMiBMIDM3IDIyIEwgMzcgMjAgWiBNIDQ1LjkwNjI1IDI0LjkwNjI1IEMgNDQuODU1NDY5IDI0LjkwNjI1IDQzLjgwMDc4MSAyNS4yOTI5NjkgNDMgMjYuMDkzNzUgTCA0Mi4zMTI1IDI2LjgxMjUgTCA0Mi4zNDM3NSAyNi44NDM3NSBMIDI2LjkwNjI1IDQyLjI4MTI1IEMgMjYuNzc3MzQ0IDQyLjM5ODQzOCAyNi42Nzk2ODggNDIuNTUwNzgxIDI2LjYyNSA0Mi43MTg3NSBMIDI0LjkzNzUgNDguNzE4NzUgQyAyNC44MzU5MzggNDkuMDY2NDA2IDI0LjkyNTc4MSA0OS40NDE0MDYgMjUuMTc5Njg4IDQ5LjcwMzEyNSBDIDI1LjQzMzU5NCA0OS45NjA5MzggMjUuODA0Njg4IDUwLjA2MjUgMjYuMTU2MjUgNDkuOTY4NzUgTCAzMi4xNTYyNSA0OC4zNzUgQyAzMi4zMjQyMTkgNDguMzIwMzEzIDMyLjQ3NjU2MyA0OC4yMjI2NTYgMzIuNTkzNzUgNDguMDkzNzUgTCA0OC40MDYyNSAzMi40MDYyNSBDIDQ4LjUyNzM0NCAzMi4zMDQ2ODggNDguNjI1IDMyLjE3NTc4MSA0OC42ODc1IDMyLjAzMTI1IEMgNDguNjg3NSAzMi4wMTk1MzEgNDguNjg3NSAzMi4wMTE3MTkgNDguNjg3NSAzMiBMIDQ4LjgxMjUgMzEuOTA2MjUgQyA1MC40MTQwNjMgMzAuMzA0Njg4IDUwLjQxNDA2MyAyNy42OTUzMTMgNDguODEyNSAyNi4wOTM3NSBDIDQ4LjAxMTcxOSAyNS4yOTI5NjkgNDYuOTU3MDMxIDI0LjkwNjI1IDQ1LjkwNjI1IDI0LjkwNjI1IFogTSA3IDI1IEwgNyAyNyBMIDExIDI3IEwgMTEgMjUgWiBNIDE0IDI1IEwgMTQgMjcgTCAzNyAyNyBMIDM3IDI1IFogTSA0My43NSAyOC4yNSBMIDQ2Ljc1IDMxLjI1IEwgMzEuNDA2MjUgNDYuNSBMIDI4LjQ2ODc1IDQzLjY1NjI1IEwgMjguNSA0My41MzEyNSBaIE0gNyAzMCBMIDcgMzIgTCAxMSAzMiBMIDExIDMwIFogTSAxNCAzMCBMIDE0IDMyIEwgMzMgMzIgTCAzMyAzMCBaICI+PC9wYXRoPjwvZz48L3N2Zz4=') 50% 50% no-repeat;
+    background-size: 100%;
+}
+.selectMode .editButton {
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4IgogICAgIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIKICAgICB2aWV3Qm94PSIwIDAgNTAgNTAiCiAgICAgc3R5bGU9ImZpbGw6IzAwMDAwMDsiPjxnIGlkPSJzdXJmYWNlMSI+PHBhdGggc3R5bGU9IiAiIGQ9Ik0gMC45MDYyNSAtMC4wMzEyNSBDIDAuODYzMjgxIC0wLjAyMzQzNzUgMC44MjAzMTMgLTAuMDExNzE4OCAwLjc4MTI1IDAgQyAwLjQwNjI1IDAuMDY2NDA2MyAwLjEwNTQ2OSAwLjMzOTg0NCAwIDAuNzAzMTI1IEMgLTAuMTA1NDY5IDEuMDcwMzEzIDAuMDAzOTA2MjUgMS40NjA5MzggMC4yODEyNSAxLjcxODc1IEwgNDguMjgxMjUgNDkuNzE4NzUgQyA0OC42Nzk2ODggNTAuMTE3MTg4IDQ5LjMyMDMxMyA1MC4xMTcxODggNDkuNzE4NzUgNDkuNzE4NzUgQyA1MC4xMTcxODggNDkuMzIwMzEzIDUwLjExNzE4OCA0OC42Nzk2ODggNDkuNzE4NzUgNDguMjgxMjUgTCAyOS4xODc1IDI3Ljc1IEwgNDMuNjI1IDEzLjIxODc1IEMgNDMuOTQ5MjE5IDEyLjkxNzk2OSA0NC4wMzUxNTYgMTIuNDQxNDA2IDQzLjgzOTg0NCAxMi4wNDY4NzUgQyA0My42NDg0MzggMTEuNjQ4NDM4IDQzLjIxNDg0NCAxMS40Mjk2ODggNDIuNzgxMjUgMTEuNSBDIDQyLjU1ODU5NCAxMS41MjM0MzggNDIuMzQ3NjU2IDExLjYyNSA0Mi4xODc1IDExLjc4MTI1IEwgMjcuNzUgMjYuMzEyNSBMIDIzLjY4NzUgMjIuMjUgTCAzOC4yMTg3NSA3LjgxMjUgQyAzOC41NDI5NjkgNy41MTE3MTkgMzguNjI4OTA2IDcuMDM1MTU2IDM4LjQzMzU5NCA2LjY0MDYyNSBDIDM4LjI0MjE4OCA2LjI0MjE4OCAzNy44MDg1OTQgNi4wMjM0MzggMzcuMzc1IDYuMDkzNzUgQyAzNy4xNTIzNDQgNi4xMTcxODggMzYuOTQxNDA2IDYuMjE4NzUgMzYuNzgxMjUgNi4zNzUgTCAyMi4yNSAyMC44MTI1IEwgMS43MTg3NSAwLjI4MTI1IEMgMS41MTE3MTkgMC4wNTg1OTM4IDEuMjEwOTM4IC0wLjA1NDY4NzUgMC45MDYyNSAtMC4wMzEyNSBaIE0gNDMuMDYyNSAxLjk2ODc1IEMgNDEuODEyNSAxLjk2ODc1IDQwLjU0Mjk2OSAyLjQ1NzAzMSAzOS41OTM3NSAzLjQwNjI1IEwgMzguODEyNSA0LjE4NzUgTCA0NS42ODc1IDExLjA5Mzc1IEwgNDYuNSAxMC4zMTI1IEMgNDguMzk4NDM4IDguNDE0MDYzIDQ4LjM5ODQzOCA1LjMwNDY4OCA0Ni41IDMuNDA2MjUgQyA0NS41NTA3ODEgMi40NTcwMzEgNDQuMzEyNSAxLjk2ODc1IDQzLjA2MjUgMS45Njg3NSBaIE0gMTkuMTg3NSAyNCBMIDQuMjgxMjUgMzguNzgxMjUgQyA0LjE1NjI1IDM4LjkxMDE1NiA0LjA3MDMxMyAzOS4wNzQyMTkgNC4wMzEyNSAzOS4yNSBMIDIuMDMxMjUgNDYuNzUgQyAxLjk0MTQwNiA0Ny4wOTM3NSAyLjA0Mjk2OSA0Ny40NTcwMzEgMi4yOTI5NjkgNDcuNzA3MDMxIEMgMi41NDI5NjkgNDcuOTU3MDMxIDIuOTA2MjUgNDguMDU4NTk0IDMuMjUgNDcuOTY4NzUgTCAxMC43NSA0NS45Njg3NSBDIDEwLjkyNTc4MSA0NS45Mjk2ODggMTEuMDg5ODQ0IDQ1Ljg0Mzc1IDExLjIxODc1IDQ1LjcxODc1IEwgMjYgMzAuODEyNSBMIDI0LjU5Mzc1IDI5LjQwNjI1IEwgOS45Njg3NSA0NC4wOTM3NSBMIDUuOTA2MjUgNDAuMDMxMjUgTCAyMC41OTM3NSAyNS40MDYyNSBaICI+PC9wYXRoPjwvZz48L3N2Zz4=') 50% 50% no-repeat;
+    background-size: 100%;
+}
+.selectMode .selectButton {
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4IgogICAgIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIgogICAgIHZpZXdCb3g9IjAgMCA1MCA1MCIKICAgICBzdHlsZT0iZmlsbDojMDAwMDAwOyI+PGcgaWQ9InN1cmZhY2UxIj48cGF0aCBzdHlsZT0iICIgZD0iTSA3IDIgQyA0LjE5OTIxOSAyIDIgNC4xOTkyMTkgMiA3IEwgMiAzNCBDIDIgMzYuODAwNzgxIDQuMTk5MjE5IDM5IDcgMzkgTCAzNCAzOSBDIDM2LjgwMDc4MSAzOSAzOSAzNi44MDA3ODEgMzkgMzQgTCAzOSA5LjgxMjUgTCAzNyAxMiBMIDM3IDM0IEMgMzcgMzUuNjk5MjE5IDM1LjY5OTIxOSAzNyAzNCAzNyBMIDcgMzcgQyA1LjMwMDc4MSAzNyA0IDM1LjY5OTIxOSA0IDM0IEwgNCA3IEMgNCA1LjMwMDc4MSA1LjMwMDc4MSA0IDcgNCBMIDMzLjQwNjI1IDQgTCAzNS4wOTM3NSAyLjA5Mzc1IEMgMzQuNjk1MzEzIDIuMDkzNzUgMzQuMzk4NDM4IDIgMzQgMiBaIE0gMzYuMjUgNS4zNDM3NSBMIDE4LjkzNzUgMjQuNTkzNzUgTCAxMC42NTYyNSAxNy4yNSBMIDkuMzQzNzUgMTguNzUgTCAxOC4zNDM3NSAyNi43NSBMIDE5LjA5Mzc1IDI3LjQwNjI1IEwgMTkuNzUgMjYuNjU2MjUgTCAzNy43NSA2LjY1NjI1IFogTSA0MSAxMSBMIDQxIDEzIEwgNDMgMTMgQyA0NC42OTkyMTkgMTMgNDYgMTQuMzAwNzgxIDQ2IDE2IEwgNDYgNDMgQyA0NiA0NC42OTkyMTkgNDQuNjk5MjE5IDQ2IDQzIDQ2IEwgMTYgNDYgQyAxNC4zMDA3ODEgNDYgMTMgNDQuNjk5MjE5IDEzIDQzIEwgMTMgNDEgTCAxMSA0MSBMIDExIDQzIEMgMTEgNDUuODAwNzgxIDEzLjE5OTIxOSA0OCAxNiA0OCBMIDQzIDQ4IEMgNDUuODAwNzgxIDQ4IDQ4IDQ1LjgwMDc4MSA0OCA0MyBMIDQ4IDE2IEMgNDggMTMuMTk5MjE5IDQ1LjgwMDc4MSAxMSA0MyAxMSBaICI+PC9wYXRoPjwvZz48L3N2Zz4=') 50% 50% no-repeat;
+    background-size: 100%;
+}
+.selectMode .deselectButton {
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4IgogICAgIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIgogICAgIHZpZXdCb3g9IjAgMCA1MCA1MCIKICAgICBzdHlsZT0iZmlsbDojMDAwMDAwOyI+PGcgaWQ9InN1cmZhY2UxIj48cGF0aCBzdHlsZT0iICIgZD0iTSA3IDIgQyA0LjE5OTIxOSAyIDIgNC4xOTkyMTkgMiA3IEwgMiAzNCBDIDIgMzYuODAwNzgxIDQuMTk5MjE5IDM5IDcgMzkgTCAzNCAzOSBDIDM2LjgwMDc4MSAzOSAzOSAzNi44MDA3ODEgMzkgMzQgTCAzOSA3IEMgMzkgNC4xOTkyMTkgMzYuODAwNzgxIDIgMzQgMiBaIE0gNyA0IEwgMzQgNCBDIDM1LjY5OTIxOSA0IDM3IDUuMzAwNzgxIDM3IDcgTCAzNyAzNCBDIDM3IDM1LjY5OTIxOSAzNS42OTkyMTkgMzcgMzQgMzcgTCA3IDM3IEMgNS4zMDA3ODEgMzcgNCAzNS42OTkyMTkgNCAzNCBMIDQgNyBDIDQgNS4zMDA3ODEgNS4zMDA3ODEgNCA3IDQgWiBNIDQxIDExIEwgNDEgMTMgTCA0MyAxMyBDIDQ0LjY5OTIxOSAxMyA0NiAxNC4zMDA3ODEgNDYgMTYgTCA0NiA0MyBDIDQ2IDQ0LjY5OTIxOSA0NC42OTkyMTkgNDYgNDMgNDYgTCAxNiA0NiBDIDE0LjMwMDc4MSA0NiAxMyA0NC42OTkyMTkgMTMgNDMgTCAxMyA0MSBMIDExIDQxIEwgMTEgNDMgQyAxMSA0NS44MDA3ODEgMTMuMTk5MjE5IDQ4IDE2IDQ4IEwgNDMgNDggQyA0NS44MDA3ODEgNDggNDggNDUuODAwNzgxIDQ4IDQzIEwgNDggMTYgQyA0OCAxMy4xOTkyMTkgNDUuODAwNzgxIDExIDQzIDExIFogIj48L3BhdGg+PC9nPjwvc3ZnPg==') 50% 50% no-repeat;
+    background-size: 100%;
+}
 
-.selectable .selectTools { display: block; position: relative; float: left; width: 100%; }
+//make invisible
+.selectTools { grid-area: buttonoben; display: none; padding: 0.5rem; }
+.editButton, .selectButton, .deselectButton { display: none; color: transparent;width: 2rem;height: 2rem;margin-left: 2rem }
 
-.editButton { display: none; }
-
-.selectable .editButton { display: block; }
-
-.selectButton, .deselectButton { display: none; }
-
-.selectMode .selectButton, .selectMode .deselectButton { display: block; }
+//make visible
+.selectable .selectTools { display: block; width: 100%; 
+    .editButton { display: inline-block }}
+.selectMode .selectButton, .selectMode .deselectButton { display: inline-block }
 
 .functions { grid-area: buttonunten; position: relative; float: left; width: 100%; display: none; }
 

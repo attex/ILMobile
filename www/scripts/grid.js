@@ -80,12 +80,10 @@ function toggleSelectMode() {
         MAIN_CONTAINER.removeClass(selectMode);
         $(tableContainer).find('.selected').removeClass('selected');
         $(tableContainer).find('.row').off('click');
-        $(event.srcElement).text('Bearbeiten');
 
     } else {
         MAIN_CONTAINER.addClass(selectMode);
         $(tableContainer).find('.row').not('.header').click(toggleSelect)
-        $(event.srcElement).text('Fertig');
     }
 
     $(window).resize();
