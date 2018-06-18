@@ -1,4 +1,5 @@
 #Cordova Info
+node_modules/
 platforms/
 plugins/
 .idea/
