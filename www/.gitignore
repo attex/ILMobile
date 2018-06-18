@@ -1,2 +1,5 @@
 #nw-builder output
 build/
+
+#generated with sass
+css/
