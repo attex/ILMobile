@@ -1,6 +1,4 @@
-﻿var inScanView = false;
-
-function initApp() {
+﻿function initApp() {
     console.log("Initializing App");
     initConfig();
     loadStyles();
@@ -18,21 +16,17 @@ function initApp() {
  * Scan barcode by invoking Cordova plugin, copy result to matching input element.
  */
 function scanBarcode(input) {
-    inScanView = true;
-
     cordova.plugins.barcodeScanner.scan
         (function (result) {
             console.log("Barcode scanned, result: " + result.text + ", format: " + result.format + ", cancelled: " + result.cancelled);
             if (!result.cancelled) {
                 $(input).val(result.text);
-                inScanView = false;
             } else {
                 console.log("Scanning cancelled");
                 $.afui.toast({ message: "Scanvorgang wurde abgebrochen" });
             }
         }, function (error) {
             console.log("Scanning failed: " + error);
-            inScanView = false;
         });
 
 }

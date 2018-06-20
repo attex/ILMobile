@@ -1,0 +1,38 @@
+/*------------------------------------------------------*/
+/* Masken Spezial                                       */
+/*------------------------------------------------------*/
+/* Login */
+.LOGIN_10 { position: relative; float: left; padding: 0; background: transparent url(../icons/oxaion-bg.svg) no-repeat; background-size: cover; }
+
+    .LOGIN_10 .button.scan { display: none; }
+
+/* MC allgemein  */
+.BAS_MCD_0100_10 .groupContainer.upper .columnContainer.quantity-1.firstType-Label { border: 0; }
+
+/* Einzelne Elemente ueberschreiben */
+.WEx_KOP_0200_10 .firstName-e10 { margin: 0; padding-bottom: 0; margin-bottom: 0; }
+
+.SUB_WEP_0600_10 .groupContainer.lower .columnContainer.firstName-e30 { display: none; }
+
+.WEx_KOP_0200_10 .firstName-e11 button.scan { top: 0; }
+
+/* Auskunftssystem */
+.INF_STA_0100_10 .groupContainer.upper .columnContainer { margin-bottom: 0; border: 0; }
+
+.INF_STA_0100_10 .columnContainer.firstName-e10,
+.INF_STA_0100_10 .columnContainer.firstName-e12,
+.INF_STA_0100_10 .columnContainer.firstName-e15,
+.INF_STA_0100_10 .columnContainer.firstName-e16 { padding-left: 2rem; }
+
+.INF_STA_0100_10 .columnContainer.firstName-e12 { padding-bottom: 1rem; }
+
+/*------------------------------------------------------*/
+/* Sonstiges Spezial                                    */
+/*------------------------------------------------------*/
+
+/* Mengen rechtsbuendig */
+.header.Menge, .header.Lagerbestand { text-align: right; }
+
+.item.Menge, .item.Lagerbestand, .item.Bestand { text-align: right; }
+
+.header.ME, .item.ME { text-align: left; }

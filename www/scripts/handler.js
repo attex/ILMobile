@@ -9,7 +9,7 @@ function createHandler(source, action) {
         return createEscHandler(source, true)
     } else {
         var handler = function () {
-            if (!inScanView && isInMainView()) {
+            if (isInMainView()) {
                 handle(source, action)
             }
         };
@@ -29,15 +29,13 @@ function createEnterHandler(source, enterable) {
 }
 
 function handleEnter(source, enterable) {
-    if (!inScanView) {
-        if (isInConfigView()) {
-            saveConfig();
-        } else if (enterable) {
-            if (source === LOGIN_SOURCE) {
-                login();
-            } else {
-                handle(source, ENTER_ACTION);
-            }
+    if (isInConfigView()) {
+        saveConfig();
+    } else if (enterable) {
+        if (source === LOGIN_SOURCE) {
+            login();
+        } else {
+            handle(source, ENTER_ACTION);
         }
     }
 }
@@ -54,9 +52,7 @@ function createEscHandler(source, escable) {
 }
 
 function handleESC(source, escable) {
-    if (inScanView) {
-        inScanView = false;
-    } else if (isInConfigView()) {
+    if (isInConfigView()) {
         toggleConfig();
     } else if (isInDirectoryView()) {
         toggleDirectories();

@@ -2,7 +2,9 @@
 /* Imports                                                                                                                                                                       */
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
+@import 'config';
 @import 'slider';
+@import 'special';
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /* Grundeinstellungen                                                                                                                                                                       */
@@ -24,14 +26,7 @@ body { margin: 0; padding: 0; background-color: #ebf1f4; }
 
 input[type="checkbox"] { width: 15px; }
 
-input { width: 100%; border: 0; padding-top: 0.5rem; padding-bottom: 0.5rem; color: #009edf; padding-left: 0rem; background-color: transparent; }
-
-/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/* Meldungen                                                                                                                                                                                */
-/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-#toaster { display: none; z-index: 1; padding: 2rem; }
-
-    #toaster.active { display: block; width: 100vw; height: 0%; position: fixed; top: 3.5rem; left: 0; text-align: center; margin: 0; float: left; padding: 1rem; height: auto; color: white; background-color: #db002f; }
+input { border: 0; padding-top: 0.5rem; padding-bottom: 0.5rem; color: #009edf; padding-left: 0rem; background-color: transparent; }
 
 /*Images*/
 img { height: -webkit-fill-available; }
@@ -134,12 +129,9 @@ option { color: white; }
 .gridContainer.list .rowContainer .row { border-bottom: 1px solid transparent; background-color: #eaeadb; }
     .gridContainer.list .rowContainer .row .item.Wert { color: inherit; }
 input:focus { border: 1px solid transparent; }
-.inputContainer select { background-color: #db002f; color: white; }
 option { color: white; }
 .tableContainer .headerContainer { background-color: #eaeadb }
 .tableContainer .row { background-color: white; border-bottom: 1px dotted #ccc; }
-.panel.configPanel.detail { background-color: #ebf1f4; }
-    .panel.configPanel.detail .columnContainer label { color: #6f8295; font-size: 0.8rem; }
 .groupContainer.lower .columnContainer.quantity-4 .ORDER.order-3 { color: #4f5969; }
 
 }
@@ -161,8 +153,8 @@ option { color: white; }
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /* Meldungen                                                                                                                                                                                */
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-#toaster { display: none; z-index: 1; padding: 2rem; }
-    #toaster.active { display: block; width: 100vw; height: 0%; position: fixed; top: 2.5rem; left: 0; text-align: center; margin: 0; float: left; padding: 1rem; height: auto; color: white; background-color: #db002f; }
+#toaster { display: none; z-index: 1; }
+    #toaster.active { display: block;width: 100vw; position: fixed; text-align: center; margin: 0; padding: 1rem; color: white; background-color: #db002f; word-break: break-all;}
 
 .detailContainer[class*=' ERROR'] ,.detailContainer[class^='ERROR'] {
     .columnContainer.NOTICE {
@@ -173,9 +165,9 @@ option { color: white; }
 /*------------------------------------------------------*/
 /* Main Structure                                         */
 /*------------------------------------------------------*/
-.pages.mainpages { top: 2.5rem; height: calc(100vh - 2.5rem); width: 100%; padding: 0; overflow: hidden; position: fixed; background-color: white; }
+.pages.mainpages { top: 2.5rem; height: calc(100vh - 2.5rem); width: 100%; padding: 0; overflow: hidden; background-color: white; }
 .panel { position: absolute; width: 100%; box-shadow: -5px 0 20px -5px rgba(0,0, 0, 0.1); }
-
+.panel.scrollable { overflow: auto;}
 
 header { display: grid; grid-template-columns: 1fr auto 1fr; height: 2.5rem; }
 
@@ -192,7 +184,7 @@ header { display: grid; grid-template-columns: 1fr auto 1fr; height: 2.5rem; }
 /*------------------------------------------------------*/
 header {.naviButton {width: 2r
     ;height: 1.4rem;align-self: center;justify-self: left; margin-left: 1rem; grid-column: 1}
-        h1 {font-size: 1.5rem;align-self: center;justify-self: center; text-shadow: none; margin: 0;grid-column: 2;}
+        h1 {font-size: 1.2rem;align-self: center;justify-self: center; text-shadow: none; margin: 0;grid-column: 2;}
         .galleryButton {width: 2rem;height: 2rem;align-self: center;justify-self: right; margin-right: 1rem; grid-column: 3}}
 
 /*------------------------------------------------------*/
@@ -212,7 +204,6 @@ header h1:not(#mainTitle), .panel:not(.mainPanel) { display: none; }
 /*------------------------------------------------------*/
 /* Gallery                                             */
 /*------------------------------------------------------*/
-
 .directoryPanel .columnContainer { background-color: transparent; }
 
 .gallery { display: grid; margin: 0.5rem; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: max-content; }
@@ -227,6 +218,7 @@ figure { margin: 0.2rem; display: flex }
 /* Buttons                                              */
 /*------------------------------------------------------*/
 .button { position: relative; float: left; background-color: #db002f; border-radius: 0; cursor: pointer; border: 0; height: 2rem; color: white; }
+option:focus, select:focus, .button:focus {outline: none;}
 
 .naviButton { cursor: pointer; }
 
@@ -246,7 +238,7 @@ figure { margin: 0.2rem; display: flex }
 /*------------------------------------------------------*/
 .groupContainer.buttonContainer { display: grid; grid-template-columns: minmax(3rem, max-content) auto minmax(3rem, max-content) }
 
-.showOptions .groupContainer.buttonContainer { position: absolute; bottom: 0; z-index: 1; left: 0; width: 100%; }
+.showOptions .groupContainer.buttonContainer { position: absolute; bottom: 0; z-index: 1; left: 0; width: calc(100vw - 1rem); }
 
     .showOptions .groupContainer.buttonContainer .button:not(.ESC):not(.options):not(.ENTER) { grid-column: 1 / 4; margin-bottom: 0.4rem; min-width: 80%; }
 
@@ -381,7 +373,7 @@ figure { margin: 0.2rem; display: flex }
 .detailContainer[class^='MNU'] .gridContainer.list .rowContainer .row .item.Beschreibung { display: none; }
 
 
-.panel .toolbar { width: 100%; position: relative; float: left; bottom: 0; padding: 1rem; }
+.panel .toolbar { bottom: 0; padding: 1rem; }
 
 input { border: 1px solid transparent; padding: 0.4rem; }
 
@@ -389,14 +381,14 @@ input { border: 1px solid transparent; padding: 0.4rem; }
 
     .inputContainer input { flex: 1; }
 
-    .inputContainer select { border: none; height: auto; width: 4rem; font-weight: bold; padding-left: 0.5rem; }
+    .inputContainer select { border: none; height: auto; font-size: 1.2rem; font-weight: bold; }
 
-.theme, .scanner, .backend { border: 1px solid transparent; padding: 0.35rem; border: none; width: 100%; }
+.theme, .scanner, .backend { border: 1px solid transparent; padding: 0.35rem; border: none; }
 
 /* Tabelle */
 .tableContainer { display: grid; width: 100%; height: auto; grid-template: "buttonoben" auto "liste" 1fr "buttonunten" auto / 1fr;}
 
-    .tableContainer .rowContainer { overflow-y: auto; position: relative; float: left; width: 100vw; display: grid;border: 1px solid black }
+    .tableContainer .rowContainer { overflow-y: auto; position: relative; float: left; width: calc(100vw - 2px); display: grid;border: 1px solid black }
 
     .tableContainer .headerContainer { padding: 0.5rem; }
 
@@ -433,13 +425,13 @@ input { border: 1px solid transparent; padding: 0.4rem; }
 .editButton, .selectButton, .deselectButton { display: none; color: transparent;width: 2rem;height: 2rem;margin-left: 2rem }
 
 //make visible
-.selectable .selectTools { display: block; width: 100%; 
+.selectable .selectTools { display: block;
     .editButton { display: inline-block }}
 .selectMode .selectButton, .selectMode .deselectButton { display: inline-block }
 
 .functions { grid-area: buttonunten; position: relative; float: left; width: 100%; display: none; }
 
-.selectMode .functions { display: flex; justify-content: center; }
+.selectMode .functions { display: flex; justify-content: center; background-color: transparent; }
 
     .selectMode .functions .button { padding: 0.3rem; margin: 0.5rem; }
 
@@ -448,42 +440,3 @@ input { border: 1px solid transparent; padding: 0.4rem; }
 .selectMode .lower { display: none; }
 
 .selectMode .groupContainer.buttonContainer { display: none; }
-
-/*------------------------------------------------------*/
-/* Masken Spezial                                       */
-/*------------------------------------------------------*/
-/* Login */
-.LOGIN_10 { position: relative; float: left; padding: 0; background: transparent url(../icons/oxaion-bg.svg) no-repeat; background-size: cover; }
-
-    .LOGIN_10 .button.scan { display: none; }
-
-/* MC allgemein  */
-.BAS_MCD_0100_10 .groupContainer.upper .columnContainer.quantity-1.firstType-Label { border: 0; }
-
-/* Einzelne Elemente ueberschreiben */
-.WEx_KOP_0200_10 .firstName-e10 { margin: 0; padding-bottom: 0; margin-bottom: 0; }
-
-.SUB_WEP_0600_10 .groupContainer.lower .columnContainer.firstName-e30 { display: none; }
-
-.WEx_KOP_0200_10 .firstName-e11 button.scan { top: 0; }
-
-/* Auskunftssystem */
-.INF_STA_0100_10 .groupContainer.upper .columnContainer { margin-bottom: 0; border: 0; }
-
-.INF_STA_0100_10 .columnContainer.firstName-e10,
-.INF_STA_0100_10 .columnContainer.firstName-e12,
-.INF_STA_0100_10 .columnContainer.firstName-e15,
-.INF_STA_0100_10 .columnContainer.firstName-e16 { padding-left: 2rem; }
-
-.INF_STA_0100_10 .columnContainer.firstName-e12 { padding-bottom: 1rem; }
-
-/*------------------------------------------------------*/
-/* Sonstiges Spezial                                    */
-/*------------------------------------------------------*/
-
-/* Mengen rechtsbuendig */
-.header.Menge, .header.Lagerbestand { text-align: right; }
-
-.item.Menge, .item.Lagerbestand, .item.Bestand { text-align: right; }
-
-.header.ME, .item.ME { text-align: left; }
