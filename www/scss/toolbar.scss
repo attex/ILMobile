@@ -1,0 +1,56 @@
+/*------------------------------------------------------*/
+/* Toolbar                                              */
+/*------------------------------------------------------*/
+.groupContainer.buttonContainer { display: grid; grid-template-columns: minmax(3rem, max-content) auto minmax(3rem, max-content) }
+
+.showOptions .groupContainer.buttonContainer { position: absolute; bottom: 0; z-index: 1; left: 0; width: calc(100vw - 1rem); }
+
+    .showOptions .groupContainer.buttonContainer .button:not(.ESC):not(.options):not(.ENTER) { grid-column: 1 / 4; margin-bottom: 0.4rem; min-width: 80%; }
+
+.showOptions .button.ESC { grid-row: 10 }
+
+.showOptions .button.options { grid-row: 10; background: transparent url(../icons/icons8-ExpandArrowFilled-50.png) no-repeat center; background-size: contain; }
+
+.showOptions .button.ENTER { grid-row: 10 }
+
+/*  Optionen ein/ausblenden   */
+.showOptions .lower { display: none; }
+
+.groupContainer.buttonContainer.quantity-1 .button.options { display: none; }
+.groupContainer.buttonContainer.quantity-2 .button.options { display: none; }
+.groupContainer.buttonContainer.quantity-3 .button.options { display: none; }
+
+.groupContainer.buttonContainer.quantity-4 .button.options { display: block; }
+.groupContainer.buttonContainer.quantity-5 .button.options { display: block; }
+.groupContainer.buttonContainer.quantity-6 .button.options { display: block; }
+.groupContainer.buttonContainer.quantity-7 .button.options { display: block; }
+.groupContainer.buttonContainer.quantity-8 .button.options { display: block; }
+.groupContainer.buttonContainer.quantity-9 .button.options { display: block; }
+
+.groupContainer.buttonContainer.quantity-4 .button { display: none; }
+.groupContainer.buttonContainer.quantity-5 .button { display: none; }
+.groupContainer.buttonContainer.quantity-6 .button { display: none; }
+.groupContainer.buttonContainer.quantity-7 .button { display: none; }
+.groupContainer.buttonContainer.quantity-8 .button { display: none; }
+.groupContainer.buttonContainer.quantity-9 .button { display: none; }
+
+.groupContainer.buttonContainer.quantity-4 .button.ESC { display: block; }
+.groupContainer.buttonContainer.quantity-5 .button.ESC { display: block; }
+.groupContainer.buttonContainer.quantity-6 .button.ESC { display: block; }
+.groupContainer.buttonContainer.quantity-7 .button.ESC { display: block; }
+.groupContainer.buttonContainer.quantity-8 .button.ESC { display: block; }
+.groupContainer.buttonContainer.quantity-9 .button.ESC { display: block; }
+
+.groupContainer.buttonContainer.quantity-4 .button.ENTER { display: block; }
+.groupContainer.buttonContainer.quantity-5 .button.ENTER { display: block; }
+.groupContainer.buttonContainer.quantity-6 .button.ENTER { display: block; }
+.groupContainer.buttonContainer.quantity-7 .button.ENTER { display: block; }
+.groupContainer.buttonContainer.quantity-8 .button.ENTER { display: block; }
+.groupContainer.buttonContainer.quantity-9 .button.ENTER { display: block; }
+
+.showOptions .groupContainer.buttonContainer.quantity-4 .button { display: block; }
+.showOptions .groupContainer.buttonContainer.quantity-5 .button { display: block; }
+.showOptions .groupContainer.buttonContainer.quantity-6 .button { display: block; }
+.showOptions .groupContainer.buttonContainer.quantity-7 .button { display: block; }
+.showOptions .groupContainer.buttonContainer.quantity-8 .button { display: block; }
+.showOptions .groupContainer.buttonContainer.quantity-9 .button { display: block; }

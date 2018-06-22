@@ -2,139 +2,29 @@
 /* Imports                                                                                                                                                                       */
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
+@import 'colors';
 @import 'config';
 @import 'slider';
 @import 'special';
+@import 'toolbar';
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /* Grundeinstellungen                                                                                                                                                                       */
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-html { font-family: Roboto; color: #222; }
-body { margin: 0; padding: 0; background-color: #ebf1f4; }
+html { font-family: Roboto; color: $dark; }
+body { margin: 0; padding: 0; background-color: $grey; }
 
 @media only screen and (max-width: 1350px) {
-    html { font-size: 15px; }
+    html { font-size: 16px; }
 }
 
 @media only screen and (max-width: 640px) {
-    html { font-size: 13px; }
+    html { font-size: 14px; }
 }
-
-/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/* Eingaben                                                                                                                                                                                 */
-/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
-input[type="checkbox"] { width: 15px; }
-
-input { border: 0; padding-top: 0.5rem; padding-bottom: 0.5rem; color: #009edf; padding-left: 0rem; background-color: transparent; }
 
 /*Images*/
 img { height: -webkit-fill-available; }
 
-/*---------------------------------------------------------*/
-/* MODAL                                                   */
-/*---------------------------------------------------------*/
-.modal { display: none; /* Hidden by default */ position: fixed; /* Stay in place */ z-index: 1; /* Sit on top */ padding-top: 100px; /* Location of the box */ left: 0; top: 0; width: 100%; /* Full width */ height: 100%; /* Full height */ overflow: auto; /* Enable scroll if needed */ background-color: rgb(0,0,0); /* Fallback color */ background-color: rgba(0,0,0,0.4); /* Black w/ opacity */ }
-
-.modal-content { background-color: #fefefe; margin: 15% auto; /* 15% from the top and centered */ padding: 20px; border: 1px solid #888; width: 60%; /* Could be more or less, depending on screen size */ }
-
-/*------------------------------------------------------*/
-/* Farben                                               */
-/*------------------------------------------------------*/
-$tuerkis: #83d0f2;
-$red: #db002f;
-$dark: #222;
-$light-grey: #f4f4f4;
-$white: white;
-
-/* Light Theme */
-.style_light {
-.upper .columnContainer { border-bottom: 1px dotted #f2f2f2; }
-.lower .columnContainer { background-color: transparent }
-.groupContainer.upper .columnContainer { background-color: white; }
-.ORDER { color: #83d0f2; background-color: transparent; }
-.groupContainer.lower .ORDER_DISPLAY { color: #83d0f2; }
-.groupContainer.upper .ORDER_DISPLAY { color: #db002f; font-weight: bold; }
-.NOTICE { color: #db002f; }
-.groupContainer.lower .columnContainer:not(.quantity-1) .ORDER { color: white; }
-.element.VARIABLE_ABC, .element.VARIABLE_123 { color: #4f5969; }
-.lower .element.VARIABLE_ABC, .lower .element.VARIABLE_123 { color: white; }
-.LABEL_EDITZONE { color: white; }
-.gridContainer.list .rowContainer .row { border-bottom: 1px solid transparent; background-color: #eaeadb; }
-    .gridContainer.list .rowContainer .row .item.Wert { color: inherit; }
-.button { color: black; background-color: #eaeadb; }
-    .button:active { background-color: #db002f; }
-input:focus { border: 1px solid transparent; }
-.inputContainer select { background-color: #db002f; color: white; }
-option { color: white; }
-.tableContainer .headerContainer { background-color: #eaeadb }
-.tableContainer .row { background-color: white; border-bottom: 1px dotted #ccc; }
-.panel.configPanel.detail { background-color: #ebf1f4; }
-    .panel.configPanel.detail .columnContainer label { color: #6f8295; font-size: 0.8rem; }
-.groupContainer.lower .columnContainer.quantity-4 .ORDER.order-3 { color: white; }
-.ERROR_10 .NOTICE { width: 100%; margin-top: 3rem; font-size: 1.2rem; color: white; text-align: center; }
-}
-
-header { background-color: $tuerkis; }
-.groupContainer.upper { background-color: #f4f4f4; }
-.groupContainer.lower { background-color: #ebf1f4; }
- header h1 { color: white; }
-.groupContainer.buttonContainer { background-color: #ebf1f4; }
-.upper .columnContainer { border-bottom: 1px dotted #f2f2f2; }
-.groupContainer.upper .columnContainer { background-color: white; }
-.ORDER { color: #db002f; background-color: transparent; }
-.groupContainer.lower .ORDER_DISPLAY { color: #83d0f2; }
-.groupContainer.upper .ORDER_DISPLAY { color: inherit; color: #db002f; font-weight: bold; }
-.NOTICE { color: #db002f; }
-.lower .LABEL { color: #4f5969 }
-.groupContainer.lower .columnContainer:not(.quantity-1) .ORDER { color: #4f5969; }
-.VARIABLE_ABC, .VARIABLE_123 { color: #3f87a6; }
-.LABEL_EDITZONE { color: #4f5969; }
-.gridContainer.list .rowContainer .row { border-bottom: 1px solid transparent; background-color: #eaeadb; }
-    .gridContainer.list .rowContainer .row .item.Wert { color: inherit; }
-input:focus { border: 1px solid transparent; }
-.inputContainer select { background-color: #db002f; color: white; }
-option { color: white; }
-.tableContainer .headerContainer { background-color: #eaeadb }
-.tableContainer .row { background-color: white; border-bottom: 1px dotted #ccc; }
-.panel.configPanel.detail { background-color: #ebf1f4; }
-.panel.configPanel.detail .columnContainer label { color: #6f8295; font-size: 0.8rem; }
-.groupContainer.lower .columnContainer.quantity-4 .ORDER.order-3 { color: #4f5969; }
-/* Default Theme */
-.button { color: black; background-color: #eaeadb; }
-    .button:active { background-color: #db002f; }
-
-/* Theme dark */
-.style_dark { 
-    header { background-color: $dark;
-        h1 { color: $white; } 
-    }
-    input { background-color: $white;color: black; font-weight: bold }
-    .upper { background-color: $light-grey; 
-        .columnContainer { background-color: $white; }
-        .ORDER_DISPLAY, .ORDER, .NOTICE { color: $red; }
-    }
-    .lower { background-color: $dark; 
-        .columnContainer { background-color: transparent }
-        .LABEL_EDITZONE, .ORDER_DISPLAY, .ORDER, .NOTICE { color: $tuerkis; }
-        .VARIABLE_ABC, .VARIABLE_123 { color: $white; }
-    }
-    .buttonContainer { background-color:$dark; }
-    .configPanel {background-color: $dark;
-        label {color: $tuerkis;}
-        select, option {background-color: $white;color: black; font-weight: bold}
-    }
-
-
-.gridContainer.list .rowContainer .row { border-bottom: 1px solid transparent; background-color: #eaeadb; }
-    .gridContainer.list .rowContainer .row .item.Wert { color: inherit; }
-input:focus { border: 1px solid transparent; }
-option { color: white; }
-.tableContainer .headerContainer { background-color: #eaeadb }
-.tableContainer .row { background-color: white; border-bottom: 1px dotted #ccc; }
-.groupContainer.lower .columnContainer.quantity-4 .ORDER.order-3 { color: #4f5969; }
-
-}
 /*------------------------------------------------------*/
 /* Loader                                      */
 /*------------------------------------------------------*/
@@ -154,7 +44,7 @@ option { color: white; }
 /* Meldungen                                                                                                                                                                                */
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 #toaster { display: none; z-index: 1; }
-    #toaster.active { display: block;width: 100vw; position: fixed; text-align: center; margin: 0; padding: 1rem; color: white; background-color: #db002f; word-break: break-all;}
+    #toaster.active { display: block;width: 100vw; position: fixed; text-align: center; margin: 0; padding: 1rem; color: white; background-color: $red; word-break: break-all;}
 
 .detailContainer[class*=' ERROR'] ,.detailContainer[class^='ERROR'] {
     .columnContainer.NOTICE {
@@ -162,6 +52,7 @@ option { color: white; }
         .NOTICE { font-size: 1.2rem; color: $white; text-align: center; word-break: break-all;}
     }
 }
+
 /*------------------------------------------------------*/
 /* Main Structure                                         */
 /*------------------------------------------------------*/
@@ -182,8 +73,7 @@ header { display: grid; grid-template-columns: 1fr auto 1fr; height: 2.5rem; }
 /*------------------------------------------------------*/
 /* Header                                         */
 /*------------------------------------------------------*/
-header {.naviButton {width: 2r
-    ;height: 1.4rem;align-self: center;justify-self: left; margin-left: 1rem; grid-column: 1}
+header {.naviButton {width: 2rem;height: 1.4rem;align-self: center;justify-self: left; margin-left: 1rem; grid-column: 1}
         h1 {font-size: 1.2rem;align-self: center;justify-self: center; text-shadow: none; margin: 0;grid-column: 2;}
         .galleryButton {width: 2rem;height: 2rem;align-self: center;justify-self: right; margin-right: 1rem; grid-column: 3}}
 
@@ -217,7 +107,7 @@ figure { margin: 0.2rem; display: flex }
 /*------------------------------------------------------*/
 /* Buttons                                              */
 /*------------------------------------------------------*/
-.button { position: relative; float: left; background-color: #db002f; border-radius: 0; cursor: pointer; border: 0; height: 2rem; color: white; }
+.button { position: relative; float: left; border-radius: 0; cursor: pointer; border: 0; height: 2rem; }
 option:focus, select:focus, .button:focus {outline: none;}
 
 .naviButton { cursor: pointer; }
@@ -232,63 +122,6 @@ option:focus, select:focus, .button:focus {outline: none;}
     .button.ENTER { grid-column: 3; justify-self: right; background: transparent url(../icons/icons8-checkmark-filled-50.png) no-repeat right; background-size: contain; }
     .button.scan { margin: 0; color: transparent; width: 2rem; height: 2rem; min-width: 2.45rem; background: transparent url(../icons/icons8-barcode-40.png) no-repeat; background-size: 2rem; background-position: center; }
     .button.matchCodeButton { margin: 0; color: transparent; width: 2rem; height: 2rem; background: transparent url(../icons/icons8-search-filled-50.png) no-repeat; background-size: 1.7rem; background-position: center; }
-
-/*------------------------------------------------------*/
-/* Toolbar                                              */
-/*------------------------------------------------------*/
-.groupContainer.buttonContainer { display: grid; grid-template-columns: minmax(3rem, max-content) auto minmax(3rem, max-content) }
-
-.showOptions .groupContainer.buttonContainer { position: absolute; bottom: 0; z-index: 1; left: 0; width: calc(100vw - 1rem); }
-
-    .showOptions .groupContainer.buttonContainer .button:not(.ESC):not(.options):not(.ENTER) { grid-column: 1 / 4; margin-bottom: 0.4rem; min-width: 80%; }
-
-.showOptions .button.ESC { grid-row: 10 }
-
-.showOptions .button.options { grid-row: 10; background: transparent url(../icons/icons8-ExpandArrowFilled-50.png) no-repeat center; background-size: contain; }
-
-.showOptions .button.ENTER { grid-row: 10 }
-
-/*  Optionen ein/ausblenden   */
-.showOptions .lower { display: none; }
-
-.groupContainer.buttonContainer.quantity-1 .button.options { display: none; }
-.groupContainer.buttonContainer.quantity-2 .button.options { display: none; }
-.groupContainer.buttonContainer.quantity-3 .button.options { display: none; }
-
-.groupContainer.buttonContainer.quantity-4 .button.options { display: block; }
-.groupContainer.buttonContainer.quantity-5 .button.options { display: block; }
-.groupContainer.buttonContainer.quantity-6 .button.options { display: block; }
-.groupContainer.buttonContainer.quantity-7 .button.options { display: block; }
-.groupContainer.buttonContainer.quantity-8 .button.options { display: block; }
-.groupContainer.buttonContainer.quantity-9 .button.options { display: block; }
-
-.groupContainer.buttonContainer.quantity-4 .button { display: none; }
-.groupContainer.buttonContainer.quantity-5 .button { display: none; }
-.groupContainer.buttonContainer.quantity-6 .button { display: none; }
-.groupContainer.buttonContainer.quantity-7 .button { display: none; }
-.groupContainer.buttonContainer.quantity-8 .button { display: none; }
-.groupContainer.buttonContainer.quantity-9 .button { display: none; }
-
-.groupContainer.buttonContainer.quantity-4 .button.ESC { display: block; }
-.groupContainer.buttonContainer.quantity-5 .button.ESC { display: block; }
-.groupContainer.buttonContainer.quantity-6 .button.ESC { display: block; }
-.groupContainer.buttonContainer.quantity-7 .button.ESC { display: block; }
-.groupContainer.buttonContainer.quantity-8 .button.ESC { display: block; }
-.groupContainer.buttonContainer.quantity-9 .button.ESC { display: block; }
-
-.groupContainer.buttonContainer.quantity-4 .button.ENTER { display: block; }
-.groupContainer.buttonContainer.quantity-5 .button.ENTER { display: block; }
-.groupContainer.buttonContainer.quantity-6 .button.ENTER { display: block; }
-.groupContainer.buttonContainer.quantity-7 .button.ENTER { display: block; }
-.groupContainer.buttonContainer.quantity-8 .button.ENTER { display: block; }
-.groupContainer.buttonContainer.quantity-9 .button.ENTER { display: block; }
-
-.showOptions .groupContainer.buttonContainer.quantity-4 .button { display: block; }
-.showOptions .groupContainer.buttonContainer.quantity-5 .button { display: block; }
-.showOptions .groupContainer.buttonContainer.quantity-6 .button { display: block; }
-.showOptions .groupContainer.buttonContainer.quantity-7 .button { display: block; }
-.showOptions .groupContainer.buttonContainer.quantity-8 .button { display: block; }
-.showOptions .groupContainer.buttonContainer.quantity-9 .button { display: block; }
 
 /*------------------------------------------------------*/
 /*  Column-Container allgemein                  */
@@ -355,13 +188,11 @@ option:focus, select:focus, .button:focus {outline: none;}
 
 .VARIABLE_ABC, .VARIABLE_123 { font-weight: bold; }
 
-.LABEL_EDITZONE { font-size: 0.8rem; }
-
     .gridContainer.list .headerContainer { display: none; }
 
-        .gridContainer.list .rowContainer .row { padding: 1rem; cursor: pointer; margin-bottom: 0.5rem; }
+        .gridContainer.list .rowContainer .row { padding: 1rem; cursor: pointer; margin-bottom: 0.3rem; }
 
-        .gridContainer.list .rowContainer .row { background: url(../icons/icons8-more-than-filled-40.png) no-repeat; background-position: right center; }
+        .gridContainer.list .rowContainer .row { background-image: url(../icons/icons8-more-than-filled-40.png); background-repeat: no-repeat; background-position: right center; }
 
             .gridContainer.list .rowContainer .row .item { display: none; }
 
@@ -377,7 +208,7 @@ option:focus, select:focus, .button:focus {outline: none;}
 
 input { border: 1px solid transparent; padding: 0.4rem; }
 
-.inputContainer { display: flex; flex-direction: row; background-color: white; }
+.inputContainer { display: flex; flex-direction: row;}
 
     .inputContainer input { flex: 1; }
 
@@ -422,7 +253,7 @@ input { border: 1px solid transparent; padding: 0.4rem; }
 
 //make invisible
 .selectTools { grid-area: buttonoben; display: none; padding: 0.5rem; }
-.editButton, .selectButton, .deselectButton { display: none; color: transparent;width: 2rem;height: 2rem;margin-left: 2rem }
+.button.editButton, .button.selectButton, .button.deselectButton { display: none; color: transparent; background-color: transparent;width: 2rem;height: 2rem;margin-left: 2rem }
 
 //make visible
 .selectable .selectTools { display: block;
@@ -431,11 +262,9 @@ input { border: 1px solid transparent; padding: 0.4rem; }
 
 .functions { grid-area: buttonunten; position: relative; float: left; width: 100%; display: none; }
 
-.selectMode .functions { display: flex; justify-content: center; background-color: transparent; }
+.selectMode .functions { display: flex; justify-content: center;}
 
     .selectMode .functions .button { padding: 0.3rem; margin: 0.5rem; }
-
-.selectMode .row.selected { background-color: #83d0f2 }
 
 .selectMode .lower { display: none; }
 
