@@ -100,6 +100,7 @@ function formatToolbar(xmlDoc) {
 function createButton(text, source, action, buttonClassName) {
     return $('<button class="button"/>')
         .addClass(buttonClassName)
+        .attr('tabIndex', -1)
         .text(text)
         .on('click', createHandler(source, action));
 }
@@ -140,7 +141,7 @@ function getButtonsGroupContainer() {
     if (buttonsGroupContainer.find('.options').length) {
         return buttonsGroupContainer;
     } else {
-        return getGroupContainer('buttonContainer').append('<button class="button options" onclick="toggleOptions()"></button>')
+        return getGroupContainer('buttonContainer').append('<button class="button options" tabIndex=-1 onclick="toggleOptions()"></button>')
     }
 }
 
@@ -162,7 +163,7 @@ function toggleOptions() {
     } else {
         MAIN_CONTAINER.addClass(options);
     }
-
+    
     $(window).resize();
 }
 

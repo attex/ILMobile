@@ -167,6 +167,7 @@ function formatInputElement(eleXML) {
             .click(function () {
                 scanBarcode(input);
             })
+            .attr('tabIndex', -1);
         inputContainer.append(scanButton);
     }
 
@@ -204,7 +205,7 @@ function formatCheckBoxElement(eleXML) {
 
     slider.append($('<input type="checkbox"/>')
         .prop('checked', $(eleXML).attr('content').toLowerCase() === 'true'))
-        .append($('<span class="slider round"></span>'));
+        .append($('<span class="slider round"></span>').attr('tabIndex', -1));
 
     return slider;
 }
