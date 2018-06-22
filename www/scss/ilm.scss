@@ -11,8 +11,8 @@
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /* Grundeinstellungen                                                                                                                                                                       */
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-html { font-family: Roboto; color: $dark; }
-body { margin: 0; padding: 0; background-color: $grey; }
+html { font-family: Roboto; color: black; }
+body { margin: 0; padding: 0; }
 
 @media only screen and (max-width: 1350px) {
     html { font-size: 16px; }
@@ -44,12 +44,12 @@ img { height: -webkit-fill-available; }
 /* Meldungen                                                                                                                                                                                */
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 #toaster { display: none; z-index: 1; }
-    #toaster.active { display: block;width: 100vw; position: fixed; text-align: center; margin: 0; padding: 1rem; color: white; background-color: $red; word-break: break-all;}
+    #toaster.active { display: block;width: 100vw; position: fixed; text-align: center; margin: 0; padding: 1rem; color: white; background-color: red; word-break: break-all;}
 
 .detailContainer[class*=' ERROR'] ,.detailContainer[class^='ERROR'] {
     .columnContainer.NOTICE {
-        background-color: $red; 
-        .NOTICE { font-size: 1.2rem; color: $white; text-align: center; word-break: break-all;}
+        background-color: red; 
+        .NOTICE { font-size: 1.2rem; color: white; text-align: center; word-break: break-all;}
     }
 }
 
@@ -253,7 +253,7 @@ input { border: 1px solid transparent; padding: 0.4rem; }
 
 //make invisible
 .selectTools { grid-area: buttonoben; display: none; padding: 0.5rem; }
-.button.editButton, .button.selectButton, .button.deselectButton { display: none; color: transparent; background-color: transparent;width: 2rem;height: 2rem;margin-left: 2rem }
+.button {&.editButton, &.selectButton, &.deselectButton { display: none; color: transparent; background-color: transparent;width: 2rem;height: 2rem;margin-left: 2rem }}
 
 //make visible
 .selectable .selectTools { display: block;

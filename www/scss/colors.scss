@@ -1,38 +1,39 @@
 /*------------------------------------------------------*/
 /* Farben                                               */
 /*------------------------------------------------------*/
-$dark: #161616;
-$grey: #6D676E;
-$white: #F8F1FF;
-$tuerkis: #83d0f2;
-$red: #ED174B;
 
 /* Theme dark */
 .style_dark { 
-    header { background-color: $dark;
-        h1 { color: $white; } 
-    }
-    input { background-color: $white; font-weight: bold }
-    .upper { background-color: $grey; 
-        .columnContainer { background-color: $white; }
-        .ORDER_DISPLAY, .ORDER, .NOTICE { color: $red; }
-    }
-    .selectTools {background-color: $white;}
-    .row {background-color: $white;}
-    .row.selected { background-color: $tuerkis }
-    .lower { background-color: $dark; 
-        .columnContainer { background-color: transparent }
-        .LABEL_EDITZONE, .ORDER_DISPLAY, .ORDER, .NOTICE { color: $tuerkis; }
-        .VARIABLE_ABC, .VARIABLE_123 { color: $white; }
-    }
-    .inputContainer  { background-color: $white;
-        select {background-color: $red;}
-    }
-    .buttonContainer { background-color:$dark; }
-    .button { background-color: $white; }
-        .button:active { background-color: $red; }
-    .configPanel {background-color: $dark;
-        label {color: $tuerkis;}
-        select, option {background-color: $white; font-weight: bold}
-    }
+    $background: #6D676E;
+    $header: #161616;
+    $headline: #F8F1FF;
+    $warning: #ED174B;
+    $column: #F8F1FF;
+    $upper_high: #83d0f2;
+    $footer: #161616;
+    $input: #F8F1FF;
+    $button: #F8F1FF;
+    $lower_high: #83d0f2;
+    
+    @import 'coloring';
+}
+
+.style_light { 
+    $header: #009EDF;
+    $footer: #ebf1f4;
+    $background: #f4f4f4;
+    $column: #A5A580;
+    $high1: #db002f;
+    $high2: #db002f;
+    $background: #6D676E;
+    $header: #161616;
+    $headline: #F8F1FF;
+    $warning: #ED174B;
+    $column: #F8F1FF;
+    $upper_high: #83d0f2;
+    $input: #db002f;
+    $button: #db002f;
+    $lower_high: #83d0f2;
+
+    @import 'coloring';
 }
