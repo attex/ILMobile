@@ -12,7 +12,7 @@
             "target": "chrome",
             "simulatePort": 8000,
             "livereload": true,
-            "forceprepare": true,
+            "forceprepare": false,
             "cwd": "${workspaceRoot}",
             "sourceMaps": true
         },
@@ -25,14 +25,5 @@
             "sourceMaps": true,
             "cwd": "${workspaceRoot}"
         },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/.vscode\\typings\\cordova\\cordova.d.ts",
-            "outFiles": [
-                "${workspaceFolder}/**/*.js"
-            ]
-        }
     ]
 }
