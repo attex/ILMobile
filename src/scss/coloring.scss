@@ -11,7 +11,7 @@ header { background-color: $header;
 .row.selected { background-color: $upper_high }
 .lower { background-color: $footer; 
     .columnContainer { background-color: transparent }
-    .LABEL_EDITZONE, .ORDER_DISPLAY, .ORDER, .NOTICE { color: $lower_high; }
+    .LABEL_EDITZONE, .ORDER_DISPLAY, .ORDER, .NOTICE, .NAME { color: $lower_high; }
     .VARIABLE_ABC, .VARIABLE_123 { color: $input; }
 }
 input { background-color: $input; font-weight: bold }

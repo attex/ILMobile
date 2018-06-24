@@ -132,7 +132,7 @@ option:focus, select:focus, .button:focus {outline: none;}
 /*------------------------------------------------------*/
 /*  Column-Container im oberen Bereich                  */
 /*------------------------------------------------------*/
-.groupContainer.upper .columnContainer { margin-bottom: 0.3rem; padding: 0.5rem; grid-column-gap: 0.2rem; }
+.groupContainer.upper .columnContainer { margin-bottom: 0.5rem; grid-column-gap: 0.2rem; }
 
 .groupContainer.upper .columnContainer.quantity-1.TABELLE { border: 0; margin-bottom: 0; padding: 0; background-color: transparent; }
 .groupContainer.upper .columnContainer.quantity-1.MENU { background-color: transparent; }
@@ -166,7 +166,7 @@ option:focus, select:focus, .button:focus {outline: none;}
 /*  Column-Container im unteren Bereich                  */
 /*------------------------------------------------------*/
 
-.groupContainer.lower .columnContainer .VARIABLE_ABC, .groupContainer.lower .columnContainer .VARIABLE_123 { place-self: center; }
+.groupContainer.lower { .VARIABLE_ABC, .VARIABLE_123 { align-self: center; text-align: center }}
 
 .groupContainer.lower .columnContainer {grid-gap: 0; grid-column-gap: 0.5rem; border: 0; background-color: transparent; }
 
@@ -223,7 +223,7 @@ input { border: 1px solid transparent; padding: 0.4rem; }
 
     .tableContainer .headerContainer { padding: 0.5rem; }
 
-    .tableContainer .row { padding: 0.5rem; }
+    .tableContainer .row { padding: 0.5rem; border: 1px solid black;}
 
     .tableContainer .headerContainer .header.Key, .tableContainer .headerContainer .header.INT_KEY, .tableContainer .rowContainer .item.INT_KEY { display: none; }
 
@@ -262,7 +262,7 @@ input { border: 1px solid transparent; padding: 0.4rem; }
 
 .functions { grid-area: buttonunten; position: relative; float: left; width: 100%; display: none; }
 
-.selectMode .functions { display: flex; justify-content: center;}
+.selectMode .functions { display: flex; justify-content: center; position: absolute; bottom: 0; z-index: 1; left: 0; width: 100vw;}
 
     .selectMode .functions .button { padding: 0.3rem; margin: 0.5rem; }
 
