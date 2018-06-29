@@ -5,7 +5,12 @@
     "tasks": [
         {
             "type": "npm",
-            "script": "watch",
+            "task": "build",
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "dev",
             "problemMatcher": []
         }
     ]

@@ -8,8 +8,6 @@ var hasOnDeviceReadyBeenInvoked = false;
 
 function onDeviceReady() {
     console.log("deviceready fired");
-    FastClick.attach(document.body);
-    console.log("FastClick listener attached");
     setUpConfig();
     initApp();
 

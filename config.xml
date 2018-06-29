@@ -24,7 +24,7 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <hook src="hooks/sass.js" type="before_prepare" />
+    <hook src="hooks/build.js" type="before_prepare" />
     <exclude-files pattern="build" />
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
