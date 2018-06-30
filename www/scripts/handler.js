@@ -53,9 +53,9 @@ function createEscHandler(source, escable) {
 
 function handleESC(source, escable) {
     if (isInConfigView()) {
-        toggleConfig();
+        resetView();
     } else if (isInDirectoryView()) {
-        toggleDirectories();
+        resetView();
     } else if (isInGalleryView()) {
         if (isInPhotoSwipeView()) {
             gallery.close();
@@ -106,10 +106,10 @@ function getKeyCode(action) {
 //the login handler
 function login() {
     removeKeyboardBeforeHandling();
-    var application = getConfigValue(APPLICATION_STRING);
-    var module = getConfigValue(MODULE_STRING);
-    var project = getConfigValue(PROJECTS_STRING);
-    var formatSize = getConfigValue(FORMATSIZE_STRING);
+    var application = getConfigValue(APPLICATION_IDENTIFIER);
+    var module = getConfigValue(MODULE_IDENTIFIER);
+    var project = getConfigValue(PROJECTS_IDENTIFIER);
+    var formatSize = getConfigValue(FORMATSIZE_IDENTIFIER);
     var user = getContent($(`[${HTML_NAME}='${window.localStorage.getItem('userElement')}']`));
     var password = getContent($(`[${HTML_NAME}='${window.localStorage.getItem('passwordElement')}']`));
     findHandler('login', ['application', 'module', 'project', 'formatSize', 'user', 'password'], [application, module, project, formatSize, user, password])
@@ -123,7 +123,7 @@ function handle(source, action) {
 }
 
 function findHandler(fname, keys, values) {
-    var backend = window.localStorage.getItem(BACKEND_STRING);
+    var backend = getConfigValue(BACKEND_IDENTIFIER);
     if (backend === 'open') {
         handleOPEN(fname, values);
     } else if (backend == 'buisness') {

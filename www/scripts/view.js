@@ -17,6 +17,12 @@ function openConfig() {
     $('.configPanel').append(configHTML);
 }
 
+function openLicenses() {
+    setConfigView('Lizenzen');
+    var licensesHTML = nunjucks.render('licenses.njk', getConfig());
+    $('.configPanel').append(licensesHTML);
+}
+
 //Mainview
 function setMainView() {
     resetView()

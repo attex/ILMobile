@@ -11,8 +11,8 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./www/css'));
 });
 
-gulp.task('watch', function(){
-    gulp.watch('./src/scss/*.scss', gulp.series('sass'))
+gulp.task('watch-sass', function(){
+    return gulp.watch('./src/scss/*.scss', gulp.series('sass'))
 });
 
 gulp.task('nunjucks', function () {
@@ -22,6 +22,10 @@ gulp.task('nunjucks', function () {
     .pipe(gulp.dest('www/lib'))
 });
 
+gulp.task('watch-nunjucks', function(){
+    return gulp.watch('./src/templates/*.njk', gulp.series('nunjucks'))
+});
+
 gulp.task('bundlejs', function () {
     return gulp.src('src/bundle.js', {read:false})
     .pipe(parcel({cache:false,outDir:'.tmp'}))
@@ -29,6 +33,7 @@ gulp.task('bundlejs', function () {
 });
 
 gulp.task('build', gulp.series('sass', 'nunjucks', 'bundlejs'));
+gulp.task('watch', gulp.parallel('watch-sass', 'watch-nunjucks'));
 
 gulp.task('dev', gulp.series('build', 'watch'));
 

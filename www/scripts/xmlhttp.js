@@ -3,7 +3,7 @@
 function handleSOAP(fname, keys, values) {
     if (canRun) {
         start();
-        var url = window.localStorage.getItem(HOST_STRING);
+        var url = getConfigValue(HOST_IDENTIFIER);
         var query = getQuery(fname, keys, values);
 
         executeSOAP(url, query)
