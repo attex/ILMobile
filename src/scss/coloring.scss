@@ -2,6 +2,8 @@ body {background-color: $background;}
 header { background-color: $header;
     h1 { color: $headline; } 
 }
+.navCollapse {background-color: $nav-collapse;
+    li {color: $headline}}
 .upper { background-color: $background; 
     .columnContainer { background-color: $column; }
     .ORDER_DISPLAY, .ORDER, .NOTICE { color: $warning; }

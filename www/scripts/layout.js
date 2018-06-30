@@ -177,8 +177,8 @@ function formatLogin(xmlDoc) {
     $(`[${HTML_NAME}='${window.localStorage.getItem('passwordElement')}']`).find('input').attr('type', 'password');
 
     //fill input fields with saved config value
-    var username = window.localStorage.getItem(USER_STRING) ? window.localStorage.getItem(USER_STRING) : "";
-    var password = window.localStorage.getItem(PASSWORD_STRING) ? window.localStorage.getItem(PASSWORD_STRING) : "";
+    var username = getConfigValue(USER_IDENTIFIER);
+    var password = getConfigValue(PASSWORD_IDENTIFIER);
     $(`[${HTML_NAME}='${window.localStorage.getItem('userElement')}']`).find('input').val(username);
     $(`[${HTML_NAME}='${window.localStorage.getItem('passwordElement')}']`).find('input').val(password);
 }

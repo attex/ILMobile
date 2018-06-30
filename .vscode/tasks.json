@@ -5,12 +5,12 @@
     "tasks": [
         {
             "type": "npm",
-            "task": "build",
+            "script": "dev",
             "problemMatcher": []
         },
         {
             "type": "npm",
-            "script": "dev",
+            "script": "build",
             "problemMatcher": []
         }
     ]

@@ -1,14 +1,9 @@
 ﻿"use strict";
 document.addEventListener('deviceready', onDeviceReady, false);
-
 // Für NW.js build muss statt 'deviceready' das Event 'DOMContentLoaded' verwendet werden 
-var db = null;
-var navStack = [];  // for navigation tree
-var hasOnDeviceReadyBeenInvoked = false;
 
 function onDeviceReady() {
     console.log("deviceready fired");
-    setUpConfig();
     initApp();
 
     iqu.state = "ready";

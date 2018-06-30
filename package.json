@@ -4,9 +4,7 @@
   "private": true,
   "scripts": {
     "build": "gulp build",
-    "dev": "gulp dev",
-    "parc": "gulp bundlejs",
-    "precompile": "nunjucks-precompile src/templates >> templates.js"
+    "dev": "gulp dev"
   },
   "dependencies": {
     "cordova-android": "^7.1.0",
@@ -20,6 +18,7 @@
     "gulp-parcel": "^0.3.5",
     "gulp-sass": "^4.0.1",
     "jquery": "^3.3.1",
+    "jspath": "^0.4.0",
     "npm-run": "^5.0.1",
     "phonegap-plugin-barcodescanner": "git+https://github.com/phonegap/phonegap-plugin-barcodescanner.git",
     "xml-writer": "^1.7.0"

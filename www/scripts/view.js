@@ -1,9 +1,21 @@
-﻿const CONFIG_VIEW = 'configView';
+﻿const NAV_COLLAPSE = 'navCollapse';
+const CONFIG_VIEW = 'configView';
 const DIRECTORY_VIEW = 'directoryView';
 const GALLERY_VIEW = 'galleryView';
 const VIEWS = [CONFIG_VIEW, DIRECTORY_VIEW, GALLERY_VIEW];
 
 const MAINVIEW = $('#mainview');
+
+//NavCollapse
+function toggleNavCollapse() {
+    $(`.${NAV_COLLAPSE}`).toggle();
+}
+
+function openConfig() {
+    setConfigView('Konfiguration');
+    var configHTML = nunjucks.render('config.njk', getConfig());
+    $('.configPanel').append(configHTML);
+}
 
 //Mainview
 function setMainView() {
@@ -15,8 +27,9 @@ function isInMainView() {
 }
  
 //Configview
-function setConfigView() {
-    resetView()
+function setConfigView(name) {
+    resetView();
+    $('#configTitle').text(name);
     MAINVIEW.addClass(CONFIG_VIEW);
 }
 
@@ -46,5 +59,7 @@ function isInGalleryView() {
 
 //Reset Views
 function resetView() {
+    $(`.${NAV_COLLAPSE}`).hide();
     VIEWS.forEach(viewString => MAINVIEW.removeClass(viewString));
+    $('.configPanel').empty();
 }

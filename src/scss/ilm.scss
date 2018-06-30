@@ -7,6 +7,7 @@
 @import 'slider';
 @import 'special';
 @import 'toolbar';
+@import 'navbar';
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /* Grundeinstellungen                                                                                                                                                                       */
@@ -82,8 +83,8 @@ header {.naviButton {width: 2rem;height: 1.4rem;align-self: center;justify-self:
 /*------------------------------------------------------*/
 header h1:not(#mainTitle), .panel:not(.mainPanel) { display: none; }
 
-.configView header h1#configTitle, .configView .panel.configPanel { display: block; }
-.configView header h1#mainTitle, .configView .panel.mainPanel { display: none; }
+.configView header #returnButton, .configView header h1#configTitle, .configView .panel.configPanel { display: block; }
+.configView { header h1#mainTitle, header .naviButton, .panel.mainPanel { display: none; }}
 
 .directoryView header h1#directoryTitle, .directoryView .panel.directoryPanel { display: block; }
 .directoryView header h1#mainTitle, .directoryView .panel.mainPanel { display: none; }

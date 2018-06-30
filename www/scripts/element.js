@@ -220,7 +220,7 @@ function formatListElement(eleXML) {
 }
 
 function formatTableElement(eleXML) {
-    var tableContainer = $($('#tableContainer-template').html());
+    var tableContainer = $(nunjucks.render('gridContainer.njk'));
     var eleHTML = formatGrid(eleXML, 'table');
     passAttributes(eleXML, eleHTML);
     $(tableContainer).append(eleHTML);

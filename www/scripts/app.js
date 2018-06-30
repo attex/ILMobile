@@ -1,6 +1,7 @@
 ﻿function initApp() {
     console.log("Initializing App");
-    initConfig();
+    setUpConfig()
+    deleteStyles();
     loadStyles();
 
     //layout info of login template

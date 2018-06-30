@@ -1,0 +1,28 @@
+<div class="groupContainer">
+    <div class="columnContainer">
+        <label class="ORDER">Geben Sie die gewünschte Konfiguration ein</label>
+    </div>
+
+    {% for option in options %}
+    <div class="columnContainer">
+        <label>{{option.label}}</label>
+        {% if option.values !== undefined %}
+        <select class="configValue" id="{{option.identifier}}">
+            {% for value in option.values %}
+                {% if option.value === value.identifier %}
+                <option value='{{value.identifier}}' selected>{{value.label}}</option>
+                {% else %}
+                <option value='{{value.identifier}}'>{{value.label}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        {% else %}
+        <input class="configValue" id="{{option.identifier}}" value="{{ option.value }}"></input>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <div class="columnContainer">
+        <button class="button" onclick="saveConfig()">Speichern</button>
+    </div>
+</div>

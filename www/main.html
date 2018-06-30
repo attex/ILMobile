@@ -15,10 +15,15 @@
 <body>
     <div class="view splitview" id="mainview">
         <header>
-            <svg class="naviButton" onclick="toggleConfig()" viewBox="0 0 20 14" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <svg class="naviButton" onclick="toggleNavCollapse()" viewBox="0 0 20 14" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <rect class="rect1" x="0" y="0" width="20" height="2" fill="#FFFFFF" />
                 <rect class="rect2" x="0" y="6" width="20" height="2" fill="#FFFFFF" />
                 <rect class="rect3" x="0" y="12" width="20" height="2" fill="#FFFFFF" />
+            </svg>
+            <svg id="returnButton" onclick="resetView()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" style="fill:#ffffff;">
+                <g id="surface1">
+                    <path style=" " d="M 19.9375 12.96875 C 19.414063 12.988281 18.921875 13.214844 18.5625 13.59375 L 8.6875 23.59375 L 7.3125 25 L 8.6875 26.40625 L 18.5625 36.40625 C 19.339844 37.199219 20.613281 37.214844 21.40625 36.4375 C 22.199219 35.660156 22.214844 34.386719 21.4375 33.59375 L 14.90625 27 L 40 27 C 40.722656 27.011719 41.390625 26.632813 41.753906 26.007813 C 42.121094 25.386719 42.121094 24.613281 41.753906 23.992188 C 41.390625 23.367188 40.722656 22.988281 40 23 L 14.90625 23 L 21.4375 16.40625 C 22.039063 15.824219 22.21875 14.933594 21.882813 14.164063 C 21.546875 13.398438 20.773438 12.921875 19.9375 12.96875 Z "></path>
+                </g>
             </svg>
             <h1 id="mainTitle">ILMobile</h1>
             <h1 id="configTitle">Optionen</h1>
@@ -30,6 +35,10 @@
                 </g>
             </svg>
         </header>
+        <ul class="navCollapse">
+            <button class="button" onclick="openConfig()">Config</button>
+            <button class="button" onclick="toggleConfig()">Impressum</button>
+        </ul>
         <!-- fake fields are a workaround for chrome autofill getting the wrong fields -->
         <input style="display:none" type="text" name="fakeusernameremembered" />
         <input style="display:none" type="password" name="fakepasswordremembered" />
@@ -41,69 +50,7 @@
                 </div>
                 <div class="detailContainer"></div>
             </div>
-            <div class="panel configPanel scrollable">
-                <div class="groupContainer">
-                    <div class="columnContainer">
-                        <label class="ORDER">Geben Sie die gewünschte Konfiguration ein</label>
-                    </div>
-                    <div class="columnContainer">
-                        <label>Oxaion Version:</label>
-                        <select class="backend">
-                            <option value='open'>Oxaion-Open</option>
-                            <option value='buisness'>Oxaion-Buisness</option>
-                        </select>
-                    </div>
-                    <div class="columnContainer">
-                        <label>Host:</label>
-                        <input class="host" />
-                    </div>
-                    <div class="columnContainer">
-                        <label>Anwendung:</label>
-                        <input class="application" />
-                    </div>
-                    <div class="columnContainer">
-                        <label>Modul:</label>
-                        <input class="module" />
-                    </div>
-                    <div class="columnContainer">
-                        <label>Projekte:</label>
-                        <input class="projects" />
-                    </div>
-                    <div class="columnContainer">
-                        <label>Benutzer:</label>
-                        <input class="user" />
-                    </div>
-                    <div class="columnContainer">
-                        <label>Passwort:</label>
-                        <input class="password" type="password" />
-                    </div>
-                    <div class="columnContainer">
-                        <label>Größenformat:</label>
-                        <input class="formatSize" />
-                    </div>
-                    <div class="columnContainer">
-                        <label>Firma:</label>
-                        <input class="company" />
-                    </div>
-                    <div class="columnContainer">
-                        <label>Thema:</label>
-                        <select class="theme">
-                            <option value='dark'>dark</option>
-                            <option value='light'>light</option>
-                        </select>
-                    </div>
-                    <div class="columnContainer">
-                        <label>Scan per Kamera:</label>
-                        <select class="scanner">
-                            <option value='An'>An</option>
-                            <option value='Aus'>Aus</option>
-                        </select>
-                    </div>
-                    <div class="columnContainer">
-                        <button class="button" onclick="saveConfig()">Speichern</button>
-                    </div>
-                </div>
-            </div>
+            <div class="panel configPanel scrollable"></div>
             <div class="panel directoryPanel scrollable"></div>
             <div class="panel galleryPanel scrollable">
                 <div class="gallery"></div>
@@ -111,24 +58,10 @@
         </div>
     </div>
 
-    <script id="tableContainer-template" type="text/custom-template">
-        <div class="tableContainer">
-            <div class="selectTools">
-                <button class="button editButton" onclick="toggleSelectMode()"></button>
-                <button class="button deselectButton" onclick="deselectAll()"></button>
-                <button class="button selectButton" onclick="selectAll()"></button>
-            </div>
-        </div>
-    </script>
+    <script src="lib/template.js"></script>
+    <script src="lib/bundle.js"></script>
 
-    <script type='application/javascript' src='lib/fastclick.min.js'></script>
     <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="lib/jquery/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="lib/jquery.touchwipe.1.1.1.js"></script>
-    <script type="text/javascript" src="lib/jszip.min.js"></script>
-    <script type="text/javascript" src="lib/jspath.min.js"></script>
-    <script type="text/javascript" src="lib/platformOverrides.js"></script>
-    <script type="text/javascript" src="lib/xml-writer.js"></script>
     <script type="text/javascript" src="scripts/iqu_mobile.js"></script>
     <script type="text/javascript" src="scripts/mobis.js"></script>
     <script type="text/javascript" src="scripts/app.js"></script>
@@ -138,7 +71,8 @@
     <script type="text/javascript" src="scripts/element.js"></script>
     <script type="text/javascript" src="scripts/grid.js"></script>
     <script type="text/javascript" src="scripts/handler.js"></script>
-    <script type="text/javascript" src="scripts/config.js"></script>
+    <script type="text/javascript" src="scripts/config/config.js"></script>
+    <script type="text/javascript" src="scripts/config/defaultConfig.js"></script>
     <script type="text/javascript" src="scripts/adjust.js"></script>
     <script type="text/javascript" src="scripts/photo.js"></script>
     <script type="text/javascript" src="scripts/gallery.js"></script>
