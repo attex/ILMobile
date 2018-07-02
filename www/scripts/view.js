@@ -23,6 +23,11 @@ function openLicenses() {
     $('.configPanel').append(licensesHTML);
 }
 
+function openDirs() {
+    setConfigView('Verzeichnisse');
+    loadDirs();
+}
+
 //Mainview
 function setMainView() {
     resetView()

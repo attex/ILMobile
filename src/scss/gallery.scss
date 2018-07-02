@@ -1,0 +1,12 @@
+/*------------------------------------------------------*/
+/* Gallery                                             */
+/*------------------------------------------------------*/
+.columnContainer.galleryColumn { background-color: transparent; }
+
+.gallery { display: grid; margin: 0.5rem; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: max-content; }
+
+figure { margin: 0.2rem; display: flex }
+
+    figure a { display: flex }
+
+    figure img { width: 100%; height: auto; justify-self: center; align-self: center; }

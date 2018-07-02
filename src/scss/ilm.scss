@@ -8,6 +8,7 @@
 @import 'special';
 @import 'toolbar';
 @import 'navbar';
+@import 'gallery';
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /* Grundeinstellungen                                                                                                                                                                       */
@@ -45,7 +46,7 @@ img { height: -webkit-fill-available; }
 /* Meldungen                                                                                                                                                                                */
 /*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 #toaster { display: none; z-index: 1; }
-    #toaster.active { display: block;width: 100vw; position: fixed; text-align: center; margin: 0; padding: 1rem; color: white; background-color: red; word-break: break-all;}
+    #toaster.active { display: block;width: 100vw; position: fixed; text-align: center; margin: 0; padding: 1rem; color: white; background-color: red; word-break: break-word;}
 
 .detailContainer[class*=' ERROR'] ,.detailContainer[class^='ERROR'] {
     .columnContainer.NOTICE {

@@ -92,7 +92,7 @@ function displayDirs(dirEntryList) {
     DIR_PANEL.empty();
 
     var dirs = dirEntryList.map(dir => [deEscapeDir(dir.name)]);
-    var liste = $('<div class="columnContainer"/>').append(createGridContainer('list', ['Wert'], dirs));
+    var liste = $('<div class="columnContainer"/>').append(createGridContainer('list', ['Wert'], dirs)).addClass('galleryColumn');
 
     for (var i = 0; i < dirEntryList.length; i++) {
         //offset to skip header row
@@ -100,7 +100,7 @@ function displayDirs(dirEntryList) {
     }
 
     $(liste).find('.row').click(toggleGallery);
-    DIR_PANEL.append(liste);
+    $('.configPanel').append(liste);
 }
 
 function loadGallery(pathToDir) {
