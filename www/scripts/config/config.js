@@ -3,13 +3,13 @@
         window.localStorage.setItem('config', JSON.stringify(DEFAULT_CONFIG));
     }
 
-    // saveConfigValue(HOST_IDENTIFIER, 'http://192.168.230.51:43928');
-    // saveConfigValue(APPLICATION_IDENTIFIER, 'iqu ilm');
-    // saveConfigValue(MODULE_IDENTIFIER, 'ILM');
-    // saveConfigValue(PROJECTS_IDENTIFIER, 'iqu60,ilm60_bas,ilm60_op412');
-    // saveConfigValue(USER_IDENTIFIER, 'DUNKEL');
-    // saveConfigValue(PASSWORD_IDENTIFIER, 'oxaion');
-    // saveConfigValue(FORMATSIZE_IDENTIFIER, 'PDA');
+    saveConfigValue(HOST_IDENTIFIER, 'http://192.168.230.51:43928');
+    saveConfigValue(APPLICATION_IDENTIFIER, 'iqu ilm');
+    saveConfigValue(MODULE_IDENTIFIER, 'ILM');
+    saveConfigValue(PROJECTS_IDENTIFIER, 'iqu60,ilm60_bas,ilm60_op412');
+    saveConfigValue(USER_IDENTIFIER, 'DUNKEL');
+    saveConfigValue(PASSWORD_IDENTIFIER, 'oxaion');
+    saveConfigValue(FORMATSIZE_IDENTIFIER, 'PDA');
 }
 
 function isConfigOutOfDate() {

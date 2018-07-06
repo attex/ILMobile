@@ -30,7 +30,7 @@ function handleOpenLogin(values) {
 //OXAION LOGIN
 function oxaionLogin(user, pw) {
     var oxaionSession = window.localStorage.getItem('oxaionSession');
-    var host = window.localStorage.getItem('host');
+    var host = getConfigValue(HOST_IDENTIFIER);
     var oxaionHost = "OXAION";
 
     lastUser = user;
@@ -63,7 +63,7 @@ function handleOxaionLoginResponse(loginResponse) {
 function ilmLogin(values) {
     //get oxaion sessionID
     var session = window.localStorage.getItem('oxaionSession');
-    var host = window.localStorage.getItem('host');
+    var host = getConfigValue(HOST_IDENTIFIER);
 
     //create xml
     var xml = generateOpenXML('ilmLogin', values);
@@ -80,7 +80,7 @@ function handleOpenProcess(values) {
 
     //get oxaion sessionID
     var session = window.localStorage.getItem('oxaionSession');
-    var host = window.localStorage.getItem('host');
+    var host = getConfigValue(HOST_IDENTIFIER);
 
     //create xml
     var xml = generateOpenXML('ilmProcess', values);
