@@ -3,13 +3,13 @@
         window.localStorage.setItem('config', JSON.stringify(DEFAULT_CONFIG));
     }
 
-    saveConfigValue(HOST_IDENTIFIER, 'http://192.168.230.51:43928');
-    saveConfigValue(APPLICATION_IDENTIFIER, 'iqu ilm');
-    saveConfigValue(MODULE_IDENTIFIER, 'ILM');
-    saveConfigValue(PROJECTS_IDENTIFIER, 'iqu60,ilm60_bas,ilm60_op412');
-    saveConfigValue(USER_IDENTIFIER, 'DUNKEL');
-    saveConfigValue(PASSWORD_IDENTIFIER, 'oxaion');
-    saveConfigValue(FORMATSIZE_IDENTIFIER, 'PDA');
+    // saveConfigValue(HOST_IDENTIFIER, 'http://192.168.230.51:43928');
+    // saveConfigValue(APPLICATION_IDENTIFIER, 'iqu ilm');
+    // saveConfigValue(MODULE_IDENTIFIER, 'ILM');
+    // saveConfigValue(PROJECTS_IDENTIFIER, 'iqu60,ilm60_bas,ilm60_op412');
+    // saveConfigValue(USER_IDENTIFIER, 'DUNKEL');
+    // saveConfigValue(PASSWORD_IDENTIFIER, 'oxaion');
+    // saveConfigValue(FORMATSIZE_IDENTIFIER, 'PDA');
 }
 
 function isConfigOutOfDate() {
@@ -58,7 +58,9 @@ function deleteStyles() {
     for (let i = 0; i < STYLE_IDENTIFIER_ARRAY.length; i++) {
         var styleValue = getConfigValue(STYLE_IDENTIFIER_ARRAY[i]);
         if (styleValue) {
-            MAINVIEW.removeClass(STYLE_PREFIX + styleValue);
+            MAINVIEW.removeClass (function (index, className) {
+                return (className.match (/(^|\s)style_\S+/g) || []).join(' ');
+            });
         }
     }
 }
