@@ -129,7 +129,7 @@ option:focus, select:focus, .button:focus {outline: none;}
 /*  Column-Container allgemein                  */
 /*------------------------------------------------------*/
 
-.columnContainer { display: grid; padding: 0.5rem; }
+.columnContainer { display: grid; padding: 0.25rem 0.75rem; }
 
 /*------------------------------------------------------*/
 /*  Column-Container im oberen Bereich                  */
@@ -168,6 +168,7 @@ option:focus, select:focus, .button:focus {outline: none;}
 /*  Column-Container im unteren Bereich                  */
 /*------------------------------------------------------*/
 
+.groupContainer.lower { .LABEL_EDITZONE { font-size: 0.8rem; }}
 .groupContainer.lower { .VARIABLE_ABC, .VARIABLE_123 { align-self: center; text-align: center }}
 
 .groupContainer.lower .columnContainer {grid-gap: 0; grid-column-gap: 0.5rem; border: 0; background-color: transparent; }
@@ -210,9 +211,9 @@ option:focus, select:focus, .button:focus {outline: none;}
 
 input { border: 1px solid transparent; padding: 0.4rem; }
 
-.inputContainer { display: flex; flex-direction: row;}
+.inputContainer { display: flex; flex-direction: row; min-width: 1px;}
 
-    .inputContainer input { flex: 1; }
+    .inputContainer input { flex: 1; min-width: 1px;}
 
     .inputContainer select { border: none; height: auto; font-size: 1.2rem; font-weight: bold; }
 
