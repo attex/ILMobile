@@ -6,8 +6,8 @@
 .style_dark { 
     $background: #6D676E;
     $header: #161616;
-    $nav-collapse: #372F38;
     $headline: #F8F1FF;
+    $nav-collapse: #372F38;
     $warning: #ED174B;
     $column: #F8F1FF;
     $upper_high: #83d0f2;
@@ -20,19 +20,17 @@
 }
 
 .style_light { 
-    $background: #f4f4f4;
-    $nav-collapse: #372F38;
-    $header: #009EDF;
-    $footer: #ebf1f4;
-    $column: #A5A580;
     $background: #6D676E;
-    $headline: #F8F1FF;
+    $header: #009EDF;
+    $headline: #f4f4f4;
+    $nav-collapse: #372F38;
     $warning: #ED174B;
     $column: #F8F1FF;
-    $upper_high: #83d0f2;
-    $input: #db002f;
-    $button: #db002f;
-    $lower_high: #83d0f2;
+    $upper_high: #1B2021;
+    $footer: #ADAAAD;
+    $input: #f4f4f4;
+    $button: #f4f4f4;
+    $lower_high: #1B2021;
 
     @import 'coloring';
 }
