@@ -134,7 +134,7 @@ option:focus, select:focus, .button:focus {outline: none;}
 /*------------------------------------------------------*/
 /*  Column-Container im oberen Bereich                  */
 /*------------------------------------------------------*/
-.groupContainer.upper .columnContainer { margin-bottom: 0.5rem; grid-column-gap: 0.2rem; }
+.groupContainer.upper .columnContainer { margin-bottom: 4px; grid-column-gap: 0.2rem; }
 
 .groupContainer.upper .columnContainer.quantity-1.TABELLE { border: 0; margin-bottom: 0; padding: 0; background-color: transparent; }
 .groupContainer.upper .columnContainer.quantity-1.MENU { background-color: transparent; }
@@ -143,7 +143,6 @@ option:focus, select:focus, .button:focus {outline: none;}
 .groupContainer.upper .columnContainer.quantity-1 { grid-template-columns: 100%; }
     .groupContainer.upper .columnContainer.quantity-1.LABEL { grid-template-columns: 100%; }
         .groupContainer.upper .columnContainer.quantity-1.LABEL .order-1 { grid-row: 1; grid-column: 1; }
-    .groupContainer.upper .columnContainer.quantity-1.VARIABLE_ABC { grid-template-columns: 100%; margin-top: -0.4rem; font-weight: bold; }
         .groupContainer.upper .columnContainer.quantity-1.VARIABLE_ABC .order-1 { grid-row: 1; grid-column: 1; }
 
 /* 2 Teile */

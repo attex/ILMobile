@@ -20,17 +20,17 @@
 }
 
 .style_light { 
-    $background: #6D676E;
-    $header: #009EDF;
-    $headline: #f4f4f4;
+    $background: #bbb;
+    $header: #161616;
+    $headline: #F8F1FF;
     $nav-collapse: #372F38;
     $warning: #ED174B;
     $column: #F8F1FF;
-    $upper_high: #1B2021;
-    $footer: #ADAAAD;
-    $input: #f4f4f4;
-    $button: #f4f4f4;
-    $lower_high: #1B2021;
+    $upper_high: #83d0f2;
+    $footer: #161616;
+    $input: #F8F1FF;
+    $button: #F8F1FF;
+    $lower_high: #83d0f2;
 
     @import 'coloring';
 }
