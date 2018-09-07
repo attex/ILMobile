@@ -240,7 +240,8 @@ function formatTableElement(eleXML) {
 function formatGrid(eleXML, type) {
     var columns = getColumns(eleXML);
     var rows = getRows(eleXML);
-    var gridContainer = createGridContainer(type, columns, rows);
+    var datatypes = getDatatypes(eleXML);
+    var gridContainer = createGridContainer(type, columns, rows, datatypes);
 
     return gridContainer;
 }
@@ -255,6 +256,11 @@ function getRows(eleXML) {
     return rows.map(function (row) {
         return ($(row).hasAttr('value')) ? $(row).attr('value').split(',') : [];
     })
+}
+
+function getDatatypes(eleXML) {
+    var datatypes = Array.from($(eleXML).find('formatelementproperty[key=COLUMNDATATYPE]'));
+    return (datatypes.length && $(datatypes).hasAttr('value')) ? Array.from($(datatypes).attr('value').split(';')) : [];
 }
 
 //parse events String
