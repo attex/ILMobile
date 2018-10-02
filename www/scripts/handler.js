@@ -110,8 +110,24 @@ function login() {
     var module = getConfigValue(MODULE_IDENTIFIER);
     var project = getConfigValue(PROJECTS_IDENTIFIER);
     var formatSize = getConfigValue(FORMATSIZE_IDENTIFIER);
-    var user = getContent($(`[${HTML_NAME}='${window.localStorage.getItem('userElement')}']`));
-    var password = getContent($(`[${HTML_NAME}='${window.localStorage.getItem('passwordElement')}']`));
+
+    if (isLoginTypeInput()) {
+        var user = getContent($(`[${HTML_NAME}='${window.localStorage.getItem('userElement')}']`));
+        var password = getContent($(`[${HTML_NAME}='${window.localStorage.getItem('passwordElement')}']`));
+    } else {
+        var loginSplitter = getConfigValue(LOGIN_SPLITTER_IDENTIFIER);
+        var scan = getContent($(`[${HTML_NAME}='${window.localStorage.getItem('userElement')}']`));
+        var splits = scan.split(loginSplitter);
+
+        if (splits.length !== 2) {
+            $.afui.toast({ message: "Eingegebener Inhalt konnte nicht korrekt getrennt werden. Bitte überprüfen Sie Ihre Konfiguration." });
+            return;
+        } else {
+            var user = splits[0];
+            var password = splits[1];
+        }
+    }
+
     findHandler('login', ['application', 'module', 'project', 'formatSize', 'user', 'password'], [application, module, project, formatSize, user, password])
 }
 

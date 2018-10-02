@@ -15,6 +15,10 @@ const DEFAULT_CONFIG = {
         "identifier": "host",
         "value": ""
     }, {
+        "label": "Oxaion-Host:",
+        "identifier": "oxaionHost",
+        "value": ""
+    }, {
         "label": "Anwendung:",
         "identifier": "application",
         "value": ""
@@ -26,6 +30,17 @@ const DEFAULT_CONFIG = {
         "label": "Projekte:",
         "identifier": "projects",
         "value": ""
+    },{
+        "label": "Logintyp:",
+        "identifier": "logintype",
+        "value": "input",
+        "values": [{
+            "label": "Zwei Felder",
+            "identifier": "input"
+        }, {
+            "label": "Ein Feld",
+            "identifier": "scan"
+        }]
     }, {
         "label": "Benutzer:",
         "identifier": "user",
@@ -33,6 +48,10 @@ const DEFAULT_CONFIG = {
     }, {
         "label": "Passwort:",
         "identifier": "password",
+        "value": ""
+    },{
+        "label": "Login Splitter:",
+        "identifier": "loginSplitter",
         "value": ""
     }, {
         "label": "Größenformat:",
@@ -69,11 +88,14 @@ const DEFAULT_CONFIG = {
 
 const BACKEND_IDENTIFIER = 'backend';
 const HOST_IDENTIFIER = 'host';
+const OXAION_HOST_IDENTIFIER = "oxaionHost";
 const APPLICATION_IDENTIFIER = 'application';
 const MODULE_IDENTIFIER = 'module';
 const PROJECTS_IDENTIFIER = 'projects'
+const LOGINTYPE_IDENTIFIER = 'logintype';
 const USER_IDENTIFIER = 'user';
 const PASSWORD_IDENTIFIER = 'password';
+const LOGIN_SPLITTER_IDENTIFIER = 'loginSplitter';
 const FORMATSIZE_IDENTIFIER = 'formatSize';
 const COMPANY_IDENTIFIER = 'company';
 const THEME_IDENTIFIER = 'theme';

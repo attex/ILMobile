@@ -84,3 +84,14 @@ function scanButtonNeeded() {
             return true;
     }
 }
+
+function isLoginTypeInput() {
+    switch (getConfigValue(LOGINTYPE_IDENTIFIER)) {
+        case 'input':
+            return true;
+        case 'scan':
+            return false;
+        default:
+            return true;
+    }
+}

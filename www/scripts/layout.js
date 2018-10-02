@@ -163,13 +163,21 @@ function toggleOptions() {
     } else {
         MAIN_CONTAINER.addClass(options);
     }
-    
+
     $(window).resize();
 }
 
 //FORMAT LOGIN
 function formatLogin(xmlDoc) {
-    //save element Number of user and password input element 
+    if (isLoginTypeInput()) {
+        formatInputLogin(xmlDoc);
+    } else {
+        formatScanLogin(xmlDoc);
+    }
+}
+
+function formatInputLogin(xmlDoc) {
+    //save element number of user and password input element 
     window.localStorage.setItem('userElement', $(xmlDoc).find(`formatproperty[key=${LOGIN_USER_PROPERTY}]`).attr('value'));
     window.localStorage.setItem('passwordElement', $(xmlDoc).find(`formatproperty[key=${LOGIN_PASSWORD_PROPERTY}]`).attr('value'));
 
@@ -181,6 +189,21 @@ function formatLogin(xmlDoc) {
     var password = getConfigValue(PASSWORD_IDENTIFIER);
     $(`[${HTML_NAME}='${window.localStorage.getItem('userElement')}']`).find('input').val(username);
     $(`[${HTML_NAME}='${window.localStorage.getItem('passwordElement')}']`).find('input').val(password);
+}
+
+function formatScanLogin(xmlDoc) {
+    //save element number of input element 
+    window.localStorage.setItem('userElement', $(xmlDoc).find(`formatproperty[key=${LOGIN_USER_PROPERTY}]`).attr('value'));
+
+    //encrypt input field
+    $(`[${HTML_NAME}='${window.localStorage.getItem('userElement')}']`).find('input').attr('type', 'password');
+
+    //fill input fields with saved config value
+    var username = getConfigValue(USER_IDENTIFIER);
+    var password = getConfigValue(PASSWORD_IDENTIFIER);
+    var loginSplitter = getConfigValue(LOGIN_SPLITTER_IDENTIFIER);
+
+    $(`[${HTML_NAME}='${window.localStorage.getItem('userElement')}']`).find('input').val(username + loginSplitter + password);
 }
 
 function isInMainView() {

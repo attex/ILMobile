@@ -31,12 +31,13 @@ function handleOpenLogin(values) {
 function oxaionLogin(user, pw) {
     var oxaionSession = window.localStorage.getItem('oxaionSession');
     var host = getConfigValue(HOST_IDENTIFIER);
-    var oxaionHost = "OXAION";
+    var oxaionHost = getConfigValue(OXAION_HOST_IDENTIFIER);
 
     lastUser = user;
     lastPass = pw;
 
     var disconnectUri = host + "/app-tunnel/disconnect?user=" + oxaionSession;
+    //hier nichtmehr hartkodiert
     var loginUri = host + "/app-tunnel/connect?user=" + user + "&pwd=" + pw + "&host=" + oxaionHost;
 
     window.localStorage.removeItem('oxaionSession');
