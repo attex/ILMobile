@@ -16,6 +16,8 @@
                 {% endif %}
             {% endfor %}
         </select>
+        {% elif option.identifier == "password" %}
+        <input class="configValue" id="{{option.identifier}}" value="{{ option.value }}" type="password"></input>
         {% else %}
         <input class="configValue" id="{{option.identifier}}" value="{{ option.value }}"></input>
         {% endif %}
