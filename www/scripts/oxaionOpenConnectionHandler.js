@@ -37,7 +37,6 @@ function oxaionLogin(user, pw) {
     lastPass = pw;
 
     var disconnectUri = host + "/app-tunnel/disconnect?user=" + oxaionSession;
-    //hier nichtmehr hartkodiert
     var loginUri = host + "/app-tunnel/connect?user=" + user + "&pwd=" + pw + "&host=" + oxaionHost;
 
     window.localStorage.removeItem('oxaionSession');
@@ -117,7 +116,7 @@ function handleOpenResponse(response) {
 
 //XML
 function generateOpenXML(fname, values) {
-    xw = new XMLWriter;
+    var xw = new XMLWriter;
     xw.startDocument()
         .startElement('call')
         .writeElement('function', fname)
