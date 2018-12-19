@@ -28,9 +28,13 @@ gulp.task('watch-nunjucks', function(){
 
 gulp.task('bundlejs', function () {
     return gulp.src('src/bundle.js', {read:false})
-    .pipe(parcel({cache:false,outDir:'.tmp'}))
+    .pipe(parcel({cache:true, outDir:'www/lib', publicURL: './'}))
     .pipe(gulp.dest('www/lib'))
 });
+
+// gulp.task('watch-bundlejs', function(){
+//     return gulp.watch('./www/scripts/tcpConnectionHandler.js', gulp.series('bundlejs'));
+// })
 
 gulp.task('build', gulp.series('sass', 'nunjucks', 'bundlejs'));
 gulp.task('watch', gulp.parallel('watch-sass', 'watch-nunjucks'));

@@ -13,7 +13,8 @@ simulation/
 
 # Misc
 typings/
-.tmp/
+.cache/
 www/css/ilm.css
 www/lib/bundle.js
+www/lib/bundle.map
 www/lib/template.js
