@@ -9,6 +9,9 @@ const DEFAULT_CONFIG = {
         }, {
             "label": "Oxaion-Buisness",
             "identifier": "buisness"
+        }, {
+            "label": "TCP",
+            "identifier": "tcp"
         }]
     }, {
         "label": "Host:",

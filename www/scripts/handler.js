@@ -144,6 +144,8 @@ function findHandler(fname, keys, values) {
         handleOPEN(fname, values);
     } else if (backend == 'buisness') {
         handleSOAP(fname, keys, values);
+    } else if (backend == 'tcp') {
+        handleTCP(fname, values);
     }
 }
 
