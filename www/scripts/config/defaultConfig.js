@@ -18,6 +18,10 @@ const DEFAULT_CONFIG = {
         "identifier": "host",
         "value": ""
     }, {
+        "label": "Sekunden bis Timeout:",
+        "identifier": "timeout",
+        "value": "30"
+    },{
         "label": "Oxaion-Host:",
         "identifier": "oxaionHost",
         "value": ""
@@ -91,6 +95,7 @@ const DEFAULT_CONFIG = {
 
 const BACKEND_IDENTIFIER = 'backend';
 const HOST_IDENTIFIER = 'host';
+const TIMEOUT_IDENTIFIER = 'timeout';
 const OXAION_HOST_IDENTIFIER = "oxaionHost";
 const APPLICATION_IDENTIFIER = 'application';
 const MODULE_IDENTIFIER = 'module';

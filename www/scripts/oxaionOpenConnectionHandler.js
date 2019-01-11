@@ -180,7 +180,7 @@ function executeGET(uri) {
             reject(`[OPEN] Error: ${this.status} ${this.statusText}`);
         };
 
-        xmlhttp.timeout = 30000; // time in milliseconds
+        xmlhttp.timeout = getTimeout(); // time in milliseconds
 
         xmlhttp.ontimeout = function (e) {
             reject(`[OPEN] Error: Timeout`);

@@ -4,6 +4,7 @@
     }
 
     // saveConfigValue(HOST_IDENTIFIER, 'http://192.168.230.51:43108');
+    // saveConfigValue(OXAION_HOST_IDENTIFIER, 'OXAION');
     // saveConfigValue(APPLICATION_IDENTIFIER, 'iqu ilm');
     // saveConfigValue(MODULE_IDENTIFIER, 'ILM');
     // saveConfigValue(PROJECTS_IDENTIFIER, 'iqu60,ilm60_bas,ilm60_op412');
@@ -93,5 +94,15 @@ function isLoginTypeInput() {
             return false;
         default:
             return true;
+    }
+}
+
+function getTimeout() {
+    var timeoutValue = getConfigValue(TIMEOUT_IDENTIFIER);
+    var parsedValue = parseInt(timeoutValue);
+    if (isNaN(parsedValue)) {
+        return 30000
+    } else {
+        return parsedValue * 1000;
     }
 }
