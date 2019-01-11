@@ -25,8 +25,8 @@
     request += "</template>"
     request += "</mobis>"
 
-    console.log('Request:\n');
-    console.log(request);
+    // console.log('Request:\n');
+    // console.log(request);
 
     return request;
 }

@@ -7,8 +7,8 @@ const LOGIN_PASSWORD_PROPERTY = "LOGIN_PASSWORD";
 
 //MAIN GENERATE METHOD
 function generateLayout(xml) {
-    console.log('Response:\n');
-    console.log(xml);
+    // console.log('Response:\n');
+    // console.log(xml);
 
     resetLayout();
     var xmlDoc = $.parseXML(xml);
