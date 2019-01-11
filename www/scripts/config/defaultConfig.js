@@ -64,11 +64,8 @@ const DEFAULT_CONFIG = {
         "label": "Größenformat:",
         "identifier": "formatSize",
         "value": ""
-    }, {
-        "label": "Firma:",
-        "identifier": "company",
-        "value": ""
-    }, {
+
+    },{
         "label": "Thema:",
         "identifier": "theme",
         "value": "dark",
@@ -110,4 +107,4 @@ const THEME_IDENTIFIER = 'theme';
 const SCANNER_IDENTIFIER = 'scanner';
 
 const STYLE_PREFIX = 'style_';
-const STYLE_IDENTIFIER_ARRAY = [FORMATSIZE_IDENTIFIER, COMPANY_IDENTIFIER, THEME_IDENTIFIER];
+const STYLE_IDENTIFIER_ARRAY = [FORMATSIZE_IDENTIFIER, THEME_IDENTIFIER];
