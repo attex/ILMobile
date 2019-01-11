@@ -14,7 +14,11 @@ function handleSOAP(fname, keys, values) {
 }
 
 function handleResponse(response) {
+    try {
     var parsedResponse = $.parseXML(response);
+    } catch (e) {
+        return Promise.reject("Invalid XML")
+    }
 
     var loginReturn = $(parsedResponse).find('loginReturn');
     var processFormatReturn = $(parsedResponse).find('processFormatReturn');
@@ -23,12 +27,15 @@ function handleResponse(response) {
     } else {
         return handleXML(processFormatReturn.text(), false);
     }
-    //added additional finish() call when finally() is not available
-    finish();
-    setFocus();
 }
 
 function handleXML(xml, isLogin) {
+    try {
+        $.parseXML(xml);
+    } catch (e) {
+        return Promise.reject("Invalid XML")
+    }
+
     if ($(xml).find('error[value=true]').length) {
         handleError($(xml).find('message').attr('value'));
     } else {
@@ -37,6 +44,8 @@ function handleXML(xml, isLogin) {
         }
         generateLayout(xml);
     }
+    //added additional finish() call when finally() is not available
+    finish();
     setFocus();
 }
 
