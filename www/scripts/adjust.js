@@ -4,7 +4,9 @@
     var tableHeight = $('.rowContainer').height();
 
     var lowerHeight = getComputedHeight($('.lower'));
-    var buttonContainerHeight = getComputedHeight(getButtonsGroupContainer());
+    
+    //only getting visible one
+    var buttonContainerHeight = getComputedHeight(getButtonsGroupContainer()) + getComputedHeight($('.buttonContainer.functions'));
 
     $('.table').find('.rowContainer')
         .css('max-height', `calc(100vh - 2.5em - ${upperHeight - tableHeight}px - ${lowerHeight}px - ${buttonContainerHeight}px)`);
