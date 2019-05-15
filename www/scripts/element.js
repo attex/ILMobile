@@ -157,8 +157,14 @@ function formatInputElement(eleXML) {
     $(inputContainer).append(input);
 
     //if input is only upper add helper method
-    if ($(eleXML).find('formatelementproperty[key="UPPER"][value="true"]').length) {
-        $(input).get(0).oninput = function () { this.value = this.value.toUpperCase() };
+    var toUpperFormatValue = $(eleXML).find('formatelementproperty[key="UPPER"]').attr('value')
+
+    if (toUpperFormatValue) {
+        if (toUpperFormatValue.toLowerCase() == 'true') {
+            $(input).get(0).oninput = function () {
+                this.value = this.value.toUpperCase()
+            };
+        }
     }
 
     //create scan button if needed
