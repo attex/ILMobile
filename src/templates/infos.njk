@@ -1,0 +1,15 @@
+<div class="groupContainer config">
+    <div class="columnContainer">
+        <label class="ORDER">Informationen zur letzten Maske</label>
+    </div>
+
+    {% for info in infos %}
+        {% if info.value !== '' %}
+        <div class="columnContainer">
+            <label>{{info.label}}</label>
+            <input readonly value="{{info.value}}"></input>
+        </div>
+        {% endif %}
+    {% endfor %}
+
+</div>

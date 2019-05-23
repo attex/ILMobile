@@ -19,8 +19,14 @@ function openConfig() {
 
 function openLicenses() {
     setConfigView('Lizenzen');
-    var licensesHTML = nunjucks.render('licenses.njk', getConfig());
+    var licensesHTML = nunjucks.render('licenses.njk');
     $('.configPanel').append(licensesHTML);
+}
+
+function openInfos() {
+    setConfigView('Informationen');
+    var infosHTML = nunjucks.render('infos.njk', getInfos());
+    $('.configPanel').append(infosHTML);
 }
 
 function openDirs() {

@@ -63,6 +63,9 @@ function generateLayout(xml) {
             $(this).attr("data-selected-all", true);
         }
     });
+
+    //gathering information for infopage
+    gatherInfos(xmlDoc)
 }
 
 function formatTitle(xmlDoc) {
