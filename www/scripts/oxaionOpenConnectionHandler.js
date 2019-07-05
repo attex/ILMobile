@@ -121,7 +121,7 @@ function generateOpenXML(fname, values) {
         .startElement('call')
         .writeElement('function', fname)
         .startElement('params')
-    values.forEach(value => xw.writeElement('param', openXMLEscape(escapeXml(value))));
+    values.forEach(value => xw.startElement('param').writeAttribute('type', 'String').text(openXMLEscape(escapeXml(value))).endElement());
     xw.endElement()
         .endElement()
         .endDocument();
