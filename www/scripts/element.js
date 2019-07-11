@@ -188,7 +188,17 @@ function formatInputElement(eleXML) {
 }
 
 function formatButtonElement(eleXML) {
-    var eleHTML = createButton($(eleXML).attr(XML_CONTENT), $(eleXML).attr(XML_NAME), 'CLICK', 'elementButton').attr('style', 'button');
+    var eleHTML;
+
+    if ($(eleXML).find('formatelementproperty[key="CLIENTFUNCTION"][value^="StartProcess("]').length) {
+        eleHTML = $('<div class="dummy"/>')
+
+        var path = $(eleXML).find('formatelementproperty[key="CLIENTFUNCTION"]').attr('value').split('(')[1].split(')')[0]
+        var button = $('<button class="button">Öffne PDF</button>').click(function() {getDocument(path)});
+        getButtonsGroupContainer().append(button);
+    } else {
+        eleHTML = createButton($(eleXML).attr(XML_CONTENT), $(eleXML).attr(XML_NAME), 'CLICK', 'elementButton').attr('style', 'button');
+    }
 
     passAttributes(eleXML, eleHTML);
     return eleHTML;
