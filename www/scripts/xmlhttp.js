@@ -40,12 +40,10 @@ function handleXML(xml, isLogin) {
         handleError($(xml).find('message').attr('value'));
     } else {
         if (isLogin) {
-            window.localStorage.setItem('session', $(xml).find('session').attr('value'));
+            window.sessionStorage.setItem('ilmSession', $(xml).find('session').attr('value'));
         }
         generateLayout(xml);
     }
-    //added additional finish() call when finally() is not available
-    finish();
     setFocus();
 }
 
@@ -53,9 +51,12 @@ function handleError(errorString) {
     if (errorString.endsWith('APPL_ERROR_WRONG_SESSION_ID')) {
         initApp();
     }
-    $.afui.toast({ message: errorString });
-    //added additional finish() call when finally() is not available
-    finish();
+
+    if (typeof errorString === 'object') {
+        $.afui.toast({ message: errorString.message });
+    } else {
+        $.afui.toast({ message: errorString });
+    }
 }
 
 function executeSOAP(url, query) {

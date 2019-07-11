@@ -9,7 +9,7 @@
     request += `<format value="${escapeXml(localStorage.getItem('format'))}"/>`
     request += "</info>"
     request += "</header>"
-    request += `<session value="${escapeXml(localStorage.getItem('session'))}"/>`
+    request += `<session value="${escapeXml(sessionStorage.getItem('ilmSession'))}"/>`
     request += `<template value="${escapeXml(localStorage.getItem('template'))}">`
     request += "<callback>"
     request += `<source value="${escapeXml(source)}"/>`
