@@ -5,9 +5,10 @@ function handleResponseOPEN(responseXML) {
     // Check for auth error
     if ($(parsedResponse).find("ERROR[ID=TUN0001]").length || $(parsedResponse).find("ERROR[ID=TUN0002]").length) {
         return Promise.reject(NO_OXAION_LOGIN_ERROR)
+    }
 
     // Check for general error
-    } else if ($(parsedResponse).find("ERROR").length) {
+    if ($(parsedResponse).find("ERROR").length) {
         initApp();
         return Promise.reject(SERVER_ERROR)
     }
@@ -15,6 +16,11 @@ function handleResponseOPEN(responseXML) {
     // Get response
     var response = $(parsedResponse).find('response').text()
 
+    // Error like in StartProcess
+    if (response.startsWith('ERROR')) {
+        return Promise.reject(response)
+    }
+ 
     try {
         var parsedContent = $.parseXML(response)
         // Check for mobis error
