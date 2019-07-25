@@ -194,8 +194,16 @@ function formatButtonElement(eleXML) {
         eleHTML = $('<div class="dummy"/>')
 
         var path = $(eleXML).find('formatelementproperty[key="CLIENTFUNCTION"]').attr('value').split('(')[1].split(')')[0]
-        var button = $('<button class="button">Öffne PDF</button>').click(function() {getDocument(path)});
+        var button = $(`<button class="button">${$(eleXML).attr(XML_CONTENT)}</button>`).click(function() {getDocument(path)});
         getButtonsGroupContainer().append(button);
+
+    } else if ($(eleXML).find('formatelementproperty[key="CLIENTFUNCTION"][value^="TakeAFoto("]').length) {
+        eleHTML = $('<div class="dummy"/>')
+
+        var path = $(eleXML).find('formatelementproperty[key="CLIENTFUNCTION"]').attr('value').split('(')[1].split(')')[0]
+        var button = $(`<button class="button">${$(eleXML).attr(XML_CONTENT)}</button>`).click(function() {sendPhoto(path)});
+        getButtonsGroupContainer().append(button);
+
     } else {
         eleHTML = createButton($(eleXML).attr(XML_CONTENT), $(eleXML).attr(XML_NAME), 'CLICK', 'elementButton').attr('style', 'button');
     }
