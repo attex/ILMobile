@@ -15,7 +15,7 @@ function generateOpenXML(fname, values) {
 }
 
 function openXMLEscape(unsafe) {
-    return unsafe.replace(/%|&lt;|&gt;|&quot;|&apos;|&amp;|\+|#xD;|#xA;|#/g, function (c) {
+    return unsafe.replace(/%|&lt;|&gt;|&quot;|&apos;|&amp;|#xD;|#xA;|#/g, function (c) {
         switch (c) {
             case '%': return '__prc__';
             case '&lt;': return '__lt__';
@@ -23,7 +23,6 @@ function openXMLEscape(unsafe) {
             case '&quot;': return '__quot__';
             case '&apos;': return '__apos__';
             case '&amp;': return '__amp__';
-            case '+': return '%2B';
             case '#xD;': return '__DKXD__';
             case '#xA;': return '__DKXA__';
             case '#': return '__DK__';
