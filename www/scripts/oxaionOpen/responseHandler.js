@@ -26,7 +26,7 @@ function handleResponseOPEN(responseXML) {
         // Check for mobis error
         var error = $(parsedContent).find('mobis[messagetype="error"]')
         if (error.length) {
-            return Promise.reject(error.data('message'))
+            return Promise.reject($(error).attr('message'))
 
         // We probably finished
         } else {

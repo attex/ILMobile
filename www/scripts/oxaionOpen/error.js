@@ -8,7 +8,7 @@ const COMMUNICATION_ERROR = {"key":"COMMUNICATION_ERROR", "message":"Es konnte k
 
 function handleErrorOPEN(error, fname, params) {
 
-    if (error.key === NO_OXAION_LOGIN_ERROR.key) {
+    if (typeof error === 'object' && error.key === NO_OXAION_LOGIN_ERROR.key) {
         return oxaionLogin()
             .then(_ => handleFunction(fname, params))
     } else {
@@ -22,4 +22,5 @@ function outputErrorOPEN(error) {
     } else {
         $.afui.toast({ message: error });
     }
+    return Promise.reject()
 }
