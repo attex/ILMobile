@@ -5,6 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Attach to android on device",
+            "type": "cordova",
+            "request": "attach",
+            "platform": "android",
+            "target": "device",
+            "cwd": "${workspaceFolder}",
+            "sourceMaps": true
+        },
+        {
             "name": "Simulate android in browser",
             "type": "cordova",
             "request": "launch",
