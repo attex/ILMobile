@@ -34,6 +34,6 @@ function handleResponseOPEN(responseXML) {
         }
     } catch {
         // We got a "Continue"
-        Promise.resolve($(parsedResponse).find('response').text())
+        return Promise.resolve($(parsedResponse).find('response').text())
     }
 }
