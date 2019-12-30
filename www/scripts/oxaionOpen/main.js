@@ -3,6 +3,7 @@ function handleOPEN(func, values) {
         case 'login':
             window.sessionStorage.setItem('lastUser', values[4])
             window.sessionStorage.setItem('lastPass', values[5])
+            window.sessionStorage.removeItem('oxaionSession')
             return handleFunctionOPEN('ilmLogin', values, [getSessionOPEN, displayXmlOPEN])
 
         case 'processFormat':
