@@ -331,6 +331,12 @@ function formatStyle(eleXML, eleHTML) {
         $(eleHTML).addClass(style);
         $(eleHTML).attr(HTML_STYLE, style);
     }
+
+    var classProperty = $(eleXML).find('formatelementproperty[key="CLASS"]')
+
+    if (classProperty.length > 0) {
+        $(eleHTML).addClass(classProperty.attr("value"))
+    }
 }
 
 function getContent(eleHTML) {
