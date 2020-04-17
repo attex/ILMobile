@@ -239,14 +239,20 @@ function formatTableElement(eleXML) {
     $(tableContainer).append(eleHTML);
 
     //format table events to buttons below the table
-    var eventValues = ($(eleXML).hasAttr(XML_EVENTS)) ? ($(eleXML).attr(XML_EVENTS)).split(',') : [];
-    var eventTexts = ($(eleXML).hasAttr('text')) ? ($(eleXML).attr('text')).split(',') : [];
+    var eventValues = ($(eleXML).hasAttr(XML_EVENTS)) ? ($(eleXML).attr(XML_EVENTS)).split(',') : [""];
+    var eventTexts = ($(eleXML).hasAttr('text')) ? ($(eleXML).attr('text')).split(',') : [""];
 
-    if (eventValues.length && eventValues.length === eventTexts.length) {
+    if (eventValues[0] === "ROW_CLICKED") {
+        $(eleHTML).find(".row").dblclick((event) => {   
+            $(event.delegateTarget).addClass("selected");
+            handle($(eleHTML).attr(HTML_NAME), "ROW_CLICKED");
+        });
+
+    } else if (eventValues[0] !== "" && eventValues.length === eventTexts.length) {
         $(tableContainer).addClass('selectable');
         $(tableContainer).append(createTableFunctions(eventTexts, $(eleHTML).attr(HTML_NAME), eventValues));
     }
-
+    
     return tableContainer;
 }
 
