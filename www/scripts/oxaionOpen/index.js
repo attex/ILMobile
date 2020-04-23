@@ -27,6 +27,7 @@ function handleFunctionOPEN(fname, params, dataHandlers, iquSession = "") {
         start()
 
         return connector.request(fname, params, PGMN, iquSession)
+            .then(checkResponse)
             .then(data => Promise.all(dataHandlers.map(func => func(data))))
             .catch(outputErrorOPEN)
             .finally(finish)

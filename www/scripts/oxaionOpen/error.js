@@ -14,3 +14,16 @@ function outputErrorOPEN(error) {
     }
     return Promise.reject()
 }
+
+function checkResponse(response) {
+    var parsedContent = $.parseXML(response)
+    // Check for mobis error
+    var error = $(parsedContent).find('mobis[messagetype="error"]')
+    if (error.length) {
+        return Promise.reject($(error).attr('message'))
+    // We probably finished
+    } else {
+        return Promise.resolve(response)
+    }
+}
+
