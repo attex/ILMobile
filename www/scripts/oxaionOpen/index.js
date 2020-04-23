@@ -1,27 +1,36 @@
-function handleOPEN(func, values) {
+const PGMN = "com.oxaion.open.app.yiq.yi30001.YI30001J"
+
+var connector = null;
+
+async function handleOPEN(func, values) {
     switch (func) {
         case 'login':
-            window.sessionStorage.setItem('lastUser', values[4])
-            window.sessionStorage.setItem('lastPass', values[5])
-            window.sessionStorage.removeItem('oxaionSession')
+            var address = getConfigValue(HOST_IDENTIFIER)
+            var user = values[4]
+            var pwd = values[5]
+            var host = getConfigValue(OXAION_HOST_IDENTIFIER)
+
+            connector = new OxaionOpenConnector(address, user, pwd, host)
             return handleFunctionOPEN('ilmLogin', values, [getSessionOPEN, displayXmlOPEN])
 
         case 'processFormat':
-            return handleFunctionOPEN('ilmProcess', values, [displayXmlOPEN])
+            var ilmSession = window.sessionStorage.getItem('ilmSession')
+            return handleFunctionOPEN('ilmProcess', values, [displayXmlOPEN], ilmSession)
+
+        default:
+            throw Error("Unknown function")
     }
 }
 
-function handleFunctionOPEN(fname, params, dataHandlers) {
+function handleFunctionOPEN(fname, params, dataHandlers, iquSession = "") {
     if (canRun) {
         start()
 
-        return handleFunction(fname, params)
-            .catch(error => handleErrorOPEN(error, fname, params))
+        return connector.request(fname, params, PGMN, iquSession)
             .then(data => Promise.all(dataHandlers.map(func => func(data))))
             .catch(outputErrorOPEN)
             .finally(finish)
     }
-
 }
 
 function handleFunction(fname, params) {
@@ -36,11 +45,11 @@ function handleFunction(fname, params) {
         var requests = xml.match(/.{1,3500}/g);
 
         return requests.reduce((previousPromise, nextRequestXML, currentIndex) => {
-                return previousPromise.then(() => {
-                    var isLast = currentIndex === (requests.length - 1)
-                    return handleSplitFunction(host, session, isLast, nextRequestXML);
-                });
-            }, Promise.resolve())
+            return previousPromise.then(() => {
+                var isLast = currentIndex === (requests.length - 1)
+                return handleSplitFunction(host, session, isLast, nextRequestXML);
+            });
+        }, Promise.resolve())
 
     } else {
         var uri = host + "/app-tunnel/call?user=" + session + "&pgmn=com.oxaion.open.app.yiq.yi30001.YI30001J&akto=*EXECUTE&request=" + encodeURIComponent(xml);

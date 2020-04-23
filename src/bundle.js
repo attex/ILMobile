@@ -1,7 +1,7 @@
 var jquery = require('jquery');
 window.$ = jquery;
 
-window.XMLWriter = require('xml-writer');
+window.OxaionOpenConnector = require('oxaion-open-connector').default
 
 window.nunjucks = require('nunjucks');
 

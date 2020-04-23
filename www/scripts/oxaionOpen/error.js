@@ -6,16 +6,6 @@ const BLOB_ERROR = {"key":"BLOB_ERROR", "message":"Die gesendete codierte Datei 
 const FILE_ERROR = {"key":"FILE_ERROR", "message":"Fehler beim Zugriff auf das Dateisystem."};
 const COMMUNICATION_ERROR = {"key":"COMMUNICATION_ERROR", "message":"Es konnte keine Verbindung zum Server hergestellt werden."};
 
-function handleErrorOPEN(error, fname, params) {
-
-    if (typeof error === 'object' && error.key === NO_OXAION_LOGIN_ERROR.key) {
-        return oxaionLogin()
-            .then(_ => handleFunction(fname, params))
-    } else {
-        return Promise.reject(error)
-    }
-}
-
 function outputErrorOPEN(error) {
     if (typeof error === 'object') {
         $.afui.toast({ message: error.message });
