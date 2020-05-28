@@ -16,6 +16,5 @@ typings/
 .cache/
 
 # Generated
-www/css/*
 www/build
 www/lib/*
