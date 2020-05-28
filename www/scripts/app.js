@@ -1,5 +1,6 @@
 ﻿function initApp() {
     console.log("Initializing App");
+    loadCustomerCSS();
     setUpConfig()
     deleteStyles();
     loadStyles();
