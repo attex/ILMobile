@@ -2,6 +2,7 @@ var jquery = require('jquery');
 window.$ = jquery;
 
 window.OxaionOpenConnector = require('oxaion-open-connector').default
+window.OxaionOpenConnectorWithWorkaround = require('oxaion-open-connector-workaround').default
 
 window.nunjucks = require('nunjucks');
 

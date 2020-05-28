@@ -13,6 +13,17 @@ const DEFAULT_CONFIG = {
             "label": "TCP",
             "identifier": "tcp"
         }]
+    },{
+        "label": "Workaround",
+        "identifier": "workaround",
+        "value": "on",
+        "values": [{
+            "label": "An",
+            "identifier": "on"
+        }, {
+            "label": "Aus",
+            "identifier": "off"
+        }]
     }, {
         "label": "Host:",
         "identifier": "host",

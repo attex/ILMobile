@@ -10,7 +10,13 @@ async function handleOPEN(func, values) {
             var pwd = values[5]
             var host = getConfigValue(OXAION_HOST_IDENTIFIER)
 
-            connector = new OxaionOpenConnector(address, user, pwd, host)
+            if (getConfigValue("workaround") === "on")
+                connector = new OxaionOpenConnectorWithWorkaround(address, user, pwd, host)
+            else if (getConfigValue("workaround") === "off")
+                connector = new OxaionOpenConnector(address, user, pwd, host)
+            else
+                throw Error("Workaround kann nicht bestimmt werden")
+
             return handleFunctionOPEN('ilmLogin', values, [getSessionOPEN, displayXmlOPEN])
 
         case 'processFormat':
