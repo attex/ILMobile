@@ -7,7 +7,7 @@
 /*------------------------------------------------------*/
 
  header {
-  background-color: #00719E;
+    background-color: #5E8DA7;
   }
    header h1 {
     color: white;
@@ -38,14 +38,16 @@
   }
 
  .row {
-  background-color: transparent;
+  background-color: #f2f2f2;
+  border-bottom: 5px solid white;
   }
 
  .row.selected {
-  background-color: #83d0f2; }
+  background-color: #FFC989;
+  }
 
  .lower {
-  background-color: #00719E;
+  background-color: #5E8DA7;
   }
    .lower .columnContainer {
     background-color: transparent; }
@@ -53,7 +55,7 @@
     color: white;
     }
 
- .lower .ORDER {font-weight:bold;}
+ .lower .ORDER {/* font-weight:bold; */}
     
    .lower .VARIABLE_ABC,  .lower .VARIABLE_123 {
     color: #F8F1FF; }
@@ -70,11 +72,11 @@
     background-color: #83d0f2; }
 
  .buttonContainer {
-  background-color: #00719E;
+  background-color: #5E8DA7;
   }
 
  .button {
-  background-color: white;
+  background-color: #F5F5F5;
   }
 
  .button:active {
@@ -495,6 +497,7 @@ img {
 .detailContainer[class*=' ERROR'] .columnContainer.NOTICE, .detailContainer[class^='ERROR'] .columnContainer.NOTICE {
   background-color: #db022f;
   padding: 1em;
+  margin: 0.5rem;
   }
   .detailContainer[class*=' ERROR'] .columnContainer.NOTICE .NOTICE, .detailContainer[class^='ERROR'] .columnContainer.NOTICE .NOTICE {
     font-size: 1.2rem;
@@ -535,7 +538,7 @@ header {
   grid-area: oben;
   overflow: auto;
   padding-top: 1rem;
-  background-color: white;
+  background-color: transparent;
   /* padding: 0.3rem; */
   }
 
@@ -704,7 +707,7 @@ option:focus, select:focus, .button:focus {
   background-position: center; }
 
 .buttonUpper,
-.panel.configPanel .button {margin-top:0.3rem;color:white;background-color:#00719E;height:auto;
+.panel.configPanel .button, .button.blue {margin-top:0.3rem;color:white;background-color:#00719E;height:auto;
 }
 
 
@@ -804,7 +807,7 @@ option:focus, select:focus, .button:focus {
 /*  Column-Container im unteren Bereich                  */
 /*------------------------------------------------------*/
 .groupContainer.lower .LABEL_EDITZONE {
-  font-size: 1rem; }
+  font-size: 0.8rem; }
 
 .groupContainer.lower .VARIABLE_ABC, .groupContainer.lower .VARIABLE_123 {
   align-self: center;
@@ -819,7 +822,7 @@ option:focus, select:focus, .button:focus {
 /*------------------------------------------------------*/
 /* Elemente                                             */
 /*------------------------------------------------------*/
-/* Men� */
+/* Menü */
 .gridContainer.list.MENU .row.header {
   display: none; }
 
@@ -849,16 +852,17 @@ option:focus, select:focus, .button:focus {
   display: none; }
 
 .gridContainer.list .rowContainer .row {
-  padding: 0.9rem;
+  padding: 0.5rem;
   cursor: pointer;
   /* margin-bottom: 0.3rem; */
-  padding-left: 0;
+  /* padding-left: 0; */
   }
 
 .gridContainer.list .rowContainer .row {
   background-image: url(../icons/icons8-more-than-filled-40.png);
   background-repeat: no-repeat;
   background-position: right center;
+  background-size: 2rem;
   }
 
 .gridContainer.list .rowContainer .row .item {
@@ -931,8 +935,7 @@ input {
   float: left;
   width: calc(100vw - 2px);
   display: grid;
-  /* border: 1px solid black; */
-  background-color: white;
+  background-color: transparent;
   padding: 0.2rem;
   padding-bottom: 1rem;
   }
@@ -944,7 +947,7 @@ input {
 
 .tableContainer .row {
   padding: 0.5rem;
-  border: 1px dotted #f2f2f2;
+  border-bottom: 2px solid white;
   }
 
 .tableContainer .headerContainer .header.Key, .tableContainer .headerContainer .header.INT_KEY, .tableContainer .rowContainer .item.INT_KEY {
@@ -1056,7 +1059,25 @@ input {
 .item.Menge, .item.Lagerbestand, .item.Bestand  {text-align:right;}
 .header.ME, .item.ME {text-align:left;}
 
-
-/* neu Test */
 .inputContainer {border-radius: 5px;}
-.inputContainer input {border-radius: 5px;/* color: red; */}
+.inputContainer input {border-radius: 5px;}
+
+/*------------------------------------------------------*/
+/* Style dark                                           */
+/*------------------------------------------------------*/
+ .style_dark header { background-color: #333;}
+ .style_dark .lower {background-color: #333;}
+ .style_dark .buttonContainer {background-color: #333;}
+ .style_dark .pages.mainpages { background-color: #666;}
+ .style_dark .element { color: white;}
+ .style_dark .groupContainer.upper .columnContainer .LABEL {color: #FFECD5;}
+ .style_dark .upper .columnContainer { border-bottom: 1px dotted #555;}
+ .style_dark .inputContainer select { background-color: #c1c1c1;}
+ .style_dark .row {background-color: #999; border-bottom: 5px solid #666;}
+ .style_dark .row.selected {background-color: #CEA97C;}
+ .style_dark .gridContainer.list .rowContainer .row .item.Wert {color: white;}
+ .style_dark .selectTools {background-color: #c1c1c1;}
+ .style_dark .tableContainer .headerContainer, .tableContainer .row.header .item {color: #FFECD5;font-weight:normal;font-size: 1.1rem;}
+
+
+ 
