@@ -118,16 +118,3 @@ function getLoginXML() {
         return scanLoginXML;
     }
 }
-
-function loadCustomerCSS() {
-    $("#customercss").remove();
-    var container = document.head;
-    var styleSheet = document.createElement('link');
-
-    styleSheet.rel = 'stylesheet';
-    styleSheet.type = 'text/css';
-    styleSheet.href = getConfigValue("host") + '/iqu/customer.css';
-    styleSheet.id = "customercss"
-  
-    container.appendChild(styleSheet);
-}

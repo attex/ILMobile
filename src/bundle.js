@@ -4,6 +4,8 @@ window.$ = jquery;
 window.OxaionOpenConnector = require('oxaion-open-connector').default
 window.OxaionOpenConnectorWithWorkaround = require('oxaion-open-connector-workaround').default
 
+window.axios = require("axios")
+
 window.nunjucks = require('nunjucks');
 
 window.JSPath = require('jspath');

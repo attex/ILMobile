@@ -77,6 +77,11 @@ const DEFAULT_CONFIG = {
         "value": ""
 
     },{
+        "label": "Eigenes CSS:",
+        "identifier": "customercss",
+        "value": ""
+
+    },{
         "label": "Thema:",
         "identifier": "theme",
         "value": "dark",

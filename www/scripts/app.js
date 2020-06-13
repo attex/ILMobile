@@ -1,11 +1,12 @@
 ﻿function initApp() {
     console.log("Initializing App");
-    loadCustomerCSS();
     setUpConfig()
     deleteStyles();
     loadStyles();
     generateLayout(getLoginXML());
     finish();
+    
+    loadCustomerCSS();
 
     console.log("App initialized");
 }
