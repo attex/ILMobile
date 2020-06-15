@@ -32,7 +32,7 @@ function handleFunctionOPEN(fname, params, dataHandlers, iquSession = "") {
     if (canRun) {
         start()
 
-        return connector.request(fname, params, PGMN, iquSession)
+        return connector.request(fname, {values:params}, PGMN, iquSession)
             .then(checkResponse)
             .then(data => Promise.all(dataHandlers.map(func => func(data))))
             .catch(outputErrorOPEN)
