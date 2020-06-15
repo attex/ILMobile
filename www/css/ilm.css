@@ -55,8 +55,6 @@
     color: white;
     }
 
- .lower .ORDER {/* font-weight:bold; */}
-    
    .lower .VARIABLE_ABC,  .lower .VARIABLE_123 {
     color: #F8F1FF; }
 
@@ -1077,7 +1075,7 @@ input {
  .style_dark .row.selected {background-color: #CEA97C;}
  .style_dark .gridContainer.list .rowContainer .row .item.Wert {color: white;}
  .style_dark .selectTools {background-color: #c1c1c1;}
- .style_dark .tableContainer .headerContainer, .tableContainer .row.header .item {color: #FFECD5;font-weight:normal;font-size: 1.1rem;}
+ .style_dark .tableContainer .headerContainer, .style_dark .tableContainer .row.header .item {color: #FFECD5;font-weight:normal;font-size: 1.1rem;}
 
 
  
