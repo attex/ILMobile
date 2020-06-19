@@ -312,8 +312,15 @@ function formatEvent(eleHTML, name, eve, eventText = eve) {
     }
 }
 
+Date.prototype.toDateInputValue = (function() {
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0,10);
+});
+
 function formatDateControl(eleXML) {
     var eleHTML = $('<input type="date"></input>');
+    eleHTML.val(new Date($(eleXML).attr(XML_CONTENT)).toDateInputValue());
     passAttributes(eleXML, eleHTML);
 
     return eleHTML;
