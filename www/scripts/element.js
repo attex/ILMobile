@@ -243,7 +243,7 @@ function formatTableElement(eleXML) {
     var eventTexts = ($(eleXML).hasAttr('text')) ? ($(eleXML).attr('text')).split(',') : [""];
 
     if (eventValues[0] === "ROW_CLICKED") {
-        $(eleHTML).find(".row").dblclick((event) => {   
+        $(eleHTML).find(".row").dblclick((event) => {
             $(event.delegateTarget).addClass("selected");
             handle($(eleHTML).attr(HTML_NAME), "ROW_CLICKED");
         });
@@ -252,7 +252,7 @@ function formatTableElement(eleXML) {
         $(tableContainer).addClass('selectable');
         $(tableContainer).append(createTableFunctions(eventTexts, $(eleHTML).attr(HTML_NAME), eventValues));
     }
-    
+
     return tableContainer;
 }
 
@@ -312,18 +312,37 @@ function formatEvent(eleHTML, name, eve, eventText = eve) {
     }
 }
 
-Date.prototype.toDateInputValue = (function() {
+Date.prototype.toDateInputValue = (function () {
     var local = new Date(this);
     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-    return local.toJSON().slice(0,10);
+    return local.toJSON().slice(0, 10);
 });
 
-function formatDateControl(eleXML) {
-    var eleHTML = $('<input type="date"></input>');
-    eleHTML.val(new Date($(eleXML).attr(XML_CONTENT)).toDateInputValue());
-    passAttributes(eleXML, eleHTML);
+function isValidDate(date) {
+    return date instanceof Date && !isNaN(date);
+}
 
-    return eleHTML;
+function formatDateControl(eleXML) {
+    // Create input element
+    const input = $('<input type="date"></input>');
+
+    // Extract content from XML
+    const eleContent = $(eleXML).attr(XML_CONTENT);
+    // Create date from content
+    const date = new Date($(eleXML).attr(XML_CONTENT));
+    // Add date to input if it is valid
+    if (isValidDate(date)) {
+        input.val(date.toDateInputValue());
+    }
+
+    // Create inputContainer and pass attributes
+    const inputContainer = $('<div class="inputContainer"/>');
+    passAttributes(eleXML, inputContainer);
+
+    // Add input element to input container
+    $(inputContainer).append(input);
+
+    return inputContainer;
 }
 
 //add element attributes
