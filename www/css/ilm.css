@@ -705,10 +705,8 @@ option:focus, select:focus, .button:focus {
   background-position: center; }
 
 .buttonUpper,
-.panel.configPanel .button, .button.blue {margin-top:0.3rem;color:white;background-color:#00719E;height:auto;
-}
-
-
+.panel.configPanel .button, .button.blue {margin-top:0.3rem;color:white;background-color:#00719E;height:auto;}
+.panel.configPanel .button.reset {background-color:#9e0000;}
 /*------------------------------------------------------*/
 /*  Column-Container allgemein                  */
 /*------------------------------------------------------*/

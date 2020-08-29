@@ -1,6 +1,6 @@
 ﻿function setUpConfig() {
     if (isConfigOutOfDate()) {
-        window.localStorage.setItem('config', JSON.stringify(DEFAULT_CONFIG));
+        resetConfig()
     }
 
     // saveConfigValue(HOST_IDENTIFIER, 'http://192.168.230.51:43108');
@@ -11,6 +11,10 @@
     // saveConfigValue(USER_IDENTIFIER, 'DUNKEL');
     // saveConfigValue(PASSWORD_IDENTIFIER, 'oxaion');
     // saveConfigValue(FORMATSIZE_IDENTIFIER, 'APP');
+}
+
+function resetConfig() {
+    window.localStorage.setItem('config', JSON.stringify(DEFAULT_CONFIG));
 }
 
 function isConfigOutOfDate() {
