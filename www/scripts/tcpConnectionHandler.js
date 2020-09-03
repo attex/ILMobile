@@ -73,7 +73,12 @@ function decodeResponse(encodedData) {
     return new TextDecoder("utf-8").decode(encodedData);
 }
 
-var socket;
+// global variable for socket
+var TCP_Socket;
+// global variable for timeout
+var TCP_Timeout;
+// global variable for response
+var TCP_Response;
 
 function send(xml) {
     return new Promise(function (resolve, reject) {
@@ -84,50 +89,55 @@ function send(xml) {
 
         var encodedAndPaddedXML = encodeAndPadXML(xml);
 
-        var response = "";
+        TCP_Response = "";
 
-        socket = new cordova.plugins.sockets.Socket();
+        TCP_Socket = new cordova.plugins.sockets.Socket();
 
-        socket.onData = function (data) {
+        TCP_Socket.onData = function (data) {
+            // Decode response
             var decodedData = decodeResponse(data);
-            response += decodedData;
+            // Append response
+            TCP_Response += decodedData;
 
             if (decodedData.endsWith("</mobis>\n")) {
                 // Received complete data
                 console.log("Received complete data.")
+                // Clearing timeout
+                clearTimeout(TCP_Timeout)
                 // Closing connection
-                socket.shutdownWrite();
-                // Wait 1 second to resolving for closing
+                TCP_Socket.shutdownWrite();
+                // Wait for closing
                 setTimeout(() => {
-                    resolve(response.slice(256));
-                }, 250);
+                    resolve(TCP_Response.slice(256));
+                }, 500);
             }
         };
 
-        socket.onError = function (errorMessage) {
+        TCP_Socket.onError = function (errorMessage) {
             reject("[TCP] Error: " + errorMessage);
         };
 
-        socket.onClose = function (hasError) {
+        TCP_Socket.onClose = function (hasError) {
             console.log("Closed succesfully. hasError = " + hasError)
         };
 
-        socket.open(
+        TCP_Socket.open(
             ip,
             port,
             function () {
                 console.log("Succesfully opened a connection.")
                 // Starting timeout 
-                setTimeout(() => {
+                TCP_Timeout = setTimeout(() => {
                     // Timeout
                     // Closing connection
-                    // Wait 1 second to resolving for closing
+                    TCP_Socket.shutdownWrite();
+                    // Wait for closing
                     setTimeout(() => {
                         reject("[TCP] Error: Timeout");
-                    }, 250);
+                    }, 500);
                 }, getTimeout());
                 // Write data
-                socket.write(encodedAndPaddedXML);
+                TCP_Socket.write(encodedAndPaddedXML);
             },
             function (errorMessage) {
                 console.log("Failed to open a connection.")
