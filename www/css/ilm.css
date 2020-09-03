@@ -707,6 +707,8 @@ option:focus, select:focus, .button:focus {
 .buttonUpper,
 .panel.configPanel .button, .button.blue {margin-top:0.3rem;color:white;background-color:#00719E;height:auto;}
 .panel.configPanel .button.reset {background-color:#9e0000;}
+
+.panel.configPanel .columnContainer.configButtons {grid-template-columns: 50% 50%;}
 /*------------------------------------------------------*/
 /*  Column-Container allgemein                  */
 /*------------------------------------------------------*/
