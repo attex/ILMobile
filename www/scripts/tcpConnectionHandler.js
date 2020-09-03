@@ -34,7 +34,7 @@ function handleTCPProcess(values) {
 
 //XML
 function generateTCPXML(fname, values) {
-    var xw = new XMLWriter;
+    var xw = new XMLWriter(false, null);
     xw.startDocument()
         .startElement('call')
         .writeElement('function', fname)
@@ -86,32 +86,51 @@ function send(xml) {
 
         var response = "";
 
-        socket = new Socket();
+        socket = new cordova.plugins.sockets.Socket();
 
         socket.onData = function (data) {
             var decodedData = decodeResponse(data);
             response += decodedData;
 
             if (decodedData.endsWith("</mobis>\n")) {
-                resolve(response.slice(256));
+                // Received complete data
+                console.log("Received complete data.")
+                // Closing connection
+                socket.shutdownWrite();
+                // Wait 1 second to resolving for closing
+                setTimeout(() => {
+                    resolve(response.slice(256));
+                }, 250);
             }
         };
 
         socket.onError = function (errorMessage) {
-            reject("[TCP] Error: " + errorMessage.errorMessage);
+            reject("[TCP] Error: " + errorMessage);
         };
 
         socket.onClose = function (hasError) {
-            //do nothing
+            console.log("Closed succesfully. hasError = " + hasError)
         };
 
         socket.open(
             ip,
             port,
             function () {
+                console.log("Succesfully opened a connection.")
+                // Starting timeout 
+                setTimeout(() => {
+                    // Timeout
+                    // Closing connection
+                    // Wait 1 second to resolving for closing
+                    setTimeout(() => {
+                        reject("[TCP] Error: Timeout");
+                    }, 250);
+                }, getTimeout());
+                // Write data
                 socket.write(encodedAndPaddedXML);
             },
             function (errorMessage) {
+                console.log("Failed to open a connection.")
                 reject("[TCP] Error: " + errorMessage);
             }
         );

@@ -11,7 +11,6 @@
     "cordova-plugin-camera": "^4.1.0",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-file-opener2": "^3.0.4",
-    "cordova-plugin-socket-tcp": "^1.6.0",
     "cordova-plugin-whitelist": "^1.3.4",
     "jquery": "^3.5.1",
     "jspath": "^0.4.0",
@@ -31,16 +30,18 @@
       "phonegap-plugin-barcodescanner": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
-      "cordova-plugin-socket-tcp": {},
       "cordova-plugin-file-opener2": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
       "cordova-plugin-camera": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      }
+      },
+      "cordova-plugin-tcp-sockets": {}
     }
   },
   "devDependencies": {
+    "cordova-android": "^9.0.0",
+    "cordova-plugin-tcp-sockets": "git+https://github.com/philipptrenz/cordova-plugin-tcp-sockets.git",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-nunjucks": "^5.0.1",

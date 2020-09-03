@@ -3,6 +3,8 @@ window.$ = jquery;
 
 window.OxaionOpenConnector = require("oxaion-connector").OpenConnector;
 
+window.XMLWriter = require('xml-writer');
+
 window.axios = require("axios")
 
 window.nunjucks = require('nunjucks');
