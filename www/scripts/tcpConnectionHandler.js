@@ -99,17 +99,15 @@ function send(xml) {
             // Append response
             TCP_Response += decodedData;
 
-            if (decodedData.endsWith("</mobis>\n")) {
+            if (decodedData.endsWith("</mobis>\n") || decodedData.endsWith("</mobis>")) {
                 // Received complete data
                 console.log("Received complete data.")
                 // Clearing timeout
                 clearTimeout(TCP_Timeout)
                 // Closing connection
-                TCP_Socket.shutdownWrite();
-                // Wait for closing
-                setTimeout(() => {
-                    resolve(TCP_Response.slice(256));
-                }, 500);
+                TCP_Socket.close();
+                // Resolve
+                resolve(TCP_Response.slice(256));
             }
         };
 
@@ -130,11 +128,9 @@ function send(xml) {
                 TCP_Timeout = setTimeout(() => {
                     // Timeout
                     // Closing connection
-                    TCP_Socket.shutdownWrite();
-                    // Wait for closing
-                    setTimeout(() => {
-                        reject("[TCP] Error: Timeout");
-                    }, 500);
+                    TCP_Socket.close();
+                    // Reject
+                    reject("[TCP] Error: Timeout");
                 }, getTimeout());
                 // Write data
                 TCP_Socket.write(encodedAndPaddedXML);
