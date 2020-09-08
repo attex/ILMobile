@@ -22,32 +22,29 @@ function readConfigFile() {
 function getConfigFile() {
     return new Promise(function (resolve, reject) {
         // Get DirectoryEntry of external root directory
-        window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory + "ILMobile/config.json", function (configFileEntry) {
+        window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory, function (rootDirEntry) {
 
-            configFileEntry.file(function (file) {
-                var reader = new FileReader();
+            // This two step prodecure is needed so that the app asks for permission
+            rootDirEntry.getFile("ILMobile/config.json", { create: false, exclusive: false }, function (configFileEntry) {
 
-                reader.onloadend = function () {
-                    resolve(this.result);
-                };
+                configFileEntry.file(function (file) {
+                    var reader = new FileReader();
+    
+                    reader.onloadend = function () {
+                        resolve(this.result);
+                    };
+    
+                    reader.onerror = function () {
+                        reject(this.error.message)
+                    }
+    
+                    reader.readAsText(file);
+    
+                }, (error) => reject("Error during configFileEntry.file. Errorcode: " + error.code));
 
-                reader.onerror = function () {
-                    reject(this.error.message)
-                }
+            }, (error) => reject("Error during rootDirEntry.getFile. Errorcode: " + error.code))
 
-                reader.readAsText(file);
-
-            }, (error) => reject("Datei gefunden. Sie konnte aber nicht gelesen werden"));
-
-        },
-            // Parsing resolveLocalFileSystemURL error
-            error => {
-                if (error.code === 1) {
-                    reject("Unter ILMobile/config.json konnte keine Datei gefunden werden.")
-                } else {
-                    reject("Unbekannter Fehler bei der Auflösung des Dateipfads: ILMobile/config.json")
-                }
-            })
+        }, error => reject("Error during resolveLocalFileSystemURL. Errorcode: " + error.code))
     })
 }
 
