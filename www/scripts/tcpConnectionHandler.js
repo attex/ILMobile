@@ -117,8 +117,6 @@ function send(xml) {
                 console.log("Response complete.")
                 // Clearing timeout
                 clearTimeout(TCP_Timeout)
-                // Closing connection
-                TCP_Socket.close();
                 // Resolve
                 resolve(TCP_Response.slice(256));
             } else {
@@ -142,8 +140,6 @@ function send(xml) {
                 console.log("Succesfully opened a connection.")
                 // Starting timeout 
                 TCP_Timeout = setTimeout(() => {
-                    // Closing connection
-                    TCP_Socket.close();
                     // Timeout
                     logTimeout().then(() => {
                         // Reject
