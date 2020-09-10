@@ -79,6 +79,8 @@ var TCP_Socket;
 var TCP_Timeout;
 // global variable for response
 var TCP_Response;
+// global counter for the amount of onData calls for a request
+var TCP_DataCounter;
 
 function send(xml) {
     return new Promise(function (resolve, reject) {
@@ -93,21 +95,31 @@ function send(xml) {
 
         TCP_Socket = new cordova.plugins.sockets.Socket();
 
+        TCP_DataCounter = 0;
+
         TCP_Socket.onData = function (data) {
+            console.log("Received data.")
+            // Increment data counter
+            TCP_DataCounter++;
             // Decode response
             var decodedData = decodeResponse(data);
             // Append response
             TCP_Response += decodedData;
 
-            if (decodedData.endsWith("</mobis>\n") || decodedData.endsWith("</mobis>")) {
-                // Received complete data
-                console.log("Received complete data.")
+            // Validate current state of response
+            const validation = validate(TCP_Response.slice(256));
+
+            if (validation === true) {
+                console.log("Response complete.")
                 // Clearing timeout
                 clearTimeout(TCP_Timeout)
                 // Closing connection
                 TCP_Socket.close();
                 // Resolve
                 resolve(TCP_Response.slice(256));
+            } else {
+                console.log("Response uncomplete.")
+                console.log(validation);
             }
         };
 

@@ -5,6 +5,8 @@ window.OxaionOpenConnector = require("oxaion-connector").OpenConnector;
 
 window.XMLWriter = require('xml-writer');
 
+window.validate = require("fast-xml-parser").validate
+
 window.axios = require("axios")
 
 window.nunjucks = require('nunjucks');
