@@ -77,6 +77,8 @@ function decodeResponse(encodedData) {
 var TCP_Socket;
 // global variable for timeout
 var TCP_Timeout;
+// global variable for request
+var TCP_Request;
 // global variable for response
 var TCP_Response;
 // global counter for the amount of onData calls for a request
@@ -90,6 +92,8 @@ function send(xml) {
         console.log("Send to: " + host)
 
         var encodedAndPaddedXML = encodeAndPadXML(xml);
+
+        TCP_Request = xml;
 
         TCP_Response = "";
 
@@ -138,11 +142,16 @@ function send(xml) {
                 console.log("Succesfully opened a connection.")
                 // Starting timeout 
                 TCP_Timeout = setTimeout(() => {
-                    // Timeout
                     // Closing connection
                     TCP_Socket.close();
-                    // Reject
-                    reject("[TCP] Error: Timeout");
+                    // Timeout
+                    logTimeout().then(() => {
+                        // Reject
+                        reject("[TCP] Error: Timeout\nError successfully logged");
+                    }).catch(() => {
+                        // Reject
+                        reject("[TCP] Error: Timeout\nFailed to log error");
+                    });
                 }, getTimeout());
                 // Write data
                 TCP_Socket.write(encodedAndPaddedXML);
@@ -153,4 +162,12 @@ function send(xml) {
             }
         );
     })
+}
+
+function logTimeout() {
+    const data = [
+        { title: "Request", message: TCP_Request },
+        { title: "Response", message: TCP_Response }
+    ]
+    return ilmLog("TCP Timeout", data)
 }
