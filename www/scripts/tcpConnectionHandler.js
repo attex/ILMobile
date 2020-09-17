@@ -75,8 +75,6 @@ function decodeResponse(encodedData) {
 
 // global variable for socket
 var TCP_Socket;
-// global variable for timeout
-var TCP_Timeout;
 // global variable for request
 var TCP_Request;
 // global variable for response
@@ -115,8 +113,6 @@ function send(xml) {
 
             if (validation === true) {
                 console.log("Response complete.")
-                // Clearing timeout
-                clearTimeout(TCP_Timeout)
                 // Resolve
                 resolve(TCP_Response.slice(256));
             } else {
@@ -126,6 +122,7 @@ function send(xml) {
         };
 
         TCP_Socket.onError = function (errorMessage) {
+            console.log(errorMessage);
             reject("[TCP] Error: " + errorMessage);
         };
 
@@ -138,24 +135,14 @@ function send(xml) {
             port,
             function () {
                 console.log("Succesfully opened a connection.")
-                // Starting timeout 
-                TCP_Timeout = setTimeout(() => {
-                    // Timeout
-                    logTimeout().then(() => {
-                        // Reject
-                        reject("[TCP] Error: Timeout\nError successfully logged");
-                    }).catch(() => {
-                        // Reject
-                        reject("[TCP] Error: Timeout\nFailed to log error");
-                    });
-                }, getTimeout());
                 // Write data
                 TCP_Socket.write(encodedAndPaddedXML);
             },
             function (errorMessage) {
                 console.log("Failed to open a connection.")
                 reject("[TCP] Error: " + errorMessage);
-            }
+            },
+            getTimeout()
         );
     })
 }
