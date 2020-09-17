@@ -100,7 +100,7 @@ function send(xml) {
         TCP_DataCounter = 0;
 
         TCP_Socket.onData = function (data) {
-            console.log("Received data.")
+            console.log("onData called")
             // Increment data counter
             TCP_DataCounter++;
             // Decode response
@@ -122,12 +122,14 @@ function send(xml) {
         };
 
         TCP_Socket.onError = function (errorMessage) {
-            console.log(errorMessage);
-            reject("[TCP] Error: " + errorMessage);
+            console.log("onError called");
+            console.log("errorMessage: " + errorMessage);
+            logError(reject, errorMessage, formatGlobalsForLog())
         };
 
         TCP_Socket.onClose = function (hasError) {
-            console.log("Closed succesfully. hasError = " + hasError)
+            console.log("onClose called");
+            console.log("hasError: " + hasError);
         };
 
         TCP_Socket.open(
@@ -140,17 +142,17 @@ function send(xml) {
             },
             function (errorMessage) {
                 console.log("Failed to open a connection.")
-                reject("[TCP] Error: " + errorMessage);
+                logError(reject, errorMessage, formatGlobalsForLog())
             },
             getTimeout()
         );
     })
 }
 
-function logTimeout() {
-    const data = [
+function formatGlobalsForLog() {
+    return [
         { title: "Request", message: TCP_Request },
+        { title: "DataCounter", message: TCP_DataCounter },
         { title: "Response", message: TCP_Response }
     ]
-    return ilmLog("TCP Timeout", data)
 }

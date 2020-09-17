@@ -1,10 +1,22 @@
 /**
- * ILMobile log function.
- * @param title The title of this log entry.
- * @param offset An array of objects with keys title and message
+ * Helper function to log an error. And reject the error with the information whether logging was succesful.
+ * @param errorMsg The error message
+ * @param data An array of objects with keys title and message
  * @returns A promise whether the logging was succesful
  */
-function ilmLog(title, data) {
+function logError(reject, errorMsg, data = []) {
+    ilmLog(errorMsg, data)
+        .then(() => reject(errorMsg + "\nError successfully logged."))
+        .catch((logError) => reject(errorMsg + "\nError could not be logged.\nReason: " + logError))
+}
+
+/**
+ * ILMobile log function.
+ * @param title The title of this log entry.
+ * @param data An array of objects with keys title and message
+ * @returns A promise whether the logging was succesful
+ */
+function ilmLog(title, data = []) {
     return new Promise(function (resolve, reject) {
 
         // Create log message
