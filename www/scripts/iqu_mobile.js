@@ -165,7 +165,7 @@ var iqu = (function (my) {
             if (typeof p.type === "undefined" || p.type === "error" || p.type === "success") {
                 $("#toaster").text(p.message);
                 $("#toaster").addClass("active");
-                var timeout = p.delay ? p.delay : 2000;
+                var timeout = p.delay ? p.delay : 10000;
                 window.setTimeout(function () {
                     $("#toaster").removeClass("active");
                 }, timeout);
