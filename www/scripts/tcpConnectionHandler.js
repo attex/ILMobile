@@ -81,6 +81,8 @@ var TCP_Request;
 var TCP_Response;
 // global counter for the amount of onData calls for a request
 var TCP_DataCounter;
+// global variable for the error message of the error callback
+var TCP_Error;
 
 function send(xml) {
     return new Promise(function (resolve, reject) {
@@ -99,6 +101,8 @@ function send(xml) {
 
         TCP_DataCounter = 0;
 
+        TCP_Error = "";
+
         TCP_Socket.onData = function (data) {
             console.log("onData called")
             // Increment data counter
@@ -107,42 +111,52 @@ function send(xml) {
             var decodedData = decodeResponse(data);
             // Append response
             TCP_Response += decodedData;
-
-            // Validate current state of response
-            const validation = validate(TCP_Response.slice(256));
-
-            if (validation === true) {
-                console.log("Response complete.")
-                // Resolve
-                resolve(TCP_Response.slice(256));
-            } else {
-                console.log("Response uncomplete.")
-                console.log(validation);
-            }
         };
 
         TCP_Socket.onError = function (errorMessage) {
             console.log("onError called");
             console.log("errorMessage: " + errorMessage);
-            logError(reject, errorMessage, formatGlobalsForLog())
+            // Save error message
+            TCP_Error = errorMessage;
         };
 
         TCP_Socket.onClose = function (hasError) {
             console.log("onClose called");
             console.log("hasError: " + hasError);
+            // Interpret closing status
+            if (hasError) {
+                const errorMessage = "TCP connection closed with error";
+                ilmLog(errorMessage, formatGlobalsForLog())
+                    .finally(() => reject(errorMessage + " : " + TCP_Error))
+            } else {
+                // Validate current state of response
+                const validation = validate(TCP_Response.slice(256));
+
+                if (validation === true) {
+                    resolve(TCP_Response.slice(256));
+                } else {
+                    const errorMessage = "TCP connection closed with uncomplete response" 
+                    ilmLog(errorMessage, formatGlobalsForLog())
+                        .finally(() => reject(errorMessage))
+                }
+            }
         };
 
         TCP_Socket.open(
             ip,
             port,
             function () {
-                console.log("Succesfully opened a connection.")
+                console.log("Succesfully opened a TCP connection.")
                 // Write data
                 TCP_Socket.write(encodedAndPaddedXML);
             },
-            function (errorMessage) {
-                console.log("Failed to open a connection.")
-                logError(reject, errorMessage, formatGlobalsForLog())
+            function (tcpError) {
+                console.log("Failed to open a TCP connection.")
+                // Save error message
+                TCP_Error = tcpError;
+                const errorMessage = "Failed to open a TCP connection"; 
+                ilmLog(errorMessage, formatGlobalsForLog())
+                    .finally(() => reject(errorMessage + " : " + TCP_Error))
             },
             getTimeout()
         );
@@ -151,8 +165,9 @@ function send(xml) {
 
 function formatGlobalsForLog() {
     return [
+        { title: "Error message", message: TCP_Error },
         { title: "Request", message: TCP_Request },
-        { title: "DataCounter", message: TCP_DataCounter },
+        { title: "Data counter", message: TCP_DataCounter },
         { title: "Response", message: TCP_Response }
     ]
 }
