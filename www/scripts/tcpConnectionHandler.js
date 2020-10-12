@@ -1,4 +1,4 @@
-function handleTCP(fname, values) {
+function handleTCP(fname, values = []) {
     if (canRun) {
         start();
 
@@ -6,6 +6,8 @@ function handleTCP(fname, values) {
             handleTCPLogin(values);
         } else if (fname === 'processFormat') {
             handleTCPProcess(values);
+        } else if (fname === 'getTopFormat') {
+            handleTCPGetTopFormat();
         }
     }
 }
@@ -15,9 +17,9 @@ function handleTCPLogin(values) {
     //create xml
     var xml = generateTCPXML('ilmLogin', values);
 
-    return send(xml)
-        .then(xml => handleXML(xml, true))
-        .catch(handleError)
+    return send(xml, false)
+        .then(xml => handleXMLTCP(xml, true))
+        .catch(handleConnectionError)
         .finally(finish)
 }
 
@@ -26,9 +28,34 @@ function handleTCPProcess(values) {
     //create xml
     var xml = generateTCPXML('ilmProcess', values);
 
-    return send(xml)
-        .then(xml => handleXML(xml, false))
-        .catch(handleError)
+    return send(xml, true)
+        .then(xml => handleXMLTCP(xml, false))
+        .catch(handleConnectionError)
+        .finally(finish)
+}
+
+//GET TOP FORMAT
+function handleTCPGetTopFormat() {
+    // Get iqu session
+    var iquSession = window.sessionStorage.getItem('ilmSession')
+
+    // Mock the ILMProcess xml including the iquSession
+    const xw = new XMLWriter(false, null);
+    xw.startDocument()
+        .startElement('mobis')
+        .startElement('session')
+        .writeAttribute("value", iquSession)
+        .endElement()
+        .endElement()
+        .endDocument();
+    const mockedIlmXML = xw.toString();
+
+    // Create call xml
+    var xml = generateTCPXML('getTopFormat', [mockedIlmXML]);
+
+    return send(xml, false)
+        .then(xml => handleXMLTCP(xml, false))
+        .catch(handleConnectionError)
         .finally(finish)
 }
 
@@ -55,8 +82,6 @@ function generateTCPXML(fname, values) {
 }
 
 function encodeAndPadXML(xml) {
-    // console.log("Sending XML: " + xml);
-
     var encodedXML = new TextEncoder("utf-8").encode(xml);
 
     var padding = String(encodedXML.byteLength).padStart(256);
@@ -84,90 +109,142 @@ var TCP_DataCounter;
 // global variable for the error message of the error callback
 var TCP_Error;
 
-function send(xml) {
-    return new Promise(function (resolve, reject) {
-        var host = getConfigValue(HOST_IDENTIFIER);
-        var ip = host.split(":")[0];
-        var port = host.split(":")[1];
-        console.log("Send to: " + host)
+async function send(xml, isCritical) {
+    const host = getConfigValue(HOST_IDENTIFIER);
+    const ip = host.split(":")[0];
+    const port = host.split(":")[1];
+    console.log("Send to: " + host)
 
-        var encodedAndPaddedXML = encodeAndPadXML(xml);
+    const encodedAndPaddedXML = encodeAndPadXML(xml);
 
-        TCP_Request = xml;
+    TCP_Request = xml;
 
-        TCP_Response = "";
+    TCP_Response = "";
 
-        TCP_Socket = new cordova.plugins.sockets.Socket();
+    TCP_Socket = new cordova.plugins.sockets.Socket();
 
-        TCP_DataCounter = 0;
+    TCP_DataCounter = 0;
 
-        TCP_Error = "";
+    TCP_Error = "";
 
-        TCP_Socket.onData = function (data) {
-            console.log("onData called")
-            // Increment data counter
-            TCP_DataCounter++;
-            // Decode response
-            var decodedData = decodeResponse(data);
-            // Append response
-            TCP_Response += decodedData;
-        };
+    TCP_Socket.onData = function (data) {
+        console.log("onData called")
+        // Increment data counter
+        TCP_DataCounter++;
+        // Decode response
+        var decodedData = decodeResponse(data);
+        // Append response
+        TCP_Response += decodedData;
+    };
 
-        TCP_Socket.onError = function (errorMessage) {
-            console.log("onError called");
-            console.log("errorMessage: " + errorMessage);
-            // Save error message
-            TCP_Error = errorMessage;
-        };
+    TCP_Socket.onError = function (errorMessage) {
+        console.log("onError called");
+        console.log("errorMessage: " + errorMessage);
+        // Save error message
+        TCP_Error = errorMessage;
+    };
+
+    // Create a Promise that resolve on close without error and reject a erroneos close
+    const closePromise = new Promise(function (resolve, reject) {
 
         TCP_Socket.onClose = function (hasError) {
             console.log("onClose called");
             console.log("hasError: " + hasError);
             // Interpret closing status
-            if (hasError) {
-                const errorMessage = "TCP connection closed with error";
-                ilmLog(errorMessage, formatGlobalsForLog())
-                    .finally(() => reject(errorMessage + " : " + TCP_Error))
-            } else {
-                // Validate current state of response
-                const validation = validate(TCP_Response.slice(256));
-
-                if (validation === true) {
-                    resolve(TCP_Response.slice(256));
-                } else {
-                    const errorMessage = "TCP connection closed with uncomplete response" 
-                    ilmLog(errorMessage, formatGlobalsForLog())
-                        .finally(() => reject(errorMessage))
-                }
-            }
+            hasError ? reject() : resolve();
         };
-
-        TCP_Socket.open(
-            ip,
-            port,
-            function () {
-                console.log("Succesfully opened a TCP connection.")
-                // Write data
-                TCP_Socket.write(encodedAndPaddedXML);
-            },
-            function (tcpError) {
-                console.log("Failed to open a TCP connection.")
-                // Save error message
-                TCP_Error = tcpError;
-                const errorMessage = "Failed to open a TCP connection"; 
-                ilmLog(errorMessage, formatGlobalsForLog())
-                    .finally(() => reject(errorMessage + " : " + TCP_Error))
-            },
-            getTimeout()
-        );
     })
+
+    // Opening connection
+    try {
+        await TCP_Socket.openAsync(ip, port, getTimeout());
+    } catch (openErrorMessage) {
+        // Save error message
+        TCP_Error = openErrorMessage;
+        const errorMessage = "Failed to open a TCP connection";
+        try {
+            await logError(errorMessage)
+        } finally {
+            throw new ConnectionError(errorMessage)
+        }
+    }
+
+    console.log("The TCP connection was successfully opened!");
+
+    // Writing data
+    try {
+        await TCP_Socket.writeAsync(encodedAndPaddedXML);
+    } catch (writeErrorMessage) {
+        // Save error message
+        TCP_Error = writeErrorMessage;
+        const errorMessage = "Failed to write data via TCP";
+        try {
+            await logError(errorMessage)
+        } finally {
+            throw new ConnectionError(errorMessage)
+        }
+    }
+
+    // Wait for the connection to close
+    try {
+        await closePromise;
+    } catch (e) {
+        // Error message saved during onError
+        const errorMessage = "TCP connection closed with an error";
+        try {
+            await logError(errorMessage)
+        } finally {
+            throw new ConnectionError(errorMessage, true && isCritical)
+        }
+    }
+
+    // Check for "User locked"
+    if (TCP_Response.slice(256).trim() === "User locked") {
+        throw new ConnectionError("User locked", true)
+    }
+
+    // Validate the accumulated response
+    const validation = validate(TCP_Response.slice(256));
+
+    if (validation === true) {
+        return TCP_Response.slice(256);
+    } else {
+        const errorMessage = "TCP connection closed with an uncomplete response"
+        try {
+            await logError(errorMessage)
+        } finally {
+            throw new ConnectionError(errorMessage, true && isCritical)
+        }
+    }
 }
 
-function formatGlobalsForLog() {
-    return [
-        { title: "Error message", message: TCP_Error },
-        { title: "Request", message: TCP_Request },
-        { title: "Data counter", message: TCP_DataCounter },
-        { title: "Response", message: TCP_Response }
-    ]
+function logError(errorTitle) {
+    // const formattedGlobals = [
+    //     { title: "Error message", message: TCP_Error },
+    //     { title: "Request", message: TCP_Request },
+    //     { title: "Data counter", message: TCP_DataCounter },
+    //     { title: "Response", message: TCP_Response }
+    // ];
+    // return ilmLog(errorTitle, formattedGlobals);
+    return Promise.resolve();
+}
+
+// Copied this method because of new error handling that is currently exclusive to TCP
+function handleXMLTCP(xml, isLogin) {
+    // No try/catch because xml was already validated
+    $.parseXML(xml);
+
+    // Check xml for errors
+    if ($(xml).find('error[value=true]').length) {
+        throw new ConnectionError($(xml).find('message').attr('value'));
+
+    } else {
+        // If the xml was the response to an ilmLogin request, extract the session
+        if (isLogin) {
+            window.sessionStorage.setItem('ilmSession', $(xml).find('session').attr('value'));
+        }
+        // Render error free xml
+        generateLayout(xml);
+    }
+    setFocus();
 }

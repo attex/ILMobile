@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "cordova-android": "^9.0.0",
-    "cordova-plugin-tcp-sockets": "git+https://github.com/philipptrenz/cordova-plugin-tcp-sockets.git",
+    "cordova-plugin-tcp-sockets": "git+https://github.com/schick/cordova-plugin-tcp-sockets.git",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-nunjucks": "^5.0.1",
