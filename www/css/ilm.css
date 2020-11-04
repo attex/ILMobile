@@ -6,6 +6,10 @@
 /* Farben                                               */
 /*------------------------------------------------------*/
 
+html {
+  overflow: hidden;
+}
+
  header {
     background-color: #5E8DA7;
   }
@@ -250,7 +254,7 @@ input:checked + .slider {
   bottom: 0;
   z-index: 1;
   left: 0;
-  width: calc(100vw - 1rem); }
+  width: 100% /*calc(100vw - 1rem);*/ }
 
 .showOptions .groupContainer.buttonContainer .button:not(.ESC):not(.options):not(.ENTER) {
   grid-column: 1 / 4;
@@ -923,6 +927,7 @@ input {
 /* Tabelle */
 .tableContainer {
   display: grid;
+  overflow-x: scroll;
   width: 100%;
   height: auto;
   grid-template: "buttonoben" auto "liste" 1fr "buttonunten" auto / 1fr; }
