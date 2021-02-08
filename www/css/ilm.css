@@ -26,12 +26,12 @@
     margin-bottom: 0.1em;
     border-bottom: 1px dotted #f2f2f2;
     }
-   .upper .ORDER_DISPLAY,  .upper .ORDER,  .upper .NOTICE {
-    color: #db022f;
-    border: 0;
-    margin-top: 1rem;
-    text-align: center;
-    }
+  .upper .ORDER_DISPLAY, .upper .ORDER, .upper .NOTICE {
+      color: #db022f;
+      border: 0;
+      margin-top: 0.2rem;
+      text-align: center;
+  }
 
  .selectTools {
   background-color: transparent;
@@ -672,7 +672,9 @@ option:focus, select:focus, .button:focus {
   grid-column: 2;
   justify-self: center;
   background: transparent url(../icons/icons8-Collapse-ArrowFilled-50.png) no-repeat center;
-  background-size: contain; }
+  background-size: contain;
+  filter: brightness(0) invert(1); 
+}
 
 .button.ENTER {
   grid-column: 3;
@@ -918,16 +920,18 @@ input {
 /* Tabelle */
 .tableContainer {
   display: grid;
-  overflow-x: scroll;
+  overflow-x: auto;
   width: 100%;
   height: auto;
   grid-template: "buttonoben" auto "liste" 1fr "buttonunten" auto / 1fr; }
+
+.Table_Row_Height .rowContainer .row {padding-top: 0.8rem;  padding-bottom: 0.8rem;}
 
 .tableContainer .rowContainer {
   overflow-y: auto;
   position: relative;
   float: left;
-  width: calc(100vw - 2px);
+  width: 100%;
   display: grid;
   background-color: transparent;
   padding: 0.2rem;
@@ -1072,6 +1076,6 @@ input {
  .style_dark .gridContainer.list .rowContainer .row .item.Wert {color: white;}
  .style_dark .selectTools {background-color: #c1c1c1;}
  .style_dark .tableContainer .headerContainer, .style_dark .tableContainer .row.header .item {color: #FFECD5;font-weight:normal;font-size: 1.1rem;}
-
+ .style_dark .button.options {filter: default}
 
  
