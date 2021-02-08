@@ -30,12 +30,12 @@ function getConfigFile() {
                 configFileEntry.file(function (file) {
                     var reader = new FileReader();
     
-                    reader.onloadend = function () {
+                    reader.onload = function () {
                         resolve(this.result);
                     };
     
                     reader.onerror = function () {
-                        reject(this.error.message)
+                        reject("Error during reader.readAsText. Errorcode: " + this.error.code)
                     }
     
                     reader.readAsText(file);
