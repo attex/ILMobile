@@ -245,13 +245,6 @@ input:checked + .slider {
   display: grid;
   grid-template-columns: minmax(3rem, max-content) auto minmax(3rem, max-content); }
 
-.showOptions .groupContainer.buttonContainer {
-  position: absolute;
-  bottom: 0;
-  z-index: 1;
-  left: 0;
-  width: calc(100vw - 1rem); }
-
 .showOptions .groupContainer.buttonContainer .button:not(.ESC):not(.options):not(.ENTER) {
   grid-column: 1 / 4;
   margin-bottom: 0.4rem;
@@ -516,7 +509,9 @@ img {
 .panel {
   position: absolute;
   width: 100%;
-  box-shadow: -5px 0 20px -5px rgba(0, 0, 0, 0.1); }
+  box-shadow: -5px 0 20px -5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
 
 .panel.scrollable {
   overflow: auto; }
@@ -923,6 +918,7 @@ input {
 /* Tabelle */
 .tableContainer {
   display: grid;
+  overflow-x: scroll;
   width: 100%;
   height: auto;
   grid-template: "buttonoben" auto "liste" 1fr "buttonunten" auto / 1fr; }
