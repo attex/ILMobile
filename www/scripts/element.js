@@ -243,7 +243,7 @@ function formatTableElement(eleXML) {
     var eventTexts = ($(eleXML).hasAttr('text')) ? ($(eleXML).attr('text')).split(',') : [""];
 
     if (eventValues[0] === "ROW_CLICKED") {
-        $(eleHTML).find(".row").dblclick((event) => {
+        $(eleHTML).find(".row:not(.header)").dblclick((event) => {
             $(event.delegateTarget).addClass("selected");
             handle($(eleHTML).attr(HTML_NAME), "ROW_CLICKED");
         });
