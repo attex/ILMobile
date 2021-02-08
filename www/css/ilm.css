@@ -951,6 +951,9 @@ input {
 .tableContainer .headerContainer .header.Key, .tableContainer .headerContainer .header.INT_KEY, .tableContainer .rowContainer .item.INT_KEY {
   display: none; }
 
+.tableContainer .headerContainer .header.Key, .tableContainer .headerContainer .header.ROWCOLOR, .tableContainer .rowContainer .item.ROWCOLOR {
+  display: none; }
+
 .rowContainer .item {
   align-self: center;
   text-align: left; }

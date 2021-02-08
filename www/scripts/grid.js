@@ -43,6 +43,12 @@ function createRow(columnValues, rowValues, datatypes) {
     var row = document.createElement('div');
     $(row).addClass('row');
 
+    // Add row color for delta v
+    if (columnValues.includes("ROWCOLOR")) {
+        let rgbValues = rowValues[columnValues.indexOf("ROWCOLOR")].split("-");
+        $(row).css("background-color", `rgb(${rgbValues[0]}, ${rgbValues[1]}, ${rgbValues[2]}`)
+    }
+
     for (let i = 0; i < columnValues.length; i++) {
         $(row).append($(createItem(columnValues[i].replace(/§%DEC\(44\)%§/g, "."), rowValues[i].replace(/§%DEC\(44\)%§/g, "."), datatypes[i]))
             .addClass(`order-${i + 1}`));
