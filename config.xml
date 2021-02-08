@@ -12,9 +12,11 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <platform name="android">
-    <!-- Allowing unsafe http communication. Delete if no longer necessary. -->
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
-            <application android:usesCleartextTraffic="true" />
+            <!-- First one is allowing unsafe http communication. Delete if no longer necessary. -->
+            <!-- Second one is a workaround for the new scoped storage in API 29 & 30 this will work untik API 30 is forced, then hopefully there will be an update for cordva-file https://github.com/apache/cordova-plugin-file/issues/426 -->
+            <!-- Another possible idea is to allow the app to read specific files and then let user open a config file with this application and thereby setting the config -->
+            <application android:usesCleartextTraffic="true" android:requestLegacyExternalStorage="true"/>
         </edit-config>
         <allow-intent href="market:*" />
     </platform>
