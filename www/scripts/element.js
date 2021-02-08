@@ -399,9 +399,8 @@ function getInputContent(inputContainer) {
 }
 
 function getDateContent(dateInputContainer) {
-    var date = $(dateInputContainer).val();
+    var date = $(dateInputContainer).find("input").val();
     if (date.length) {
-
         return date.split('-').reverse().join('.');
     }
     return "";
