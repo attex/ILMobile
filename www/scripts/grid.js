@@ -1,4 +1,6 @@
-﻿//FORMAT GRIDS
+﻿const rgbRegex = new RegExp('^([0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])-([0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])-([0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$');
+
+//FORMAT GRIDS
 function createGridContainer(type, columns, rows, datatypes) {
     var gridContainer = $('<div/>')
         .addClass('gridContainer')
@@ -44,7 +46,7 @@ function createRow(columnValues, rowValues, datatypes) {
     $(row).addClass('row');
 
     // Add row color for delta v
-    if (columnValues.includes("ROWCOLOR")) {
+    if (columnValues.includes("ROWCOLOR") && rgbRegex.test(rowValues[columnValues.indexOf("ROWCOLOR")])) {
         let rgbValues = rowValues[columnValues.indexOf("ROWCOLOR")].split("-");
         $(row).css("background-color", `rgb(${rgbValues[0]}, ${rgbValues[1]}, ${rgbValues[2]}`)
     }
